@@ -6,7 +6,7 @@ import atexit
 
 # Uses DATABASE_URL from the unified backend environment exclusively.
 # Individual DB_* vars are kept as fallback only.
-_DATABASE_URL = os.environ.get('DATABASE_URL', '')
+# NOTE: Do NOT read env vars at module level — load_dotenv() hasn't run yet at import time.
 
 _pool = None
 
@@ -14,6 +14,7 @@ def _init_pool():
     global _pool
     if _pool is not None:
         return
+    _DATABASE_URL = os.environ.get('DATABASE_URL', '')
     try:
         if _DATABASE_URL:
             _pool = SimpleConnectionPool(1, 10, dsn=_DATABASE_URL, connect_timeout=3)
@@ -30,7 +31,7 @@ def _init_pool():
     except Exception as e:
         print(f"Failed to initialize connection pool: {e}")
 
-_init_pool()
+# Do NOT call _init_pool() here — wait until first request so load_dotenv() has run first.
 
 @atexit.register
 def _close_pool():

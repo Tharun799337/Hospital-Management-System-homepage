@@ -627,14 +627,14 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
   const displaySlots = availableSlots;
 
   return (
-    <section id="appointments" className="section-pad" style={{ background: 'var(--bg-primary)' }}>
-      <div className="container">
+    <div id="appointments" style={{ background: 'var(--bg-primary)' }}>
+      <div className="container" style={{ padding: '1.25rem 1.5rem' }}>
         <AnimCard>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <div>
-              <h2 className="section-title">{isCancelMode ? 'Cancel Your Appointment' : 'Book Your Appointment Online'}</h2>
-              <div className="section-divider"></div>
-              <p className="section-subtitle">
+              <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.35rem', fontWeight: 700, color: 'var(--navy)', margin: '0 0 0.25rem' }}>{isCancelMode ? 'Cancel Your Appointment' : 'Book Your Appointment Online'}</h2>
+              <div className="section-divider" style={{ margin: '0.3rem 0' }}></div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0 }}>
                 {isCancelMode 
                   ? 'Enter your phone number and appointment date to find and cancel your booking.' 
                   : 'No long queues. Book from the comfort of your home and receive instant confirmation.'}
@@ -673,17 +673,17 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
           }
         `}</style>
         {/* Why Book Online */}
-        <div className="why-book-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
+        <div className="why-book-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
           {whyPoints.map((p, i) => (
             <AnimCard key={i}>
-              <div className="why-book-card" style={{ background: 'var(--card-bg)', borderRadius: '14px', padding: '1.5rem', textAlign: 'center', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.3s', height: '100%' }}
-                onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'}
+              <div className="why-book-card" style={{ background: 'var(--card-bg)', borderRadius: '10px', padding: '0.75rem 0.5rem', textAlign: 'center', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.3s', height: '100%' }}
+                onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'}
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'}>
-                <div className="why-book-icon-wrapper" style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(20,184,166,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.875rem' }}>
-                  <i className={`why-book-icon ${p.icon}`} style={{ fontSize: '1.3rem', color: 'var(--teal)' }}></i>
+                <div className="why-book-icon-wrapper" style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(20,184,166,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.4rem' }}>
+                  <i className={`why-book-icon ${p.icon}`} style={{ fontSize: '0.9rem', color: 'var(--teal)' }}></i>
                 </div>
-                <h4 className="why-book-title" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '0.4rem' }}>{p.title}</h4>
-                <p className="why-book-desc" style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{p.desc}</p>
+                <h4 className="why-book-title" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.72rem', marginBottom: '0.2rem' }}>{p.title}</h4>
+                <p className="why-book-desc" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.4, margin: 0 }}>{p.desc}</p>
               </div>
             </AnimCard>
           ))}
@@ -857,175 +857,182 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                   <div>
                     {selectedDoctor && (
                       <div style={{
-                        padding: '1rem',
+                        padding: '0.6rem 0.875rem',
                         background: 'var(--bg-secondary)',
-                        borderRadius: '12px',
+                        borderRadius: '10px',
                         border: '1px solid var(--border-color)',
-                        marginBottom: '1.25rem'
+                        marginBottom: '0.875rem'
                       }}>
-                        <div style={{ display: 'flex', gap: '0.875rem', alignItems: 'center', marginBottom: '1rem' }}>
-                          <div style={{ width: '48px', height: '48px', borderRadius: '50%', overflow: 'hidden', background: 'var(--navy)', flexShrink: 0 }}>
+                        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginBottom: '0.5rem' }}>
+                          <div style={{ width: '36px', height: '36px', borderRadius: '50%', overflow: 'hidden', background: 'var(--navy)', flexShrink: 0 }}>
                             {selectedDoctor.photo ? (
                               <img src={selectedDoctor.photo} alt={selectedDoctor.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             ) : (
-                              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.2rem', fontWeight: 600 }}>
+                              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.9rem', fontWeight: 600 }}>
                                 {selectedDoctor.name[0]}
                               </div>
                             )}
                           </div>
                           <div>
-                            <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.1rem' }}>{selectedDoctor.name}</h4>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--teal)', fontWeight: 600 }}>{selectedDoctor.specialization}</p>
+                            <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.05rem' }}>{selectedDoctor.name}</h4>
+                            <p style={{ fontSize: '0.68rem', color: 'var(--teal)', fontWeight: 600 }}>{selectedDoctor.specialization}</p>
                           </div>
-                          <button onClick={() => setSelectedDoctor(undefined)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.8rem' }}>
+                          <button onClick={() => setSelectedDoctor(undefined)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.75rem' }}>
                             <i className="fas fa-times"></i>
                           </button>
                         </div>
-
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                          <div style={{ background: 'white', padding: '0.6rem', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.03)' }}>
-                            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>Available Days</p>
-                            <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)' }}>{selectedDoctor.available_days}</p>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+                          <div style={{ background: 'white', padding: '0.4rem 0.5rem', borderRadius: '6px', border: '1px solid rgba(0,0,0,0.03)' }}>
+                            <p style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginBottom: '0.05rem' }}>Available Days</p>
+                            <p style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-primary)' }}>{selectedDoctor.available_days}</p>
                           </div>
-                          <div style={{ background: 'white', padding: '0.6rem', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.03)' }}>
-                            <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>Doctor Timings</p>
-                            <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-primary)' }}>{selectedDoctor.timings}</p>
+                          <div style={{ background: 'white', padding: '0.4rem 0.5rem', borderRadius: '6px', border: '1px solid rgba(0,0,0,0.03)' }}>
+                            <p style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginBottom: '0.05rem' }}>Doctor Timings</p>
+                            <p style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-primary)' }}>{selectedDoctor.timings}</p>
                           </div>
                         </div>
                       </div>
                     )}
 
-                    {/* Calendar */}
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.875rem' }}>
-                        <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                          style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '0.4rem 0.75rem', cursor: 'pointer', color: 'var(--text-primary)' }}>
-                          <i className="fas fa-chevron-left"></i>
-                        </button>
-                        <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-                          {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                        </span>
-                        <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                          style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '0.4rem 0.75rem', cursor: 'pointer', color: 'var(--text-primary)' }}>
-                          <i className="fas fa-chevron-right"></i>
-                        </button>
+                    {/* Calendar + Slots side by side initially and always */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', alignItems: 'start' }}>
+
+                      {/* Calendar */}
+                      <div style={{ marginBottom: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
+                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.25rem 0.5rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.75rem' }}>
+                            <i className="fas fa-chevron-left"></i>
+                          </button>
+                          <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.82rem' }}>
+                            {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                          </span>
+                          <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
+                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.25rem 0.5rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.75rem' }}>
+                            <i className="fas fa-chevron-right"></i>
+                          </button>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px', marginBottom: '4px' }}>
+                          {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
+                            <div key={d} style={{ textAlign: 'center', fontSize: '0.62rem', fontWeight: 600, color: 'var(--text-muted)', padding: '0.2rem 0' }}>{d}</div>
+                          ))}
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px' }}>
+                          {Array.from({ length: firstDay }).map((_, i) => <div key={`e-${i}`}></div>)}
+                          {Array.from({ length: daysInMonth }).map((_, i) => {
+                            const d = i + 1;
+                            const dateObj = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), d);
+                            const isPast = dateObj < today;
+                            const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                            const isSelected = selectedDate === dateStr;
+                            const isToday = dateObj.toDateString() === new Date().toDateString();
+                            return (
+                              <div key={d} onClick={() => !isPast && handleDateSelect(d)}
+                                className={`cal-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${isPast ? 'disabled' : ''}`}
+                                style={{ fontSize: '0.7rem', minHeight: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                {d}
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px', marginBottom: '8px' }}>
-                        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
-                          <div key={d} style={{ textAlign: 'center', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', padding: '0.3rem 0' }}>{d}</div>
-                        ))}
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
-                        {Array.from({ length: firstDay }).map((_, i) => <div key={`e-${i}`}></div>)}
-                        {Array.from({ length: daysInMonth }).map((_, i) => {
-                          const d = i + 1;
-                          const dateObj = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), d);
-                          const isPast = dateObj < today;
-                          const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                          const isSelected = selectedDate === dateStr;
-                          const isToday = dateObj.toDateString() === new Date().toDateString();
-                          return (
-                            <div key={d} onClick={() => !isPast && handleDateSelect(d)}
-                              className={`cal-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${isPast ? 'disabled' : ''}`}>
-                              {d}
+
+                      {/* Time Slots Area */}
+                      <div>
+                        <label style={{ fontWeight: 500, color: 'var(--text-secondary)', fontSize: '0.78rem', display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                          <i className="fas fa-clock" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Available Time Slots
+                        </label>
+
+                        {!selectedDate ? (
+                          <div style={{
+                            background: 'var(--bg-secondary)', border: '1px dashed var(--border-color)',
+                            borderRadius: '10px', height: '220px', display: 'flex', flexDirection: 'column',
+                            alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)'
+                          }}>
+                            <i className="fas fa-calendar-day" style={{ fontSize: '2rem', marginBottom: '0.75rem', opacity: 0.5 }}></i>
+                            <p style={{ fontSize: '0.8rem', fontWeight: 500 }}>Please select a date to view available slots.</p>
+                          </div>
+                        ) : (
+                          <>
+                            {/* Floating Timer */}
+                            {timeLeft !== null && (
+                              <div style={{ 
+                                position: 'fixed', top: '20px', left: '20px', background: '#EF4444', color: 'white', 
+                                padding: '0.6rem 1.25rem', borderRadius: '50px', fontSize: '0.9rem', fontWeight: 700, 
+                                zIndex: 9999, boxShadow: '0 4px 15px rgba(239,68,68,0.4)', display: 'flex',
+                                alignItems: 'center', gap: '0.6rem', animation: timeLeft <= 60 ? 'pulse 1s infinite' : 'none'
+                              }}>
+                                <i className="fas fa-stopwatch fa-spin" style={{ animationDuration: '2s' }}></i>
+                                <span>Slot reserved: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</span>
+                              </div>
+                            )}
+
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', maxHeight: '260px', overflowY: 'auto', paddingRight: '4px' }}>
+                              {loadingSlots ? (
+                                <div style={{ padding: '1rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                                  <i className="fas fa-spinner fa-spin" style={{ marginRight: '0.5rem' }}></i> Loading...
+                                </div>
+                              ) : doctorOnLeave ? (
+                                <div style={{
+                                  padding: '1rem', width: '100%', borderRadius: '10px',
+                                  background: 'rgba(239,68,68,0.06)', border: '1.5px solid rgba(239,68,68,0.25)',
+                                  display: 'flex', alignItems: 'flex-start', gap: '0.5rem'
+                                }}>
+                                  <i className="fas fa-calendar-times" style={{ color: '#EF4444', fontSize: '1rem', marginTop: '0.1rem', flexShrink: 0 }}></i>
+                                  <div>
+                                    <p style={{ fontWeight: 700, color: '#EF4444', fontSize: '0.78rem', marginBottom: '0.15rem' }}>
+                                      Dr. {selectedDoctor?.name} is on leave today
+                                    </p>
+                                    <p style={{ fontSize: '0.7rem', color: '#EF4444' }}>
+                                      Please select a different date.
+                                    </p>
+                                  </div>
+                                </div>
+                              ) : displaySlots.length === 0 ? (
+                                <div style={{ padding: '1rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+                                  No slots available for this date.
+                                </div>
+                              ) : (
+                                displaySlots.map((slot: any) => {
+                                  const isBooked = slot.status === 'booked';
+                                  const isLocked = slot.status === 'locked' && !slot.is_mine;
+                                  const isMine = slot.is_mine;
+                                  const isPast = slot.status === 'past';
+                                  const isDisabled = isBooked || isLocked || isPast;
+
+                                  return (
+                                    <button key={slot.time} disabled={isDisabled}
+                                      className={`time-slot ${selectedSlot === slot.time ? 'selected' : ''} ${isDisabled ? 'unavailable' : ''} ${isMine ? 'mine' : ''}`}
+                                      style={{
+                                        position: 'relative',
+                                        fontSize: '0.68rem',
+                                        padding: '0.3rem 0.5rem',
+                                        ...(isMine ? { border: '2px solid var(--gold)', background: 'rgba(200,169,81,0.1)', color: 'var(--navy)' } : {}),
+                                        ...(isLocked ? { opacity: 0.6, background: '#fff3e0' } : {}),
+                                        ...(isBooked ? { opacity: 0.6, background: '#ffebee' } : {})
+                                      }}
+                                      onClick={() => handleSlotSelection(slot.time, !isDisabled)}>
+                                      {slot.time}
+                                      {isMine && <div style={{ fontSize: '0.5rem', position: 'absolute', top: '-7px', right: '-3px', background: 'var(--gold)', color: 'white', padding: '1px 4px', borderRadius: '3px', fontWeight: 700 }}>MINE</div>}
+                                      {isLocked && <div style={{ fontSize: '0.5rem', color: '#e67e22', fontWeight: 600 }}>Locked</div>}
+                                      {isBooked && <div style={{ fontSize: '0.5rem', color: '#EF4444', fontWeight: 600 }}>Booked</div>}
+                                      {isPast && <div style={{ fontSize: '0.5rem', color: '#95a5a6', fontWeight: 600 }}>Past</div>}
+                                    </button>
+                                  );
+                                })
+                              )}
                             </div>
-                          );
-                        })}
+                          </>
+                        )}
                       </div>
                     </div>
 
-                    {/* Time Slots */}
-                    {selectedDate && (
-                      <div>
-                        <label style={{ fontWeight: 500, color: 'var(--text-secondary)', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                          <span><i className="fas fa-clock" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Available Time Slots</span>
-                        </label>
-
-                        {/* Floating Timer */}
-                        {timeLeft !== null && (
-                          <div style={{ 
-                            position: 'fixed', 
-                            top: '20px', 
-                            left: '20px', 
-                            background: '#EF4444', 
-                            color: 'white', 
-                            padding: '0.6rem 1.25rem', 
-                            borderRadius: '50px', 
-                            fontSize: '0.9rem', 
-                            fontWeight: 700, 
-                            zIndex: 9999, 
-                            boxShadow: '0 4px 15px rgba(239,68,68,0.4)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.6rem',
-                            animation: timeLeft <= 60 ? 'pulse 1s infinite' : 'none'
-                          }}>
-                            <i className="fas fa-stopwatch fa-spin" style={{ animationDuration: '2s' }}></i>
-                            <span>Slot reserved: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</span>
-                          </div>
-                        )}
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                          {loadingSlots ? (
-                            <div style={{ padding: '2rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)' }}>
-                              <i className="fas fa-spinner fa-spin" style={{ marginRight: '0.5rem' }}></i> Loading slots...
-                            </div>
-                          ) : doctorOnLeave ? (
-                            <div style={{
-                              padding: '1.5rem', width: '100%', borderRadius: '12px',
-                              background: 'rgba(239,68,68,0.06)', border: '1.5px solid rgba(239,68,68,0.25)',
-                              display: 'flex', alignItems: 'flex-start', gap: '0.75rem'
-                            }}>
-                              <i className="fas fa-calendar-times" style={{ color: '#EF4444', fontSize: '1.2rem', marginTop: '0.1rem', flexShrink: 0 }}></i>
-                              <div>
-                                <p style={{ fontWeight: 700, color: '#EF4444', fontSize: '0.9rem', marginBottom: '0.25rem' }}>
-                                  Dr. {selectedDoctor?.name} is on leave today
-                                </p>
-                                <p style={{ fontSize: '0.8rem', color: '#EF4444' }}>
-                                  No appointments available on this date. Please select a different date.
-                                </p>
-                              </div>
-                            </div>
-                          ) : displaySlots.length === 0 ? (
-                            <div style={{ padding: '2rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)' }}>
-                              No slots available for this doctor on selected date.
-                            </div>
-                          ) : (
-                            displaySlots.map((slot: any) => {
-                              const isBooked = slot.status === 'booked';
-                              const isLocked = slot.status === 'locked' && !slot.is_mine;
-                              const isMine = slot.is_mine;
-                              const isPast = slot.status === 'past';
-                              const isDisabled = isBooked || isLocked || isPast;
-
-                              return (
-                                <button key={slot.time} disabled={isDisabled}
-                                  className={`time-slot ${selectedSlot === slot.time ? 'selected' : ''} ${isDisabled ? 'unavailable' : ''} ${isMine ? 'mine' : ''}`}
-                                  style={{
-                                    position: 'relative',
-                                    ...(isMine ? { border: '2px solid var(--gold)', background: 'rgba(200,169,81,0.1)', color: 'var(--navy)' } : {}),
-                                    ...(isLocked ? { opacity: 0.6, background: '#fff3e0' } : {}),
-                                    ...(isBooked ? { opacity: 0.6, background: '#ffebee' } : {})
-                                  }}
-                                  onClick={() => handleSlotSelection(slot.time, !isDisabled)}>
-                                  {slot.time}
-                                  {isMine && <div style={{ fontSize: '0.55rem', position: 'absolute', top: '-8px', right: '-4px', background: 'var(--gold)', color: 'white', padding: '1px 5px', borderRadius: '4px', fontWeight: 700, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>MINE</div>}
-                                  {isLocked && <div style={{ fontSize: '0.55rem', color: '#e67e22', fontWeight: 600 }}>Locked</div>}
-                                  {isBooked && <div style={{ fontSize: '0.55rem', color: '#EF4444', fontWeight: 600 }}>Booked</div>}
-                                  {isPast && <div style={{ fontSize: '0.55rem', color: '#95a5a6', fontWeight: 600 }}>Past</div>}
-                                </button>
-                              );
-                            })
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
-                      <button onClick={() => setStep(1)} style={{ flex: 1, padding: '0.75rem', border: '1.5px solid var(--border-color)', borderRadius: '50px', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 600 }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
+                      <button onClick={() => setStep(1)} style={{ flex: 1, padding: '0.6rem', border: '1.5px solid var(--border-color)', borderRadius: '50px', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.82rem' }}>
                         <i className="fas fa-arrow-left" style={{ marginRight: '0.35rem' }}></i>Back
                       </button>
                       <button className="btn-primary" onClick={() => setStep(3)} disabled={!selectedDate || !selectedSlot}
-                        style={{ flex: 2, justifyContent: 'center', opacity: (!selectedDate || !selectedSlot) ? 0.5 : 1 }}>
+                        style={{ flex: 2, justifyContent: 'center', opacity: (!selectedDate || !selectedSlot) ? 0.5 : 1, fontSize: '0.82rem', padding: '0.6rem 1rem' }}>
                         Next: Patient Details <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
@@ -1035,432 +1042,195 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                 {/* STEP 3 */}
                 {step === 3 && (
                   <div>
-                    <div style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.2)', borderRadius: '10px', padding: '0.875rem', marginBottom: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                      <strong>Dr. {selectedDoctor?.name}</strong> - {selectedDate} at {selectedSlot}
+                    {/* Appointment summary bar - compact */}
+                    <div style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.2)', borderRadius: '8px', padding: '0.4rem 0.75rem', marginBottom: '0.6rem', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                      <strong>Dr. {selectedDoctor?.name}</strong> — {selectedDate} at {selectedSlot}
                     </div>
 
-                    {/* FOLLOW-UP ELIGIBILITY BANNER */}
+                    {/* FOLLOW-UP ELIGIBILITY BANNER - compact */}
                     {selectedPatientId && selectedDoctor && (
                       checkingFollowup ? (
-                        <div style={{ background: 'rgba(20,184,166,0.06)', border: '1px solid rgba(20,184,166,0.2)', borderRadius: '10px', padding: '0.75rem 1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <i className="fas fa-spinner fa-spin" style={{ color: 'var(--teal)', fontSize: '0.8rem' }}></i>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--teal)' }}>Checking follow-up eligibility...</span>
+                        <div style={{ background: 'rgba(20,184,166,0.06)', border: '1px solid rgba(20,184,166,0.2)', borderRadius: '8px', padding: '0.35rem 0.75rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <i className="fas fa-spinner fa-spin" style={{ color: 'var(--teal)', fontSize: '0.75rem' }}></i>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>Checking follow-up eligibility...</span>
                         </div>
                       ) : followupInfo?.has_previous_visit ? (
                         <div style={{
                           background: followupInfo.is_free_followup ? 'rgba(22,163,74,0.08)' : followupInfo.is_followup_eligible ? 'rgba(245,158,11,0.08)' : 'rgba(20,184,166,0.06)',
                           border: `1px solid ${followupInfo.is_free_followup ? 'rgba(22,163,74,0.3)' : followupInfo.is_followup_eligible ? 'rgba(245,158,11,0.3)' : 'rgba(20,184,166,0.2)'}`,
-                          borderRadius: '10px', padding: '0.875rem 1rem', marginBottom: '1rem'
+                          borderRadius: '8px', padding: '0.35rem 0.75rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem'
                         }}>
-                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
-                            <i className={`fas ${followupInfo.is_free_followup ? 'fa-gift' : followupInfo.is_followup_eligible ? 'fa-clock' : 'fa-history'}`}
-                              style={{ color: followupInfo.is_free_followup ? '#16A34A' : followupInfo.is_followup_eligible ? '#F59E0B' : 'var(--teal)', marginTop: '0.1rem', fontSize: '0.9rem' }}></i>
-                            <div>
-                              {followupInfo.is_free_followup ? (
-                                <>
-                                  <p style={{ fontWeight: 700, fontSize: '0.85rem', color: '#16A34A', marginBottom: '0.2rem' }}>
-                                    Free Follow-up Visit
-                                  </p>
-                                  <p style={{ fontSize: '0.78rem', color: '#16A34A' }}>
-                                    Last visit was {followupInfo.days_since_last} day{followupInfo.days_since_last !== 1 ? 's' : ''} ago · {followupInfo.remaining_followups} free follow-up{followupInfo.remaining_followups !== 1 ? 's' : ''} remaining · No charge
-                                  </p>
-                                </>
-                              ) : followupInfo.is_followup_eligible ? (
-                                <>
-                                  <p style={{ fontWeight: 700, fontSize: '0.85rem', color: '#F5A623', marginBottom: '0.2rem' }}>
-                                    Follow-up Visit — ₹{followupInfo.followup_fee}
-                                  </p>
-                                  <p style={{ fontSize: '0.78rem', color: '#F59E0B' }}>
-                                    Last visit was {followupInfo.days_since_last} day{followupInfo.days_since_last !== 1 ? 's' : ''} ago · All free follow-ups used ({followupInfo.followup_count}/{followupInfo.max_followup_count})
-                                  </p>
-                                </>
-                              ) : (
-                                <>
-                                  <p style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--teal)', marginBottom: '0.2rem' }}>
-                                    Returning Patient — New Consultation
-                                  </p>
-                                  <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                                    Last visit was {followupInfo.days_since_last} day{followupInfo.days_since_last !== 1 ? 's' : ''} ago (outside {followupInfo.max_followup_count > 0 ? `${followupInfo.max_followup_count}-visit` : ''} follow-up window) · Consultation fee applies
-                                  </p>
-                                </>
-                              )}
-                            </div>
-                          </div>
+                          <i className={`fas ${followupInfo.is_free_followup ? 'fa-gift' : followupInfo.is_followup_eligible ? 'fa-clock' : 'fa-history'}`}
+                            style={{ color: followupInfo.is_free_followup ? '#16A34A' : followupInfo.is_followup_eligible ? '#F59E0B' : 'var(--teal)', fontSize: '0.8rem' }}></i>
+                          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: followupInfo.is_free_followup ? '#16A34A' : followupInfo.is_followup_eligible ? '#F59E0B' : 'var(--teal)' }}>
+                            {followupInfo.is_free_followup ? `Free Follow-up · ${followupInfo.remaining_followups} remaining · No charge` :
+                             followupInfo.is_followup_eligible ? `Follow-up ₹${followupInfo.followup_fee} · ${followupInfo.days_since_last}d ago` :
+                             `Returning Patient — New Consultation`}
+                          </span>
                         </div>
                       ) : null
                     )}
 
-                    <div className="form-group">
-                      <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span><i className="fas fa-user" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Patient Name *</span>
-                      </label>
-                      <input value={name} onChange={e => {
-                        setName(e.target.value);
-                        if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                          resetPatientVerification();
-                        }
-                      }} placeholder="Enter full name" disabled={isPatientFound} />
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <div className="form-group">
-                        <label><i className="fas fa-phone" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Phone *</label>
-                        <div style={{ position: 'relative' }}>
-                          <input 
-                            value={phone} 
-                            onChange={e => {
-                              const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                              setPhone(value);
-                              if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                                resetPatientVerification();
-                              }
-                            }} 
-                            placeholder="10-digit mobile" 
-                            type="tel" 
-                            maxLength={10}
-                            disabled={otpVerified}
-                            style={{ 
-                              borderColor: phone.length > 0 && phone.length !== 10 ? '#EF4444' : undefined,
-                              paddingRight: phone.length === 10 && !otpVerified ? '100px' : undefined
-                            }}
-                          />
-                          {phone.length === 10 && !otpVerified && (
-                            <button
-                              type="button"
-                              onClick={handleRequestOTP}
-                              disabled={verifyingOTP}
-                              style={{
-                                position: 'absolute',
-                                right: '8px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                background: 'var(--teal)',
-                                color: 'white',
-                                border: 'none',
-                                padding: '0.4rem 0.8rem',
-                                borderRadius: '6px',
-                                fontSize: '0.75rem',
-                                cursor: 'pointer',
-                                fontWeight: 600
-                              }}
-                            >
-                              {verifyingOTP ? <i className="fas fa-spinner fa-spin"></i> : 'Verify'}
-                            </button>
-                          )}
-                        </div>
-                        {phone.length > 0 && phone.length !== 10 && (
-                          <div style={{ fontSize: '0.75rem', color: '#EF4444', marginTop: '0.25rem' }}>
-                            <i className="fas fa-exclamation-circle" style={{ marginRight: '0.3rem' }}></i>
-                            Enter exactly 10 digits ({phone.length}/10)
-                          </div>
-                        )}
-                        {otpVerified && (
-                          <div style={{ fontSize: '0.75rem', color: '#16A34A', marginTop: '0.25rem' }}>
-                            <i className="fas fa-check-circle" style={{ marginRight: '0.3rem' }}></i>
-                            Phone verified
-                          </div>
-                        )}
-                      </div>
-                      <div className="form-group">
-                        <label><i className="fas fa-envelope" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Email (Optional)</label>
-                        <input value={email} onChange={e => {
-                          setEmail(e.target.value);
-                          if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                            resetPatientVerification();
-                          }
-                        }} placeholder="email@example.com" type="email" disabled={isPatientFound} />
-                      </div>
-                    </div>
-
-                    {/* Existing Patient Banner */}
+                    {/* Existing / New Patient banners - compact */}
                     {isPatientFound && selectedPatientData && (
-                      <div style={{
-                        background: 'rgba(22,163,74,0.08)',
-                        border: '1px solid rgba(22,163,74,0.3)',
-                        borderRadius: '12px',
-                        padding: '1rem',
-                        marginBottom: '1rem'
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                          <i className="fas fa-user-check" style={{ color: '#16A34A', fontSize: '1.2rem' }}></i>
-                          <div>
-                            <h4 style={{ color: '#16A34A', fontSize: '0.9rem', fontWeight: 700, margin: 0 }}>
-                              Existing Patient Found
-                            </h4>
-                            <p style={{ color: '#16A34A', fontSize: '0.8rem', margin: 0 }}>
-                              Patient ID: {selectedPatientData.id} • All details auto-filled
-                            </p>
-                          </div>
-                          <button
-                            onClick={resetPatientVerification}
-                            style={{
-                              marginLeft: 'auto',
-                              background: 'none',
-                              border: '1px solid rgba(22,163,74,0.4)',
-                              color: '#16A34A',
-                              padding: '0.3rem 0.6rem',
-                              borderRadius: '6px',
-                              fontSize: '0.75rem',
-                              cursor: 'pointer'
-                            }}
-                          >
-                            Change Patient
-                          </button>
-                        </div>
+                      <div style={{ background: 'rgba(22,163,74,0.07)', border: '1px solid rgba(22,163,74,0.25)', borderRadius: '8px', padding: '0.35rem 0.75rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <i className="fas fa-user-check" style={{ color: '#16A34A', fontSize: '0.85rem' }}></i>
+                        <span style={{ color: '#16A34A', fontSize: '0.72rem', fontWeight: 600 }}>Existing patient · ID: {selectedPatientData.id} · Auto-filled</span>
+                        <button onClick={resetPatientVerification} style={{ marginLeft: 'auto', background: 'none', border: '1px solid rgba(22,163,74,0.4)', color: '#16A34A', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.65rem', cursor: 'pointer' }}>Change</button>
                       </div>
                     )}
-
-                    {/* New Patient Banner */}
                     {isNewPatient && !isPatientFound && (
-                      <div style={{
-                        background: 'rgba(20,184,166,0.08)',
-                        border: '1px solid rgba(20,184,166,0.3)',
-                        borderRadius: '12px',
-                        padding: '1rem',
-                        marginBottom: '1rem'
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                          <i className="fas fa-user-plus" style={{ color: 'var(--teal)', fontSize: '1.2rem' }}></i>
-                          <div>
-                            <h4 style={{ color: 'var(--teal)', fontSize: '0.9rem', fontWeight: 700, margin: 0 }}>
-                              New Patient Registration
-                            </h4>
-                            <p style={{ color: 'var(--teal)', fontSize: '0.8rem', margin: 0 }}>
-                              Please fill in your details below. A patient ID will be created for you.
-                            </p>
-                          </div>
-                        </div>
+                      <div style={{ background: 'rgba(20,184,166,0.07)', border: '1px solid rgba(20,184,166,0.25)', borderRadius: '8px', padding: '0.35rem 0.75rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <i className="fas fa-user-plus" style={{ color: 'var(--teal)', fontSize: '0.85rem' }}></i>
+                        <span style={{ color: 'var(--teal)', fontSize: '0.72rem', fontWeight: 600 }}>New patient — fill details below · ID will be created</span>
                       </div>
                     )}
 
                     {/* Patient Selection for Multiple Patients */}
                     {availablePatients.length > 1 && !selectedPatientData && (
-                      <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ fontWeight: 500, color: 'var(--text-secondary)', fontSize: '0.9rem', display: 'block', marginBottom: '0.75rem' }}>
-                          <i className="fas fa-users" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>
-                          Select Your Profile
+                      <div style={{ marginBottom: '0.5rem' }}>
+                        <label style={{ fontWeight: 500, color: 'var(--text-secondary)', fontSize: '0.75rem', display: 'block', marginBottom: '0.35rem' }}>
+                          <i className="fas fa-users" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Select Your Profile
                         </label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          {availablePatients.map((patient, index) => (
-                            <div
-                              key={patient.id}
-                              onClick={() => handleSelectPatient(patient)}
-                              style={{
-                                border: '2px solid var(--border-color)',
-                                borderRadius: '10px',
-                                padding: '0.75rem',
-                                cursor: 'pointer',
-                                background: 'var(--bg-primary)',
-                                transition: 'all 0.2s',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center'
-                              }}
-                              onMouseEnter={e => {
-                                e.currentTarget.style.borderColor = 'var(--teal)';
-                                e.currentTarget.style.background = 'rgba(20,184,166,0.04)';
-                              }}
-                              onMouseLeave={e => {
-                                e.currentTarget.style.borderColor = 'var(--border-color)';
-                                e.currentTarget.style.background = 'var(--bg-primary)';
-                              }}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                          {availablePatients.map((patient) => (
+                            <div key={patient.id} onClick={() => handleSelectPatient(patient)}
+                              style={{ border: '1.5px solid var(--border-color)', borderRadius: '8px', padding: '0.4rem 0.6rem', cursor: 'pointer', background: 'var(--bg-primary)', transition: 'all 0.2s', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--teal)'; e.currentTarget.style.background = 'rgba(20,184,166,0.04)'; }}
+                              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-color)'; e.currentTarget.style.background = 'var(--bg-primary)'; }}
                             >
                               <div>
-                                <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.9rem' }}>
-                                  {patient.full_name}
-                                </div>
-                                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                                  Age: {patient.age} • Gender: {patient.gender} • ID: {patient.id}
-                                </div>
+                                <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.78rem' }}>{patient.full_name}</div>
+                                <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Age: {patient.age} · {patient.gender} · ID: {patient.id}</div>
                               </div>
-                              <i className="fas fa-chevron-right" style={{ color: 'var(--teal)' }}></i>
+                              <i className="fas fa-chevron-right" style={{ color: 'var(--teal)', fontSize: '0.75rem' }}></i>
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <div className="form-group">
-                        <label>
-                          <i className="fas fa-birthday-cake" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>
-                          Age *
-                          {ageAutoCalculated && (
-                            <span style={{ 
-                              fontSize: '0.75rem', 
-                              color: '#16A34A', 
-                              marginLeft: '0.5rem',
-                              fontWeight: 'normal'
-                            }}>
-                              <i className="fas fa-magic" style={{ marginRight: '0.25rem' }}></i>
-                              Auto-calculated
-                            </span>
-                          )}
-                        </label>
-                        <input 
-                          value={age} 
-                          onChange={e => {
-                            setAge(e.target.value);
-                            setAgeAutoCalculated(false); // Reset auto-calculated flag when manually edited
-                            if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                              setSelectedPatientId(null);
-                              setIsPatientFound(false);
-                              patientFoundRef.current = false;
-                            }
-                          }} 
-                          placeholder="Age in years" 
-                          type="number" 
-                          min="0" 
-                          max="150"
-                          style={{
-                            borderColor: ageAutoCalculated ? '#16A34A' : undefined,
-                            background: ageAutoCalculated ? 'rgba(22,163,74,0.05)' : undefined
-                          }}
-                        />
-                        {ageAutoCalculated && (
-                          <div style={{ 
-                            fontSize: '0.75rem', 
-                            color: '#16A34A', 
-                            marginTop: '0.25rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.25rem'
-                          }}>
-                            <i className="fas fa-check-circle"></i>
-                            Calculated from date of birth
-                          </div>
-                        )}
-                      </div>
-                      <div className="form-group">
-                        <label><i className="fas fa-calendar-alt" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Date of Birth</label>
-                        <input value={dob} onChange={e => {
-                          const dobValue = e.target.value;
-                          setDob(dobValue);
-                          
-                          // Auto-calculate age from date of birth
-                          if (dobValue) {
-                            const birthDate = new Date(dobValue);
-                            const today = new Date();
-                            let calculatedAge = today.getFullYear() - birthDate.getFullYear();
-                            const monthDiff = today.getMonth() - birthDate.getMonth();
-                            
-                            // Adjust age if birthday hasn't occurred this year
-                            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                              calculatedAge--;
-                            }
-                            
-                            // Only set age if it's a valid positive number
-                            if (calculatedAge >= 0 && calculatedAge <= 150) {
-                              setAge(calculatedAge.toString());
-                              setAgeAutoCalculated(true);
-                            }
-                          } else {
-                            // Clear age if DOB is cleared
-                            if (ageAutoCalculated) {
-                              setAge('');
-                              setAgeAutoCalculated(false);
-                            }
-                          }
-                          
-                          if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                            setSelectedPatientId(null);
-                            setIsPatientFound(false);
-                            patientFoundRef.current = false;
-                          }
-                        }} type="date" />
-                      </div>
-                    </div>
+                    {/* ── All fields in a compact 3-col grid ── */}
+                    <style>{`
+                      .compact-form .form-group { margin-bottom: 0.4rem; }
+                      .compact-form .form-group label { font-size: 0.65rem; margin-bottom: 0.15rem; letter-spacing: 0.03em; }
+                      .compact-form .form-group input,
+                      .compact-form .form-group select,
+                      .compact-form .form-group textarea { padding: 0.3rem 0.5rem; font-size: 0.75rem; border-radius: 6px; }
+                      .compact-form .form-group textarea { resize: none; }
+                    `}</style>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div className="compact-form">
+                      {/* Row 1: Name (full width) */}
                       <div className="form-group">
-                        <label><i className="fas fa-venus-mars" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Gender</label>
-                        <select value={gender} onChange={e => {
-                          setGender(e.target.value);
-                          if (isPatientFound || selectedPatientId || patientFoundRef.current) {
-                            setSelectedPatientId(null);
-                            setIsPatientFound(false);
-                            patientFoundRef.current = false;
-                          }
-                        }}>
-                          <option value="">-- Select --</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Other">Other</option>
-                        </select>
+                        <label><i className="fas fa-user" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Patient Name *</label>
+                        <input value={name} onChange={e => { setName(e.target.value); if (isPatientFound || selectedPatientId || patientFoundRef.current) resetPatientVerification(); }} placeholder="Enter full name" disabled={isPatientFound} />
                       </div>
-                      <div className="form-group">
-                        <label><i className="fas fa-stethoscope" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Visit Type</label>
-                        {/* Auto-determined — not user-editable */}
-                        <div style={{
-                          padding: '0.6rem 0.875rem',
-                          borderRadius: '8px',
-                          border: `1.5px solid ${visitType === 'follow_up' ? 'rgba(22,163,74,0.4)' : 'rgba(20,184,166,0.3)'}`,
-                          background: visitType === 'follow_up' ? 'rgba(22,163,74,0.06)' : 'rgba(20,184,166,0.04)',
-                          display: 'flex', alignItems: 'center', gap: '0.5rem',
-                          fontSize: '0.9rem', fontWeight: 600,
-                          color: visitType === 'follow_up' ? '#16A34A' : 'var(--teal)',
-                        }}>
-                          <i className={`fas ${visitType === 'follow_up' ? 'fa-redo' : 'fa-stethoscope'}`} style={{ fontSize: '0.8rem' }}></i>
-                          {visitType === 'follow_up' ? 'Follow-up' : 'Consultation'}
-                          {checkingFollowup && (
-                            <i className="fas fa-spinner fa-spin" style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--teal)' }}></i>
-                          )}
-                          {!checkingFollowup && (
-                            <span style={{ marginLeft: 'auto', fontSize: '0.7rem', fontWeight: 400, opacity: 0.7 }}>
-                              {selectedPatientId ? 'Auto-determined' : 'Select patient first'}
-                            </span>
-                          )}
+
+                      {/* Row 2: Phone | Email | DOB */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                        <div className="form-group">
+                          <label><i className="fas fa-phone" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Phone *</label>
+                          <div style={{ position: 'relative' }}>
+                            <input value={phone} onChange={e => { const v = e.target.value.replace(/\D/g, '').slice(0, 10); setPhone(v); if (isPatientFound || selectedPatientId || patientFoundRef.current) resetPatientVerification(); }}
+                              placeholder="10-digit mobile" type="tel" maxLength={10} disabled={otpVerified}
+                              style={{ borderColor: phone.length > 0 && phone.length !== 10 ? '#EF4444' : undefined, paddingRight: phone.length === 10 && !otpVerified ? '56px' : undefined }} />
+                            {phone.length === 10 && !otpVerified && (
+                              <button type="button" onClick={handleRequestOTP} disabled={verifyingOTP}
+                                style={{ position: 'absolute', right: '4px', top: '50%', transform: 'translateY(-50%)', background: 'var(--teal)', color: 'white', border: 'none', padding: '0.2rem 0.45rem', borderRadius: '4px', fontSize: '0.62rem', cursor: 'pointer', fontWeight: 600 }}>
+                                {verifyingOTP ? <i className="fas fa-spinner fa-spin"></i> : 'Verify'}
+                              </button>
+                            )}
+                          </div>
+                          {phone.length > 0 && phone.length !== 10 && <div style={{ fontSize: '0.62rem', color: '#EF4444', marginTop: '0.1rem' }}>{phone.length}/10 digits</div>}
+                          {otpVerified && <div style={{ fontSize: '0.62rem', color: '#16A34A', marginTop: '0.1rem' }}><i className="fas fa-check-circle"></i> Verified</div>}
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-envelope" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Email (Optional)</label>
+                          <input value={email} onChange={e => { setEmail(e.target.value); if (isPatientFound || selectedPatientId || patientFoundRef.current) resetPatientVerification(); }} placeholder="email@example.com" type="email" disabled={isPatientFound} />
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-calendar-alt" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Date of Birth</label>
+                          <input value={dob} onChange={e => {
+                            const dobValue = e.target.value; setDob(dobValue);
+                            if (dobValue) {
+                              const birthDate = new Date(dobValue); const todayD = new Date();
+                              let calcAge = todayD.getFullYear() - birthDate.getFullYear();
+                              const md = todayD.getMonth() - birthDate.getMonth();
+                              if (md < 0 || (md === 0 && todayD.getDate() < birthDate.getDate())) calcAge--;
+                              if (calcAge >= 0 && calcAge <= 150) { setAge(calcAge.toString()); setAgeAutoCalculated(true); }
+                            } else { if (ageAutoCalculated) { setAge(''); setAgeAutoCalculated(false); } }
+                            if (isPatientFound || selectedPatientId || patientFoundRef.current) { setSelectedPatientId(null); setIsPatientFound(false); patientFoundRef.current = false; }
+                          }} type="date" />
                         </div>
                       </div>
-                    </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <div className="form-group">
-                        <label><i className="fas fa-map-pin" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Pincode</label>
-                        <input value={pincode} onChange={e => setPincode(e.target.value)} placeholder="6-digit pincode" maxLength={6} />
+                      {/* Row 3: Age | Gender | Visit Type */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                        <div className="form-group">
+                          <label>
+                            <i className="fas fa-birthday-cake" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Age *
+                            {ageAutoCalculated && <span style={{ fontSize: '0.6rem', color: '#16A34A', marginLeft: '0.3rem' }}>✓ Auto</span>}
+                          </label>
+                          <input value={age} onChange={e => { setAge(e.target.value); setAgeAutoCalculated(false); if (isPatientFound || selectedPatientId || patientFoundRef.current) { setSelectedPatientId(null); setIsPatientFound(false); patientFoundRef.current = false; } }}
+                            placeholder="Years" type="number" min="0" max="150"
+                            style={{ borderColor: ageAutoCalculated ? '#16A34A' : undefined, background: ageAutoCalculated ? 'rgba(22,163,74,0.05)' : undefined }} />
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-venus-mars" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Gender</label>
+                          <select value={gender} onChange={e => { setGender(e.target.value); if (isPatientFound || selectedPatientId || patientFoundRef.current) { setSelectedPatientId(null); setIsPatientFound(false); patientFoundRef.current = false; } }}>
+                            <option value="">-- Select --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-stethoscope" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Visit Type</label>
+                          <div style={{ padding: '0.3rem 0.5rem', borderRadius: '6px', border: `1.5px solid ${visitType === 'follow_up' ? 'rgba(22,163,74,0.4)' : 'rgba(20,184,166,0.3)'}`, background: visitType === 'follow_up' ? 'rgba(22,163,74,0.06)' : 'rgba(20,184,166,0.04)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.72rem', fontWeight: 600, color: visitType === 'follow_up' ? '#16A34A' : 'var(--teal)' }}>
+                            <i className={`fas ${visitType === 'follow_up' ? 'fa-redo' : 'fa-stethoscope'}`} style={{ fontSize: '0.7rem' }}></i>
+                            {visitType === 'follow_up' ? 'Follow-up' : 'Consultation'}
+                            {checkingFollowup && <i className="fas fa-spinner fa-spin" style={{ marginLeft: 'auto', fontSize: '0.65rem' }}></i>}
+                            {!checkingFollowup && <span style={{ marginLeft: 'auto', fontSize: '0.6rem', fontWeight: 400, opacity: 0.7 }}>{selectedPatientId ? 'Auto' : 'Select patient'}</span>}
+                          </div>
+                        </div>
                       </div>
+
+                      {/* Row 4: Pincode | City | State | Village (4-col) */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0.5rem' }}>
+                        <div className="form-group">
+                          <label><i className="fas fa-map-pin" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Pincode</label>
+                          <input value={pincode} onChange={e => setPincode(e.target.value)} placeholder="6-digit" maxLength={6} />
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-city" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>City</label>
+                          <input value={city} onChange={e => setCity(e.target.value)} placeholder="City" />
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-map" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>State</label>
+                          <input value={stateName} onChange={e => setStateName(e.target.value)} placeholder="State" />
+                        </div>
+                        <div className="form-group">
+                          <label><i className="fas fa-home" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Village</label>
+                          <input value={village} onChange={e => setVillage(e.target.value)} placeholder="Village" />
+                        </div>
+                      </div>
+
+                      {/* Row 5: Symptoms textarea */}
                       <div className="form-group">
-                        <label><i className="fas fa-city" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>City</label>
-                        <input value={city} onChange={e => setCity(e.target.value)} placeholder="City name" />
+                        <label><i className="fas fa-sticky-note" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Reason / Symptoms (optional)</label>
+                        <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Describe your health concern briefly..." rows={2}></textarea>
                       </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      <div className="form-group">
-                        <label><i className="fas fa-map" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>State</label>
-                        <input value={stateName} onChange={e => setStateName(e.target.value)} placeholder="State name" />
-                      </div>
-                      <div className="form-group">
-                        <label><i className="fas fa-home" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Village / Area</label>
-                        <input value={village} onChange={e => setVillage(e.target.value)} placeholder="Village name" />
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label><i className="fas fa-map-marker-alt" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Full Address (Alternative)</label>
-                      <input value={address} onChange={e => {
-                        setAddress(e.target.value);
-                        enterManualMode();
-                        if (isPatientFound) {
-                          patientFoundRef.current = false;
-                          setIsPatientFound(false);
-                        }
-                      }} placeholder="Enter if other details not provided" />
-                    </div>
-
-                    <div className="form-group">
-                      <label><i className="fas fa-sticky-note" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Reason for Visit / Symptoms</label>
-                      <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Describe your health concern briefly..." rows={3}></textarea>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem' }}>
-                      <button onClick={() => setStep(2)} style={{ flex: 1, padding: '0.75rem', border: '1.5px solid var(--border-color)', borderRadius: '50px', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 600 }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.6rem' }}>
+                      <button onClick={() => setStep(2)} style={{ flex: 1, padding: '0.55rem', border: '1.5px solid var(--border-color)', borderRadius: '50px', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem' }}>
                         <i className="fas fa-arrow-left" style={{ marginRight: '0.35rem' }}></i>Back
                       </button>
-                      <button className="btn-primary" 
-                        onClick={isRescheduling ? handleReschedule : handleSubmit} 
+                      <button className="btn-primary"
+                        onClick={isRescheduling ? handleReschedule : handleSubmit}
                         disabled={submitting || !name || !phone || !age}
-                        style={{ flex: 2, justifyContent: 'center', opacity: (submitting || !name || !phone || !age) ? 0.5 : 1 }}>
+                        style={{ flex: 2, justifyContent: 'center', opacity: (submitting || !name || !phone || !age) ? 0.5 : 1, fontSize: '0.8rem', padding: '0.55rem 1rem' }}>
                         {submitting ? (
                           <><i className="fas fa-spinner fa-spin"></i> {isRescheduling ? 'Rescheduling...' : 'Booking...'}</>
                         ) : (
@@ -1614,6 +1384,6 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 }

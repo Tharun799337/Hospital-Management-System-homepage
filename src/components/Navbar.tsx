@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import havedaLogo from '../assets/haveda_logo.png';
 
 const navLinks = [
-  { label: 'Services', href: '#about', icon: 'fas fa-concierge-bell' },
+  { label: 'Services', href: '#services', icon: 'fas fa-concierge-bell' },
   { label: 'Departments', href: '#departments', icon: 'fas fa-hospital' },
   { label: 'Doctors', href: '#doctors', icon: 'fas fa-user-md' },
-  { label: 'News', href: '#events', icon: 'fas fa-newspaper' },
+  { label: 'News', href: '#news', icon: 'fas fa-newspaper' },
   { label: 'Contact', href: '#contact', icon: 'fas fa-phone-alt' },
 ];
 
@@ -47,7 +47,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           position: fixed;
           top: 0; left: 0; right: 0;
           z-index: 1000;
-          height: 80px;
+          height: 65px; /* Reduced from 80px */
           display: flex;
           align-items: center;
           background: rgba(255, 255, 255, 0.98);
@@ -57,7 +57,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         }
 
         .hn-navbar.scrolled {
-          height: 70px;
+          height: 60px; /* Reduced from 70px */
           background: rgba(255, 255, 255, 0.92);
           backdrop-filter: blur(8px);
           border-bottom: 1px solid #E2E8F0;
@@ -115,7 +115,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hn-links {
           display: flex;
           align-items: center;
-          gap: 24px;
+          gap: 16px; /* Reduced from 24px */
         }
 
         .hn-link {
@@ -159,7 +159,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hn-actions {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px; /* Reduced from 12px */
         }
 
         .btn-outline {
@@ -190,7 +190,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           background: #14B8A6;
           border: none;
           color: #FFFFFF;
-          padding: 10px 20px;
+          padding: 8px 16px; /* Reduced from 10px 20px */
           border-radius: 8px;
           font-size: 0.85rem;
           font-weight: 600;
@@ -338,7 +338,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
             </button>
 
             <button className="btn-solid" onClick={onAppointmentClick}>
-              Appointment Booking
+              Book Appointment
             </button>
           </div>
 
@@ -387,7 +387,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           </button>
 
           <button className="btn-solid" onClick={() => { setMenuOpen(false); onAppointmentClick?.(); }} style={{ width: '100%', justifyContent: 'center' }}>
-            Appointment Booking
+            Book Appointment
           </button>
         </div>
 

@@ -150,10 +150,10 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
       <div className="container">
         <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-              <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '40px', display: 'block' }} />
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '36px', display: 'block' }} />
             </div>
-            <p className="footer-logo-desc" style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem' }}>
+            <p className="footer-logo-desc" style={{ fontSize: '0.85rem', lineHeight: 1.5, color: 'rgba(255,255,255,0.6)', marginBottom: '1rem' }}>
               Providing world-class healthcare with excellence and compassion. Your health is our priority.
             </p>
             <div style={{ display: 'flex', gap: '10px' }}>
@@ -166,7 +166,7 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
           </div>
 
           <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '1.5rem' }}>Quick Links</h4>
+            <h4 className="footer-col-title" style={{ fontSize: '1.05rem', fontWeight: 600, marginBottom: '1rem' }}>Quick Links</h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {links.map(link => (
                 <li key={link.name} style={{ marginBottom: '10px' }}>
@@ -189,7 +189,7 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
           </div>
 
           <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '1.5rem' }}>Contact Info</h4>
+            <h4 className="footer-col-title" style={{ fontSize: '1.05rem', fontWeight: 600, marginBottom: '1rem' }}>Contact Info</h4>
             <div className="footer-contact" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <i className="fas fa-map-marker-alt" style={{ color: '#06B6D4', marginTop: '4px' }}></i>
@@ -207,7 +207,7 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
           </div>
         </div>
 
-        <div className="footer-bottom" style={{ padding: '1.5rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>
+        <div className="footer-bottom" style={{ padding: '1rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>
           <span>© 2024 Haveda Hospital. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <span>Privacy Policy</span>
@@ -216,8 +216,8 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
         </div>
       </div>
       <style>{`
-        .footer-section { padding-top: 4rem; }
-        .footer-grid { gap: 3rem; padding-bottom: 3rem; }
+        .footer-section { padding-top: 2rem; }
+        .footer-grid { gap: 2rem; padding-bottom: 1.5rem; }
         
         @media (max-width: 768px) {
           .footer-section { padding-top: 2rem; }
