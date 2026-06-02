@@ -1,0 +1,90 @@
+<section id="departments" style="padding:36px 5%; background:#f0fdfa;">
+
+  <!-- Section Header -->
+  <div class="text-center" style="margin-bottom:28px;">
+    <div class="section-tag">Departments &amp; Specialists</div>
+    <div class="section-h2">Find the Right Doctor</div>
+    <p class="section-p" style="margin:0 auto;">Select a department to explore our expert specialists. Book your appointment in seconds.</p>
+  </div>
+
+  <!-- Main Layout: Left Dept Tabs + Right Doctors Panel -->
+  <div class="dd-main-layout">
+
+    <!-- LEFT: Vertical Department List (becomes horizontal pills on mobile) -->
+    <div class="dd-dept-col">
+      <div style="font-size:0.72rem; font-weight:800; color:#0f766e; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; padding-left:4px;">Departments</div>
+
+      <div class="dd-tab active" data-dept="Cardiology" onclick="selectDept(this,'Cardiology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Cardiology</div><div class="dd-tab-sub">Heart &amp; Vascular</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Neurology" onclick="selectDept(this,'Neurology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.66Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.66Z"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Neurology</div><div class="dd-tab-sub">Brain &amp; Nervous System</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Orthopedics" onclick="selectDept(this,'Orthopedics')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2c-1.1 0-2 .9-2 2v2.5l-2 1.5V5c0-1.1-.9-2-2-2s-2 .9-2 2v3l-2-1.5V4c0-1.1-.9-2-2-2S4 2.9 4 4v5c0 2.2 1.8 4 4 4h.5L7 20c0 1.1.9 2 2 2s2-.9 2-2l-1-7h4l-1 7c0 1.1.9 2 2 2s2-.9 2-2l-1.5-7H17c2.2 0 4-1.8 4-4V4c0-1.1-.9-2-2-2z"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Orthopedics</div><div class="dd-tab-sub">Bones &amp; Joints</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Women & Child Care" onclick="selectDept(this,'Women & Child Care')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M9 13h6"/><path d="M9 21h6"/><path d="M10 21v-4"/><path d="M14 21v-4"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Women &amp; Child</div><div class="dd-tab-sub">OB/GYN &amp; Pediatrics</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Gastroenterology" onclick="selectDept(this,'Gastroenterology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 3-2 5-3 7s-1 4-1 4H11s0-2-1-4-3-4-3-7a5 5 0 0 1 5-5z"/><path d="M10 17c0 2 .9 3.5 2 3.5s2-1.5 2-3.5"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Gastroenterology</div><div class="dd-tab-sub">Digestive Health</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Oncology" onclick="selectDept(this,'Oncology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Oncology</div><div class="dd-tab-sub">Cancer Care</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Ophthalmology" onclick="selectDept(this,'Ophthalmology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Ophthalmology</div><div class="dd-tab-sub">Eye Care</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Pulmonology" onclick="selectDept(this,'Pulmonology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M8 8c-2 0-5 1-5 4s3 4 5 4h1V8z"/><path d="M16 8c2 0 5 1 5 4s-3 4-5 4h-1V8z"/><path d="M8 12h8"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Pulmonology</div><div class="dd-tab-sub">Lung &amp; Respiratory</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Dentistry" onclick="selectDept(this,'Dentistry')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1.2 5.4-3 7-3 10a3 3 0 0 0 6 0c0-3-1.8-4.6-3-10z"/><path d="M6.6 5.2A4.9 4.9 0 0 0 3 10c0 2.8 2.5 5 5 5"/><path d="M17.4 5.2A4.9 4.9 0 0 1 21 10c0 2.8-2.5 5-5 5"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Dentistry</div><div class="dd-tab-sub">Oral &amp; Dental Health</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+      <div class="dd-tab" data-dept="Radiology" onclick="selectDept(this,'Radiology')">
+        <span class="dd-tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><circle cx="12" cy="10" r="3"/><path d="M12 7v1"/><path d="M12 12v1"/><path d="M9 10H8"/><path d="M16 10h-1"/></svg></span>
+        <div class="dd-tab-info"><div class="dd-tab-name">Radiology</div><div class="dd-tab-sub">Imaging &amp; Diagnostics</div></div>
+        <span class="dd-tab-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Doctors Panel -->
+    <div class="dd-doctors-col">
+      <!-- Dept Info Banner -->
+      <div id="dd-dept-banner" style="background:linear-gradient(135deg,#0f766e,#14b8a6); border-radius:12px; padding:12px 16px; margin-bottom:16px; display:flex; align-items:center; gap:12px; color:white;">
+        <div id="dd-banner-icon" style="font-size:1.6rem; flex-shrink:0;">❤️</div>
+        <div style="flex:1; min-width:0;">
+          <div id="dd-banner-name" style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; line-height:1.2;">Cardiology</div>
+          <div id="dd-banner-desc" style="font-size:0.78rem; opacity:0.85; margin-top:2px; overflow:hidden; text-overflow:ellipsis;">Comprehensive heart care — diagnosis, treatment &amp; prevention of cardiovascular diseases.</div>
+        </div>
+        <div style="margin-left:auto; background:rgba(255,255,255,0.15); border-radius:8px; padding:6px 12px; text-align:center; flex-shrink:0;">
+          <div id="dd-banner-count" style="font-size:1.1rem; font-weight:800; line-height:1;">4</div>
+          <div style="font-size:0.65rem; opacity:0.8; margin-top:1px;">Specialists</div>
+        </div>
+      </div>
+
+      <!-- Doctor Cards Grid -->
+      <div id="dd-doctors-grid" class="dd-doctors-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
