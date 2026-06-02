@@ -4,10 +4,10 @@ export default function ServicesSection() {
   return (
     <>
 <section id="services" style={{ padding: "36px 5%", background: "var(--white)", overflow: "hidden" }}>
-  <div className="text-center" style={{ marginBottom: "28px" }}>
+  <div className="text-left" style={{ marginBottom: "28px" }}>
     <div className="section-tag">What We Offer</div>
     <h2 className="section-h2">Our Services</h2>
-    <p className="section-p" style={{ margin: "0 auto" }}>World-class medical services delivered with compassion, precision, and care — available 24/7 for you and your family.</p>
+    <p className="section-p">World-class medical services delivered with compassion, precision, and care — available 24/7 for you and your family.</p>
   </div>
 
   

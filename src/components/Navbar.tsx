@@ -3,9 +3,9 @@ import havedaLogo from '../assets/haveda_logo.png';
 
 const navLinks = [
   { label: 'Services', href: '#services', icon: 'fas fa-concierge-bell' },
-  { label: 'Departments', href: '#departments', icon: 'fas fa-hospital' },
-  { label: 'Doctors', href: '#doctors', icon: 'fas fa-user-md' },
+  { label: 'Departments & Doctors', href: '#departments', icon: 'fas fa-hospital' },
   { label: 'News', href: '#news', icon: 'fas fa-newspaper' },
+  { label: 'Health Tips', href: '#healthtips', icon: 'fas fa-heartbeat' },
   { label: 'Contact', href: '#contact', icon: 'fas fa-phone-alt' },
 ];
 
@@ -115,7 +115,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hn-links {
           display: flex;
           align-items: center;
-          gap: 16px; /* Reduced from 24px */
+          gap: 32px; /* Increased to give more space */
         }
 
         .hn-link {
@@ -334,7 +334,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           {/* Actions */}
           <div className="hn-actions">
             <button className="btn-outline" onClick={onPortalClick}>
-              <i className="fas fa-user-circle" /> Portal
+              <i className="fas fa-user-circle" /> Patient Login
             </button>
 
             <button className="btn-solid" onClick={onAppointmentClick}>
@@ -383,7 +383,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
 
         <div className="hn-sb-actions">
           <button className="btn-outline" onClick={() => { setMenuOpen(false); onPortalClick?.(); }} style={{ width: '100%', justifyContent: 'center' }}>
-            <i className="fas fa-user-circle" /> Patient Portal
+            <i className="fas fa-user-circle" /> Patient Login
           </button>
 
           <button className="btn-solid" onClick={() => { setMenuOpen(false); onAppointmentClick?.(); }} style={{ width: '100%', justifyContent: 'center' }}>

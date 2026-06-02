@@ -27,12 +27,11 @@ export default function NewsSection() {
     }
   };
 
-  const shouldAutoScroll = news.length > 4;
-  // If auto-scrolling, duplicate the array so it scrolls seamlessly
-  const displayNews = shouldAutoScroll ? [...news, ...news] : news;
+  const shouldAutoScroll = false;
+  const displayNews = news.slice(0, 4);
 
   return (
-    <section className="news-section" id="news" style={{ padding: '60px 0', background: '#f8fafc', overflow: 'hidden' }}>
+    <section className="news-section" id="news" style={{ padding: '60px 5%', background: '#f8fafc', overflow: 'hidden' }}>
       <style>{`
         .news-carousel-container {
           width: 100%;
@@ -46,12 +45,13 @@ export default function NewsSection() {
           width: max-content;
         }
         .news-track.centered {
-          justify-content: center;
+          justify-content: flex-start;
           width: 100%;
           flex-wrap: wrap;
         }
         .news-card-compact {
-          width: 280px; /* Small and medium attractive size */
+          width: calc(25% - 18px); /* Perfectly fits 4 cards on desktop */
+          min-width: 280px; /* Fallback for smaller screens */
           background: #ffffff;
           border-radius: 16px;
           box-shadow: 0 4px 20px rgba(15, 45, 82, 0.06);
@@ -67,7 +67,7 @@ export default function NewsSection() {
           box-shadow: 0 12px 30px rgba(15, 45, 82, 0.12);
         }
         .news-img-compact {
-          height: 160px;
+          height: 140px;
           width: 100%;
           overflow: hidden;
           position: relative;
@@ -149,7 +149,7 @@ export default function NewsSection() {
         }
       `}</style>
 
-      <div className="container">
+      <div>
         <div className="section-head center">
           <span className="section-tag">LATEST NEWS</span>
           <h2 className="section-h2">Hospital News & Updates</h2>

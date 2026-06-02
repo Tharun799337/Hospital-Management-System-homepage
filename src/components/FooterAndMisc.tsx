@@ -124,14 +124,21 @@ export function ProgressBar() {
 }
 
 export default function Footer({ onBook, onPortal }: { onBook: () => void; onPortal: () => void }) {
-  const links = [
-    { name: 'Home', target: 'home' },
-    { name: 'About Us', target: 'about' },
-    { name: 'Doctors', target: 'doctors' },
+  const quickLinks = [
     { name: 'Departments', target: 'services' },
-    { name: 'Services', target: 'services' },
-    { name: 'Patient Portal', action: onPortal },
-    { name: 'Contact', target: 'contact' },
+    { name: 'Find a Doctor', target: 'doctors' },
+    { name: 'Book Appointment', action: onBook },
+    { name: 'Cancellation', target: 'contact' },
+    { name: 'Patient Feedback', target: 'contact' },
+  ];
+
+  const services = [
+    { name: 'Emergency Care', target: 'services' },
+    { name: 'Lab & Diagnostics', target: 'services' },
+    { name: 'Pharmacy', target: 'services' },
+    { name: 'Health Packages', target: 'services' },
+    { name: 'Telemedicine', target: 'services' },
+    { name: 'Ambulance', target: 'services' },
   ];
 
   const handleLinkClick = (link: any) => {
@@ -150,36 +157,44 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
       <div className="container">
         <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
               <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '36px', display: 'block' }} />
             </div>
-            <p className="footer-logo-desc" style={{ fontSize: '0.85rem', lineHeight: 1.5, color: 'rgba(255,255,255,0.6)', marginBottom: '1rem' }}>
-              Providing world-class healthcare with excellence and compassion. Your health is our priority.
+            <p className="footer-logo-desc" style={{ fontSize: '0.85rem', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', marginBottom: '0.75rem', maxWidth: '300px' }}>
+              Combining compassionate care with advanced medicine. NABH accredited with 20+ years of excellence in healthcare.
             </p>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              {['facebook-f', 'twitter', 'instagram', 'linkedin-in'].map((icon, i) => (
-                <div key={i} style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.8)', cursor: 'pointer' }}>
-                  <i className={`fab fa-${icon}`}></i>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              {[
+                { icon: 'facebook-f', link: '#' },
+                { icon: 'instagram', link: '#' },
+                { icon: 'twitter', link: '#' },
+                { icon: 'youtube', link: '#' }
+              ].map((social, i) => (
+                <div key={i} style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#14B8A6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer', transition: 'background 0.2s', fontSize: '1.1rem' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = '#0F766E')}
+                  onMouseLeave={e => (e.currentTarget.style.background = '#14B8A6')}
+                >
+                  <i className={`fab fa-${social.icon}`}></i>
                 </div>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.05rem', fontWeight: 600, marginBottom: '1rem' }}>Quick Links</h4>
+            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Quick Links</h4>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {links.map(link => (
-                <li key={link.name} style={{ marginBottom: '10px' }}>
+              {quickLinks.map(link => (
+                <li key={link.name} style={{ marginBottom: '8px' }}>
                   <span 
                     onClick={() => handleLinkClick(link)}
                     style={{ 
                       fontSize: '0.9rem', 
-                      color: 'rgba(255,255,255,0.6)', 
+                      color: 'rgba(255,255,255,0.7)', 
                       cursor: 'pointer',
                       transition: 'color 0.2s'
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#06B6D4')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#14B8A6')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
                   >
                     {link.name}
                   </span>
@@ -189,47 +204,87 @@ export default function Footer({ onBook, onPortal }: { onBook: () => void; onPor
           </div>
 
           <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.05rem', fontWeight: 600, marginBottom: '1rem' }}>Contact Info</h4>
-            <div className="footer-contact" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <i className="fas fa-map-marker-alt" style={{ color: '#06B6D4', marginTop: '4px' }}></i>
-                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>123 Health Ave, Hyderabad</span>
+            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Services</h4>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {services.map(link => (
+                <li key={link.name} style={{ marginBottom: '8px' }}>
+                  <span 
+                    onClick={() => handleLinkClick(link)}
+                    style={{ 
+                      fontSize: '0.9rem', 
+                      color: 'rgba(255,255,255,0.7)', 
+                      cursor: 'pointer',
+                      transition: 'color 0.2s'
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#14B8A6')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+                  >
+                    {link.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Contact Us</h4>
+            <div className="footer-contact" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <i className="fas fa-map-marker-alt" style={{ color: '#14B8A6', marginTop: '4px', fontSize: '1.1rem' }}></i>
+                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>
+                  123 Health Street,<br />Care City, HC 12345
+                </span>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <i className="fas fa-phone" style={{ color: '#06B6D4' }}></i>
-                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>+91 99999 99999</span>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <i className="fas fa-phone-alt" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>+1 234 567 8900</span>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>+1 234 567 8901</span>
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <i className="fas fa-envelope" style={{ color: '#06B6D4' }}></i>
-                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>care@haveda.com</span>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <i className="fas fa-envelope" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>info@havedahospital.com</span>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>support@havedahospital.com</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <i className="fas fa-clock" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Mon–Sun: 24 Hours</span>
+                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Emergency: 24/7</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="footer-bottom" style={{ padding: '1rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>
-          <span>© 2024 Haveda Hospital. All rights reserved.</span>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+        <div className="footer-bottom" style={{ padding: '0.75rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)' }}>
+          <span>© 2026 Haveda Hospital. All rights reserved.</span>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>Privacy Policy</span>
+            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>Terms of Service</span>
+            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>NABH Accreditation</span>
           </div>
         </div>
       </div>
       <style>{`
-        .footer-section { padding-top: 2rem; }
-        .footer-grid { gap: 2rem; padding-bottom: 1.5rem; }
+        .footer-section { padding-top: 1rem; }
+        .footer-grid { gap: 1rem; padding-bottom: 1rem; }
         
         @media (max-width: 768px) {
-          .footer-section { padding-top: 2rem; }
+          .footer-section { padding-top: 1.5rem; }
           .footer-grid { gap: 1.5rem; padding-bottom: 1.5rem; }
           .footer-logo-desc { margin-bottom: 1rem !important; }
           .footer-col-title { margin-bottom: 0.75rem !important; }
-          .footer-contact { gap: 0.5rem !important; }
+          .footer-contact { gap: 0.75rem !important; }
           .footer-bottom { 
             padding: 1rem 0 !important; 
             flex-direction: column; 
             align-items: center; 
-            gap: 0.75rem; 
+            gap: 1rem; 
+            text-align: center;
           }
         }
       `}</style>

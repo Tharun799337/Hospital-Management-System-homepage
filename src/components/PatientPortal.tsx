@@ -667,7 +667,7 @@ export default function PatientPortal({ onClose }: { onClose: () => void }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div className="logo-h" style={{ width: '36px', height: '36px', fontSize: '1.2rem' }}>H</div>
             <div>
-              <div style={{ color: 'white', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '1rem' }}>Patient Portal</div>
+              <div style={{ color: 'white', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '1rem' }}>Patient Login</div>
               <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.75rem' }}>Haveda Hospital</div>
             </div>
           </div>

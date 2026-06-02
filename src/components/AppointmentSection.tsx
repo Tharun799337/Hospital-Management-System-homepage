@@ -345,20 +345,39 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
     if (!isAvailable) return;
     if (selectedSlot === time) return; // Already selected
 
+    const previousSlot = selectedSlot;
+    
+    // OPTIMISTIC UI UPDATE: Instantly select slot and start timer
+    setSelectedSlot(time);
+    setTimeLeft(420); // 7 minutes
+    setAvailableSlots(prev => prev.map(s => {
+      if (s.time === time) return { ...s, is_mine: true, status: 'locked', available: true };
+      if (s.time === previousSlot) return { ...s, is_mine: false, status: 'available', available: true };
+      return s;
+    }));
+
     try {
       if (selectedDoctor && selectedDate) {
         const res = await lockSlot(selectedDoctor.id, selectedDate, time, lockToken);
         if (res.success) {
-          setSelectedSlot(time);
-          setTimeLeft(420); // 7 minutes
-          toast.info(`Slot held for 7 minutes! ⏱️`);
+          // Success already handled optimistically
         } else {
+          // Revert optimistic update
+          setSelectedSlot(previousSlot);
+          if (!previousSlot) setTimeLeft(null);
           toast.error(res.error || 'Could not lock slot');
+          const refreshRes = await fetchSlots(selectedDoctor.id, selectedDate, lockToken);
+          setAvailableSlots(refreshRes.data || (Array.isArray(refreshRes) ? refreshRes : []));
         }
       }
     } catch (error: any) {
       console.error('Lock error:', error);
+      // Revert optimistic update
+      setSelectedSlot(previousSlot);
+      if (!previousSlot) setTimeLeft(null);
       toast.error(error.response?.data?.error || 'Failed to lock slot');
+      const refreshRes = await fetchSlots(selectedDoctor?.id as any, selectedDate as any, lockToken);
+      setAvailableSlots(refreshRes.data || (Array.isArray(refreshRes) ? refreshRes : []));
     }
   };
 
@@ -424,34 +443,14 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
     // Runs when identification fields change
   }, [name, phone, age, email, isRescheduling]);
 
-  // Pincode Lookup logic
-  useEffect(() => {
-    if (pincode.length === 6) {
-      const fetchAddress = async () => {
-        try {
-          const response = await fetch(`https://api.zippopotam.us/IN/${pincode}`);
-          if (response.ok) {
-            const data = await response.json();
-            if (data.places && data.places.length > 0) {
-              const place = data.places[0];
-              setCity(place['place name']);
-              setStateName(place.state);
-              toast.success(`Location found: ${place['place name']}, ${place.state}`);
-            }
-          }
-        } catch (error) {
-          console.error('Pincode lookup failed:', error);
-        }
-      };
-      fetchAddress();
-    }
-  }, [pincode]);
+    // Pincode lookup removed
 
   const handleDateSelect = (day: number) => {
     const d = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     if (d < today) return;
     setSelectedDate(`${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
     setSelectedSlot('');
+    setLoadingSlots(true); // This will trigger the skeleton/loader instantly
   };
 
   const handleReschedule = async () => {
@@ -490,9 +489,7 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
     setSubmitting(true);
     try {
       // Construct address from multiple fields if provided
-      const finalAddress = village || city || stateName || pincode 
-        ? `${village}${village ? ', ' : ''}${city}${city ? ', ' : ''}${stateName}${stateName ? ' - ' : ''}${pincode}`.trim()
-        : address;
+      const finalAddress = address;
 
       const bookingData = {
         doctor_id: selectedDoctor?.id,
@@ -643,55 +640,9 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
           </div>
         </AnimCard>
 
-        <style>{`
-          @media (max-width: 768px) {
-            .why-book-grid {
-              grid-template-columns: repeat(2, 1fr) !important;
-              gap: 0.75rem !important;
-              margin-bottom: 2rem !important;
-            }
-            .why-book-card {
-              padding: 1rem 0.5rem !important;
-            }
-            .why-book-icon-wrapper {
-              width: 36px !important;
-              height: 36px !important;
-              margin-bottom: 0.5rem !important;
-            }
-            .why-book-icon {
-              font-size: 1rem !important;
-            }
-            .why-book-title {
-              font-size: 0.8rem !important;
-              margin-bottom: 0.2rem !important;
-              line-height: 1.2 !important;
-            }
-            .why-book-desc {
-              font-size: 0.65rem !important;
-              line-height: 1.3 !important;
-            }
-          }
-        `}</style>
-        {/* Why Book Online */}
-        <div className="why-book-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
-          {whyPoints.map((p, i) => (
-            <AnimCard key={i}>
-              <div className="why-book-card" style={{ background: 'var(--card-bg)', borderRadius: '10px', padding: '0.75rem 0.5rem', textAlign: 'center', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', transition: 'transform 0.3s', height: '100%' }}
-                onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'}
-                onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'}>
-                <div className="why-book-icon-wrapper" style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'rgba(20,184,166,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.4rem' }}>
-                  <i className={`why-book-icon ${p.icon}`} style={{ fontSize: '0.9rem', color: 'var(--teal)' }}></i>
-                </div>
-                <h4 className="why-book-title" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.72rem', marginBottom: '0.2rem' }}>{p.title}</h4>
-                <p className="why-book-desc" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', lineHeight: 1.4, margin: 0 }}>{p.desc}</p>
-              </div>
-            </AnimCard>
-          ))}
-        </div>
-
         {/* Main Form */}
-        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <div style={{ background: 'var(--card-bg)', borderRadius: '20px', padding: 'clamp(1.5rem, 4vw, 2.5rem)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+          <div style={{ background: 'var(--card-bg)', borderRadius: '12px', padding: 'clamp(1rem, 2vw, 1.25rem)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
             {isCancelMode ? (
               /* CANCELLATION VIEW */
               <div>
@@ -774,7 +725,7 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
             ) : !confirmed ? (
               <>
                 {/* Step Indicator */}
-                <div className="step-indicator">
+                <div className="step-indicator" style={{ marginBottom: '0.5rem' }}>
                   {stepLabels.map((label, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem' }}>
@@ -787,7 +738,7 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                     </div>
                   ))}
                 </div>
-                <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '-0.75rem', marginBottom: '1.75rem' }}>
+                <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '-0.25rem', marginBottom: '0.75rem' }}>
                   Step {step} of {stepLabels.length}: <strong>{stepLabels[step - 1]}</strong>
                 </p>
 
@@ -895,29 +846,29 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                     )}
 
                     {/* Calendar + Slots side by side initially and always */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', alignItems: 'start' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '2rem', alignItems: 'start' }}>
 
                       {/* Calendar */}
                       <div style={{ marginBottom: '0.5rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                           <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.25rem 0.5rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.75rem' }}>
+                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.85rem' }}>
                             <i className="fas fa-chevron-left"></i>
                           </button>
-                          <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.82rem' }}>
+                          <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1rem' }}>
                             {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                           </span>
                           <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.25rem 0.5rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.75rem' }}>
+                            style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.4rem 0.75rem', cursor: 'pointer', color: 'var(--text-primary)', fontSize: '0.85rem' }}>
                             <i className="fas fa-chevron-right"></i>
                           </button>
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px', marginBottom: '4px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px', marginBottom: '8px' }}>
                           {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
-                            <div key={d} style={{ textAlign: 'center', fontSize: '0.62rem', fontWeight: 600, color: 'var(--text-muted)', padding: '0.2rem 0' }}>{d}</div>
+                            <div key={d} style={{ textAlign: 'center', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-muted)', padding: '0.3rem 0' }}>{d}</div>
                           ))}
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '2px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '6px' }}>
                           {Array.from({ length: firstDay }).map((_, i) => <div key={`e-${i}`}></div>)}
                           {Array.from({ length: daysInMonth }).map((_, i) => {
                             const d = i + 1;
@@ -929,7 +880,7 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                             return (
                               <div key={d} onClick={() => !isPast && handleDateSelect(d)}
                                 className={`cal-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${isPast ? 'disabled' : ''}`}
-                                style={{ fontSize: '0.7rem', minHeight: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                style={{ fontSize: '0.95rem', minHeight: '38px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: isPast ? 'not-allowed' : 'pointer' }}>
                                 {d}
                               </div>
                             );
@@ -939,18 +890,18 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
 
                       {/* Time Slots Area */}
                       <div>
-                        <label style={{ fontWeight: 500, color: 'var(--text-secondary)', fontSize: '0.78rem', display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                          <i className="fas fa-clock" style={{ marginRight: '0.35rem', color: 'var(--teal)' }}></i>Available Time Slots
+                        <label style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.95rem', display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                          <i className="fas fa-clock" style={{ marginRight: '0.4rem', color: 'var(--teal)' }}></i>Available Time Slots
                         </label>
 
                         {!selectedDate ? (
                           <div style={{
                             background: 'var(--bg-secondary)', border: '1px dashed var(--border-color)',
-                            borderRadius: '10px', height: '220px', display: 'flex', flexDirection: 'column',
+                            borderRadius: '10px', height: '260px', display: 'flex', flexDirection: 'column',
                             alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)'
                           }}>
-                            <i className="fas fa-calendar-day" style={{ fontSize: '2rem', marginBottom: '0.75rem', opacity: 0.5 }}></i>
-                            <p style={{ fontSize: '0.8rem', fontWeight: 500 }}>Please select a date to view available slots.</p>
+                            <i className="fas fa-calendar-day" style={{ fontSize: '2.5rem', marginBottom: '1rem', opacity: 0.5 }}></i>
+                            <p style={{ fontSize: '0.95rem', fontWeight: 500 }}>Please select a date to view available slots.</p>
                           </div>
                         ) : (
                           <>
@@ -967,29 +918,29 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                               </div>
                             )}
 
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', maxHeight: '260px', overflowY: 'auto', paddingRight: '4px' }}>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', maxHeight: '350px', overflowY: 'auto', paddingRight: '4px' }}>
                               {loadingSlots ? (
-                                <div style={{ padding: '1rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                                <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.95rem' }}>
                                   <i className="fas fa-spinner fa-spin" style={{ marginRight: '0.5rem' }}></i> Loading...
                                 </div>
                               ) : doctorOnLeave ? (
                                 <div style={{
-                                  padding: '1rem', width: '100%', borderRadius: '10px',
+                                  padding: '1.5rem', width: '100%', borderRadius: '10px',
                                   background: 'rgba(239,68,68,0.06)', border: '1.5px solid rgba(239,68,68,0.25)',
-                                  display: 'flex', alignItems: 'flex-start', gap: '0.5rem'
+                                  display: 'flex', alignItems: 'flex-start', gap: '0.75rem'
                                 }}>
-                                  <i className="fas fa-calendar-times" style={{ color: '#EF4444', fontSize: '1rem', marginTop: '0.1rem', flexShrink: 0 }}></i>
+                                  <i className="fas fa-calendar-times" style={{ color: '#EF4444', fontSize: '1.2rem', marginTop: '0.1rem', flexShrink: 0 }}></i>
                                   <div>
-                                    <p style={{ fontWeight: 700, color: '#EF4444', fontSize: '0.78rem', marginBottom: '0.15rem' }}>
+                                    <p style={{ fontWeight: 700, color: '#EF4444', fontSize: '0.95rem', marginBottom: '0.2rem' }}>
                                       Dr. {selectedDoctor?.name} is on leave today
                                     </p>
-                                    <p style={{ fontSize: '0.7rem', color: '#EF4444' }}>
+                                    <p style={{ fontSize: '0.85rem', color: '#EF4444' }}>
                                       Please select a different date.
                                     </p>
                                   </div>
                                 </div>
                               ) : displaySlots.length === 0 ? (
-                                <div style={{ padding: '1rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+                                <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', color: 'var(--text-muted)', fontSize: '0.95rem' }}>
                                   No slots available for this date.
                                 </div>
                               ) : (
@@ -1005,18 +956,20 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                                       className={`time-slot ${selectedSlot === slot.time ? 'selected' : ''} ${isDisabled ? 'unavailable' : ''} ${isMine ? 'mine' : ''}`}
                                       style={{
                                         position: 'relative',
-                                        fontSize: '0.68rem',
-                                        padding: '0.3rem 0.5rem',
+                                        fontSize: '0.85rem',
+                                        padding: '0.55rem 0.85rem',
+                                        fontWeight: 600,
+                                        borderRadius: '8px',
                                         ...(isMine ? { border: '2px solid var(--gold)', background: 'rgba(200,169,81,0.1)', color: 'var(--navy)' } : {}),
                                         ...(isLocked ? { opacity: 0.6, background: '#fff3e0' } : {}),
                                         ...(isBooked ? { opacity: 0.6, background: '#ffebee' } : {})
                                       }}
                                       onClick={() => handleSlotSelection(slot.time, !isDisabled)}>
                                       {slot.time}
-                                      {isMine && <div style={{ fontSize: '0.5rem', position: 'absolute', top: '-7px', right: '-3px', background: 'var(--gold)', color: 'white', padding: '1px 4px', borderRadius: '3px', fontWeight: 700 }}>MINE</div>}
-                                      {isLocked && <div style={{ fontSize: '0.5rem', color: '#e67e22', fontWeight: 600 }}>Locked</div>}
-                                      {isBooked && <div style={{ fontSize: '0.5rem', color: '#EF4444', fontWeight: 600 }}>Booked</div>}
-                                      {isPast && <div style={{ fontSize: '0.5rem', color: '#95a5a6', fontWeight: 600 }}>Past</div>}
+                                      {isMine && <div style={{ fontSize: '0.55rem', position: 'absolute', top: '-7px', right: '-3px', background: 'var(--gold)', color: 'white', padding: '1px 4px', borderRadius: '3px', fontWeight: 700 }}>MINE</div>}
+                                      {isLocked && <div style={{ fontSize: '0.55rem', color: '#e67e22', fontWeight: 600 }}>Locked</div>}
+                                      {isBooked && <div style={{ fontSize: '0.55rem', color: '#EF4444', fontWeight: 600 }}>Booked</div>}
+                                      {isPast && <div style={{ fontSize: '0.55rem', color: '#95a5a6', fontWeight: 600 }}>Past</div>}
                                     </button>
                                   );
                                 })
@@ -1112,11 +1065,13 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
 
                     {/* ── All fields in a compact 3-col grid ── */}
                     <style>{`
-                      .compact-form .form-group { margin-bottom: 0.4rem; }
-                      .compact-form .form-group label { font-size: 0.65rem; margin-bottom: 0.15rem; letter-spacing: 0.03em; }
+                      .compact-form .form-group { margin-bottom: 0.5rem; }
+                      .compact-form .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; letter-spacing: 0.02em; }
                       .compact-form .form-group input,
                       .compact-form .form-group select,
-                      .compact-form .form-group textarea { padding: 0.3rem 0.5rem; font-size: 0.75rem; border-radius: 6px; }
+                      .compact-form .form-group textarea { padding: 0.5rem 0.75rem; font-size: 0.95rem; border-radius: 8px; color: var(--text-primary); font-weight: 500; }
+                      .compact-form .form-group input::placeholder,
+                      .compact-form .form-group textarea::placeholder { color: #64748B; opacity: 1; }
                       .compact-form .form-group textarea { resize: none; }
                     `}</style>
 
@@ -1127,8 +1082,8 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                         <input value={name} onChange={e => { setName(e.target.value); if (isPatientFound || selectedPatientId || patientFoundRef.current) resetPatientVerification(); }} placeholder="Enter full name" disabled={isPatientFound} />
                       </div>
 
-                      {/* Row 2: Phone | Email | DOB */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                      {/* Row 2: Phone | DOB */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                         <div className="form-group">
                           <label><i className="fas fa-phone" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Phone *</label>
                           <div style={{ position: 'relative' }}>
@@ -1144,10 +1099,6 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                           </div>
                           {phone.length > 0 && phone.length !== 10 && <div style={{ fontSize: '0.62rem', color: '#EF4444', marginTop: '0.1rem' }}>{phone.length}/10 digits</div>}
                           {otpVerified && <div style={{ fontSize: '0.62rem', color: '#16A34A', marginTop: '0.1rem' }}><i className="fas fa-check-circle"></i> Verified</div>}
-                        </div>
-                        <div className="form-group">
-                          <label><i className="fas fa-envelope" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Email (Optional)</label>
-                          <input value={email} onChange={e => { setEmail(e.target.value); if (isPatientFound || selectedPatientId || patientFoundRef.current) resetPatientVerification(); }} placeholder="email@example.com" type="email" disabled={isPatientFound} />
                         </div>
                         <div className="form-group">
                           <label><i className="fas fa-calendar-alt" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Date of Birth</label>
@@ -1196,30 +1147,16 @@ export default function AppointmentSection({ preSelectedDoctor, initialCancelMod
                         </div>
                       </div>
 
-                      {/* Row 4: Pincode | City | State | Village (4-col) */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '0.5rem' }}>
-                        <div className="form-group">
-                          <label><i className="fas fa-map-pin" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Pincode</label>
-                          <input value={pincode} onChange={e => setPincode(e.target.value)} placeholder="6-digit" maxLength={6} />
-                        </div>
-                        <div className="form-group">
-                          <label><i className="fas fa-city" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>City</label>
-                          <input value={city} onChange={e => setCity(e.target.value)} placeholder="City" />
-                        </div>
-                        <div className="form-group">
-                          <label><i className="fas fa-map" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>State</label>
-                          <input value={stateName} onChange={e => setStateName(e.target.value)} placeholder="State" />
-                        </div>
-                        <div className="form-group">
-                          <label><i className="fas fa-home" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Village</label>
-                          <input value={village} onChange={e => setVillage(e.target.value)} placeholder="Village" />
-                        </div>
+                      {/* Row 4: Address */}
+                      <div className="form-group">
+                        <label><i className="fas fa-map-marker-alt" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Address</label>
+                        <input value={address} onChange={e => setAddress(e.target.value)} placeholder="Full Address" />
                       </div>
 
                       {/* Row 5: Symptoms textarea */}
                       <div className="form-group">
                         <label><i className="fas fa-sticky-note" style={{ marginRight: '0.3rem', color: 'var(--teal)' }}></i>Reason / Symptoms (optional)</label>
-                        <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Describe your health concern briefly..." rows={2}></textarea>
+                        <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Describe your health concern briefly..." rows={1} style={{ minHeight: '40px' }}></textarea>
                       </div>
                     </div>
 

@@ -174,20 +174,20 @@ export default function ComplaintSuggestion({ onClose }: Props) {
         .csm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         .csm-field { margin-bottom: 10px; }
         .csm-label {
-          display: block; font-size: 0.72rem; font-weight: 600;
-          color: #0F2D52; margin-bottom: 4px;
-          display: flex; align-items: center; gap: 5px;
+          display: block; font-size: 0.85rem; font-weight: 700;
+          color: #0F2D52; margin-bottom: 6px;
+          display: flex; align-items: center; gap: 6px;
         }
-        .csm-label i { font-size: 0.65rem; color: #14B8A6; }
+        .csm-label i { font-size: 0.8rem; color: #14B8A6; }
         .csm-input {
-          width: 100%; padding: 8px 11px; box-sizing: border-box;
+          width: 100%; padding: 10px 14px; box-sizing: border-box;
           border: 1.5px solid #E2E8F0; border-radius: 9px;
           background: #F8FFFE; color: #0F2D52;
-          font-size: 0.8rem; font-family: 'Poppins', sans-serif;
+          font-size: 0.95rem; font-weight: 500; font-family: 'Poppins', sans-serif;
           outline: none; transition: border-color 0.2s, box-shadow 0.2s;
         }
         .csm-input:focus { border-color: #14B8A6; box-shadow: 0 0 0 3px rgba(20,184,166,0.12); background: #fff; }
-        .csm-input::placeholder { color: #CBD5E1; }
+        .csm-input::placeholder { color: #64748B; opacity: 1; }
         select.csm-input { cursor: pointer; }
         textarea.csm-input { resize: none; min-height: 68px; }
 

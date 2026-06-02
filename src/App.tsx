@@ -15,6 +15,7 @@ import NewsSection from './components/NewsSection';
 import AwardsSection from './components/AwardsSection';
 import PatientPortal from './components/PatientPortal';
 import ComplaintSuggestion from './components/ComplaintSuggestion';
+import FeaturesSection from './components/FeaturesSection';
 import Footer, { BackToTop, ProgressBar } from './components/FooterAndMisc';
 import ChatBot from './components/ChatBot';
 import FloatingBanner from './components/FloatingBanner';
@@ -65,6 +66,9 @@ function AppContent() {
         {/* 1. Hero */}
         <HeroSection onBook={() => handleBookAppointment()} onDoctors={handleFindDoctor} />
 
+        {/* Features Row */}
+        <FeaturesSection />
+
         {/* 2. Services */}
         <ServicesSection />
 
@@ -95,7 +99,7 @@ function AppContent() {
             style={{ position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(15, 45, 82, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
             onClick={(e) => { if (e.target === e.currentTarget) setShowAppointment(false); }}
           >
-            <div style={{ background: 'var(--bg-primary, #fff)', borderRadius: '20px', width: '100%', maxWidth: '780px', maxHeight: '92vh', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'var(--bg-primary, #fff)', borderRadius: '20px', width: '100%', maxWidth: '1000px', maxHeight: '98vh', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
               {/* Close button */}
               <button
                 onClick={() => setShowAppointment(false)}

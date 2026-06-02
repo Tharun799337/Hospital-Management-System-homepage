@@ -54,7 +54,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
       paddingTop: '80px',
       position: 'relative',
       overflow: 'hidden',
-      minHeight: '72vh',
+      minHeight: '85vh',
       display: 'flex',
       flexDirection: 'column',
       background: 'linear-gradient(135deg, #DFF7F4 0%, var(--bg-primary) 100%)',
@@ -161,7 +161,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
 
         .hero-content {
           flex: 1;
-          max-width: 550px;
+          max-width: 800px;
           z-index: 2;
         }
 
@@ -231,9 +231,8 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
                       border-color 0.35s ease;
         }
         .hero-image-wrapper:hover .hero-image {
-          transform: translateY(-10px) scale(1.025);
-          box-shadow: 0 40px 80px rgba(15,45,82,0.28), 0 0 0 4px rgba(20,184,166,0.25);
-          border-color: rgba(20,184,166,0.6);
+          transform: translateY(-5px);
+          box-shadow: 0 20px 40px rgba(15,45,82,0.15);
         }
 
         /* Floating badge top-left */
@@ -362,8 +361,8 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
       `}</style>
 
       {/* Content */}
-      <div className="container" style={{ position: 'relative', zIndex: 5, flex: 1, display: 'flex', flexDirection: 'column' }}>
-        
+      <div style={{ position: 'relative', zIndex: 5, flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5%' }}>
+
         <div className="hero-layout">
           <div className="hero-content">
             <h1 style={{
@@ -374,7 +373,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
               lineHeight: 1.2,
               marginBottom: '1.25rem',
             }}>
-              Your Health, <br/>
+              Your Health, <br />
               <span style={{ color: '#14B8A6' }}>Our Priority.</span>
             </h1>
 
@@ -398,26 +397,6 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           <div className="hero-image-wrapper">
             <div className="hero-circular-glow"></div>
             <img src={heroImg} alt="Hospital Facility" className="hero-image" />
-
-            {/* Top-left badge */}
-            <div className="hero-img-badge-tl">
-              <div className="hero-badge-icon"><i className="fas fa-user-md" /></div>
-              <div>
-                <div className="hero-badge-num">120+</div>
-                <div className="hero-badge-lbl">Expert Doctors</div>
-              </div>
-            </div>
-
-            {/* Bottom-right badge */}
-            <div className="hero-img-badge-br">
-              <div className="hero-badge-icon" style={{ background: 'linear-gradient(135deg,#06B6D4,#0284C7)' }}>
-                <i className="fas fa-award" />
-              </div>
-              <div>
-                <div className="hero-badge-num">15+ Yrs</div>
-                <div className="hero-badge-lbl">of Excellence</div>
-              </div>
-            </div>
           </div>
         </div>
 

@@ -4,7 +4,7 @@ export default function AwardsSection() {
   return (
     <>
 <section className="achievement-section" id="awards">
-    <div className="container">
+    <div>
         <div className="section-head center">
             <span className="section-tag">ACHIEVEMENTS</span>
             <h2 className="section-h2">Awards & Recognition</h2>
