@@ -150,7 +150,7 @@ def is_day_available(available_days, date_str):
     if not available_days or not date_str:
         return True
     
-    lower_range = str(available_days).lower()
+    lower_range = str(available_days).lower().replace('[', '').replace(']', '').replace('"', '').replace("'", "")
     if lower_range in ['24/7', 'always', 'everyday']:
         return True
         
