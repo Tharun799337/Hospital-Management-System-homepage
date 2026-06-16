@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import havedaLogo from '../assets/haveda_logo.png';
 
+const NAVY = '#1b3560';
+const GOLD = '#d97706';
+
 const navLinks = [
-  { label: 'Services', href: '#services', icon: 'fas fa-concierge-bell' },
-  { label: 'Departments & Doctors', href: '#departments', icon: 'fas fa-hospital' },
-  { label: 'News', href: '#news', icon: 'fas fa-newspaper' },
-  { label: 'Health Tips', href: '#healthtips', icon: 'fas fa-heartbeat' },
-  { label: 'Contact', href: '#contact', icon: 'fas fa-phone-alt' },
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+  { label: 'Departments', href: '#departments' },
+  { label: 'News', href: '#news' },
+  { label: 'Health Tips', href: '#healthtips' },
+  { label: 'Contact', href: '#contact' },
 ];
-
-
 
 interface NavbarProps {
   onAppointmentClick?: () => void;
@@ -22,7 +24,6 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
-  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -30,301 +31,326 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const scrollTo = (href: string, cb?: () => void) => {
     setMenuOpen(false);
     setActiveLink(href);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    cb?.();
   };
 
   return (
     <>
       <style>{`
-        /* 
-           NAVBAR - CLEAN, SOFT, PREMIUM HEALTHCARE
-        */
-        .hn-navbar {
+        .hv-header {
           position: fixed;
           top: 0; left: 0; right: 0;
           z-index: 1000;
-          height: 65px; /* Reduced from 80px */
-          display: flex;
-          align-items: center;
-          background: rgba(255, 255, 255, 0.98);
-          border-bottom: 1px solid transparent;
-          transition: all 0.3s ease;
-          font-family: 'Poppins', sans-serif;
+          font-family: 'DM Sans', sans-serif;
         }
 
-        .hn-navbar.scrolled {
-          height: 60px; /* Reduced from 70px */
-          background: rgba(255, 255, 255, 0.92);
-          backdrop-filter: blur(8px);
-          border-bottom: 1px solid #E2E8F0;
-          box-shadow: 0 4px 20px rgba(15, 45, 82, 0.04);
-        }
-
-        .hn-inner {
+        /* Top utility bar */
+        .hv-topbar {
+          background: ${NAVY};
+          color: white;
+          font-size: 0.72rem;
+          padding: 0.4rem 1.5rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: 100%;
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 20px;
+        }
+
+        .hv-topbar-left {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .hv-topbar-item {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          opacity: 0.9;
+        }
+
+        .hv-topbar-item strong {
+          color: #fbbf24;
+        }
+
+        .hv-topbar-sep {
+          opacity: 0.3;
+        }
+
+        .hv-topbar-right {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          opacity: 0.85;
+        }
+
+        .hv-topbar-link {
+          color: inherit;
+          text-decoration: none;
+          cursor: pointer;
+          transition: opacity 0.2s;
+        }
+        .hv-topbar-link:hover { opacity: 0.7; text-decoration: underline; }
+
+        /* Main nav */
+        .hv-nav {
+          background: #ffffff;
+          border-bottom: 1px solid rgba(27, 53, 96, 0.1);
+          padding: 0 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          box-shadow: 0 1px 12px rgba(27, 53, 96, 0.07);
+          transition: all 0.3s ease;
+        }
+
+        .hv-nav.scrolled {
+          box-shadow: 0 4px 20px rgba(27, 53, 96, 0.1);
         }
 
         /* Logo */
-        .hn-logo {
+        .hv-logo {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 0.6rem;
           text-decoration: none;
+          padding: 0.75rem 0;
+          flex-shrink: 0;
           cursor: pointer;
         }
-        
-        .hn-logo-icon {
-          color: #14B8A6;
-          font-size: 1.8rem;
+
+        /* Desktop links */
+        .hv-links {
           display: flex;
           align-items: center;
+          gap: 0.15rem;
         }
 
-        .hn-logo-text {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .hn-logo-name {
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: #0F2D52;
-          letter-spacing: 0.5px;
-          line-height: 1.1;
-        }
-
-        .hn-logo-sub {
-          font-size: 0.65rem;
+        .hv-link {
+          color: #4b5563;
           font-weight: 500;
-          color: #64748B;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-        }
-
-        /* Nav Links */
-        .hn-links {
-          display: flex;
-          align-items: center;
-          gap: 32px; /* Increased to give more space */
-        }
-
-        .hn-link {
+          font-size: 0.83rem;
+          padding: 1.1rem 0.8rem;
           text-decoration: none;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #64748B;
+          border-bottom: 2.5px solid transparent;
+          transition: all 0.2s;
+          white-space: nowrap;
           cursor: pointer;
-          transition: color 0.2s ease;
-          position: relative;
-          padding: 8px 0;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          background: none;
+          display: inline-flex;
+          align-items: center;
+          font-family: 'DM Sans', sans-serif;
         }
 
-        .hn-link::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 0;
-          width: 100%;
-          height: 2px;
-          background: #14B8A6;
-          transform: scaleX(0);
-          transition: transform 0.2s ease;
-          border-radius: 2px;
+        .hv-link:hover {
+          color: ${NAVY};
+          border-bottom-color: rgba(217, 119, 6, 0.4);
         }
 
-        .hn-link:hover {
-          color: #14B8A6;
-        }
-
-        .hn-link:hover::after, .hn-link.active::after {
-          transform: scaleX(1);
-        }
-
-        .hn-link.active {
-          color: #14B8A6;
+        .hv-link.active {
+          color: ${NAVY};
+          font-weight: 700;
+          border-bottom-color: ${GOLD};
         }
 
         /* Actions */
-        .hn-actions {
+        .hv-actions {
           display: flex;
           align-items: center;
-          gap: 8px; /* Reduced from 12px */
+          gap: 0.75rem;
+          flex-shrink: 0;
         }
 
-        .btn-outline {
+        .hv-btn-portal {
           background: transparent;
-          border: 1px solid #E2E8F0;
-          color: #0F2D52;
-          padding: 10px 16px;
+          border: 1.5px solid rgba(27, 53, 96, 0.2);
+          color: ${NAVY};
+          padding: 0.5rem 1rem;
           border-radius: 8px;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.2s;
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 0.4rem;
+          font-family: 'DM Sans', sans-serif;
           text-decoration: none;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+          background-color: white;
+        }
+        .hv-btn-portal:hover {
+          border-color: ${NAVY};
+          background: rgba(27, 53, 96, 0.04);
         }
 
-        .btn-outline:hover {
-          border-color: #14B8A6;
-          color: #14B8A6;
-          background: #F8FFFE;
-        }
-
-        .btn-solid {
-          background: #14B8A6;
+        .hv-btn-book {
+          background: ${NAVY};
           border: none;
-          color: #FFFFFF;
-          padding: 8px 16px; /* Reduced from 10px 20px */
+          color: #ffffff;
+          padding: 0.55rem 1.1rem;
           border-radius: 8px;
-          font-size: 0.85rem;
-          font-weight: 600;
+          font-size: 0.8rem;
+          font-weight: 700;
           cursor: pointer;
-          transition: all 0.2s ease;
           display: flex;
           align-items: center;
-          gap: 8px;
-          box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+          gap: 0.45rem;
+          box-shadow: 0 4px 14px rgba(27, 53, 96, 0.25);
+          transition: opacity 0.2s;
+          font-family: 'DM Sans', sans-serif;
         }
-
-        .btn-solid:hover {
-          background: #0F766E;
-          box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-        }
+        .hv-btn-book:hover { opacity: 0.88; }
 
         /* Hamburger */
-        .hn-hamburger {
+        .hv-hamburger {
           display: none;
           background: transparent;
           border: none;
-          color: #0F2D52;
-          font-size: 1.5rem;
+          color: ${NAVY};
           cursor: pointer;
+          padding: 0.4rem;
         }
 
         /* Overlay */
-        .hn-overlay {
+        .hv-overlay {
           position: fixed; inset: 0;
-          background: rgba(15, 45, 82, 0.4);
+          background: rgba(27, 53, 96, 0.4);
           backdrop-filter: blur(4px);
           z-index: 99998;
           opacity: 0; pointer-events: none;
           transition: opacity 0.3s ease;
         }
-        .hn-overlay.open { opacity: 1; pointer-events: auto; }
+        .hv-overlay.open { opacity: 1; pointer-events: auto; }
 
-        /* Mobile Sidebar */
-        .hn-sidebar {
+        /* Mobile sidebar */
+        .hv-sidebar {
           position: fixed; top: 0; right: -320px;
           width: 300px; height: 100vh;
-          background: #FFFFFF;
-          box-shadow: -4px 0 24px rgba(15, 45, 82, 0.1);
+          background: #ffffff;
+          box-shadow: -4px 0 24px rgba(27, 53, 96, 0.12);
           z-index: 99999;
-          padding: 24px;
+          padding: 1.5rem;
           transition: right 0.3s ease;
           overflow-y: auto;
           display: flex;
           flex-direction: column;
+          gap: 0.25rem;
         }
-        .hn-sidebar.open { right: 0; }
+        .hv-sidebar.open { right: 0; }
 
-        .hn-sb-header {
-          display: flex; justify-content: space-between; align-items: center;
-          margin-bottom: 32px;
+        .hv-sb-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(27, 53, 96, 0.08);
         }
-        
-        .hn-sb-close {
-          background: #F8FFFE;
+
+        .hv-sb-close {
+          background: rgba(27, 53, 96, 0.06);
           border: none;
-          color: #64748B;
+          color: #64748b;
           width: 36px; height: 36px;
           border-radius: 8px;
           display: flex; align-items: center; justify-content: center;
           cursor: pointer;
           transition: background 0.2s;
+          font-size: 1.1rem;
         }
-        .hn-sb-close:hover { background: #E2E8F0; color: #0F2D52; }
+        .hv-sb-close:hover { background: rgba(27, 53, 96, 0.12); color: ${NAVY}; }
 
-        .hn-sb-links {
-          display: flex; flex-direction: column; gap: 8px;
-          flex: 1;
-        }
-
-        .hn-sb-link {
-          display: flex; align-items: center; gap: 12px;
-          padding: 12px;
+        .hv-sb-link {
+          display: flex;
+          align-items: center;
+          padding: 0.65rem 0.75rem;
           border-radius: 8px;
-          color: #64748B;
-          text-decoration: none;
-          font-weight: 600;
-          transition: all 0.2s ease;
+          color: #374151;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
           background: transparent;
           border: none;
           text-align: left;
           width: 100%;
-          cursor: pointer;
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+          font-family: 'DM Sans', sans-serif;
+          border-bottom: 1px solid rgba(27, 53, 96, 0.06);
+          text-decoration: none;
+        }
+        .hv-sb-link:hover { background: rgba(27, 53, 96, 0.04); color: ${NAVY}; }
+        .hv-sb-link.active { color: ${NAVY}; font-weight: 700; }
+
+        .hv-sb-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-top: 1.5rem;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(27, 53, 96, 0.08);
         }
 
-        .hn-sb-link:hover, .hn-sb-link.active {
-          background: #F8FFFE;
-          color: #14B8A6;
+        @media (max-width: 1080px) {
+          .hv-links { display: none; }
+          .hv-actions { display: none; }
+          .hv-hamburger { display: flex; }
+          .hv-topbar-right { display: none; }
         }
 
-        .hn-sb-actions {
-          display: flex; flex-direction: column; gap: 12px;
-          margin-top: 24px;
-        }
-
-        @media (max-width: 1200px) {
-          .hn-links { display: none; }
-          .hn-actions { display: none; }
-          .hn-hamburger { display: block; }
+        @media (max-width: 480px) {
+          .hv-topbar-left { gap: 0.75rem; }
+          .hv-topbar-item:last-child { display: none; }
+          .hv-topbar-sep { display: none; }
         }
       `}</style>
 
-      <nav className={`hn-navbar${scrolled ? ' scrolled' : ''}`}>
-        <div className="hn-inner">
-          
+      <header className="hv-header">
+        {/* Top utility bar */}
+        <div className="hv-topbar">
+          <div className="hv-topbar-left">
+            <span className="hv-topbar-item">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              24/7 Emergency: <strong>+91 98765 43210</strong>
+            </span>
+            <span className="hv-topbar-sep">|</span>
+            <span className="hv-topbar-item">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Mon–Sat: 8:00 AM – 8:00 PM
+            </span>
+          </div>
+          <div className="hv-topbar-right">
+            <span className="hv-topbar-item" style={{ gap: '1rem' }}>
+              <span className="hv-topbar-link" onClick={() => onPortalClick?.()}>Patient Portal</span>
+              <span style={{ opacity: 0.3 }}>|</span>
+              <span className="hv-topbar-link" onClick={() => onCancelClick?.()}>Manage Appointment</span>
+              <span style={{ opacity: 0.3 }}>|</span>
+              <span className="hv-topbar-link" onClick={() => onFeedbackClick?.()}>Feedback</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Main nav */}
+        <nav className={`hv-nav${scrolled ? ' scrolled' : ''}`}>
           {/* Logo */}
-          <a href="#home" className="hn-logo" onClick={e => { e.preventDefault(); scrollTo('#home'); }}>
-            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '42px', display: 'block' }} />
+          <a className="hv-logo" href="#home" onClick={e => { e.preventDefault(); scrollTo('#home'); }}>
+            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '40px', display: 'block' }} />
           </a>
 
-          {/* Links */}
-          <div className="hn-links">
+          {/* Desktop links */}
+          <div className="hv-links">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href}
-                className={`hn-link${activeLink === link.href ? ' active' : ''}`}
-                onClick={e => { 
-                  e.preventDefault(); 
-                  if (link.label === 'Cancel/Reschedule') {
-                    onCancelClick?.();
-                  } else if (link.label === 'Feedback') {
-                    onFeedbackClick?.();
-                  } else {
-                    scrollTo(link.href);
-                  }
-                }}
+              <a
+                key={link.href}
+                href={link.href}
+                className={`hv-link${activeLink === link.href ? ' active' : ''}`}
+                onClick={e => { e.preventDefault(); scrollTo(link.href); }}
               >
                 {link.label}
               </a>
@@ -332,65 +358,60 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           </div>
 
           {/* Actions */}
-          <div className="hn-actions">
-            <button className="btn-outline" onClick={onPortalClick}>
-              <i className="fas fa-user-circle" /> Patient Login
+          <div className="hv-actions">
+            <button className="hv-btn-portal" onClick={() => onPortalClick?.()}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Patient Portal
             </button>
-
-            <button className="btn-solid" onClick={onAppointmentClick}>
+            <button className="hv-btn-book" onClick={() => onAppointmentClick?.()}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               Book Appointment
             </button>
-          </div>
-
-          {/* Hamburger */}
-          <button className="hn-hamburger" onClick={() => setMenuOpen(true)}>
-            <i className="fas fa-bars" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div className={`hn-overlay${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(false)} />
-      <div ref={sidebarRef} className={`hn-sidebar${menuOpen ? ' open' : ''}`}>
-        
-        <div className="hn-sb-header">
-          <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '36px', display: 'block' }} />
-          <button className="hn-sb-close" onClick={() => setMenuOpen(false)}>
-            <i className="fas fa-times" />
-          </button>
-        </div>
-
-        <div className="hn-sb-links">
-          {navLinks.map(link => (
-            <button key={link.href}
-              className={`hn-sb-link${activeLink === link.href ? ' active' : ''}`}
-              onClick={() => {
-                setMenuOpen(false);
-                if (link.label === 'Cancel/Reschedule') {
-                  onCancelClick?.();
-                } else if (link.label === 'Feedback') {
-                  onFeedbackClick?.();
-                } else {
-                  scrollTo(link.href);
-                }
-              }}
-            >
-              <i className={link.icon} style={{ width: '24px', textAlign: 'center' }} />
-              {link.label}
+            {/* Hamburger */}
+            <button className="hv-hamburger" onClick={() => setMenuOpen(true)}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </button>
-          ))}
+          </div>
+        </nav>
+      </header>
+
+      {/* Overlay */}
+      <div className={`hv-overlay${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(false)} />
+
+      {/* Mobile sidebar */}
+      <div className={`hv-sidebar${menuOpen ? ' open' : ''}`}>
+        <div className="hv-sb-header">
+          <img src={havedaLogo} alt="Haveda Hospital" style={{ height: '32px' }} />
+          <button className="hv-sb-close" onClick={() => setMenuOpen(false)}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
 
-        <div className="hn-sb-actions">
-          <button className="btn-outline" onClick={() => { setMenuOpen(false); onPortalClick?.(); }} style={{ width: '100%', justifyContent: 'center' }}>
-            <i className="fas fa-user-circle" /> Patient Login
-          </button>
+        {navLinks.map(link => (
+          <a
+            key={link.href}
+            href={link.href}
+            className={`hv-sb-link${activeLink === link.href ? ' active' : ''}`}
+            onClick={e => { e.preventDefault(); scrollTo(link.href); }}
+          >
+            {link.label}
+          </a>
+        ))}
 
-          <button className="btn-solid" onClick={() => { setMenuOpen(false); onAppointmentClick?.(); }} style={{ width: '100%', justifyContent: 'center' }}>
+        <div className="hv-sb-actions">
+          <button
+            onClick={() => { setMenuOpen(false); onPortalClick?.(); }}
+            style={{ width: '100%', padding: '0.7rem', border: `1.5px solid rgba(27,53,96,0.2)`, borderRadius: '8px', background: 'white', color: NAVY, fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer', fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Patient Portal
+          </button>
+          <button
+            onClick={() => { setMenuOpen(false); onAppointmentClick?.(); }}
+            style={{ width: '100%', padding: '0.7rem', border: 'none', borderRadius: '8px', background: NAVY, color: 'white', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', fontFamily: "'DM Sans', sans-serif" }}
+          >
             Book Appointment
           </button>
         </div>
-
       </div>
     </>
   );

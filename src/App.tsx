@@ -10,9 +10,8 @@ import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
 import AppointmentSection from './components/AppointmentSection';
 import DepartmentsSection from './components/DepartmentsSection';
-import HealthTipsSection from './components/HealthTipsSection';
+import TestimonialsSection from './components/TestimonialsSection';
 import NewsSection from './components/NewsSection';
-import AwardsSection from './components/AwardsSection';
 import PatientPortal from './components/PatientPortal';
 import ComplaintSuggestion from './components/ComplaintSuggestion';
 import FeaturesSection from './components/FeaturesSection';
@@ -67,7 +66,11 @@ function AppContent() {
         <HeroSection onBook={() => handleBookAppointment()} onDoctors={handleFindDoctor} />
 
         {/* Features Row */}
-        <FeaturesSection />
+        <FeaturesSection 
+          onBook={() => handleBookAppointment()} 
+          onDoctors={handleFindDoctor} 
+          onPortal={() => setShowPortal(true)} 
+        />
 
         {/* 2. Services */}
         <ServicesSection />
@@ -75,14 +78,11 @@ function AppContent() {
         {/* 3. Departments */}
         <DepartmentsSection onBook={(doctor) => handleBookAppointment(doctor, false)} />
 
-        {/* 4. Health Tips */}
-        <HealthTipsSection />
+        {/* 4. Patient Reviews */}
+        <TestimonialsSection />
 
-        {/* 5. News */}
+        {/* 5 & 6. News & Awards (Combined) */}
         <NewsSection />
-
-        {/* 6. Awards */}
-        <AwardsSection />
 
         {/* Complaint & Suggestion Box Modal */}
         {showFeedback && (

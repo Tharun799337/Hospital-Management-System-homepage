@@ -1,293 +1,367 @@
-import { useEffect, useRef, useState } from 'react';
-import { fetchTicker } from '../api';
-import havedaLogo from '../assets/haveda_logo.png';
+import React, { useEffect, useState } from 'react';
 
-export function MarqueeTicker() {
-  const [tickerItems, setTickerItems] = useState<{icon: string, text: string}[]>([]);
-  const [loading, setLoading] = useState(true);
+const NAVY = "#1b3560";
+const GOLD = "#d97706";
+const DARK = "#0d1625";
+
+export function ProgressBar() {
+  const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    const loadTickerData = async () => {
-      try {
-        const data = await fetchTicker();
-        setTickerItems(data);
-      } catch (error) {
-        console.error('Error fetching ticker data:', error);
-      } finally {
-        setLoading(false);
-      }
+    const handleScroll = () => {
+      const scrollTotal = document.documentElement.scrollTop;
+      const heightWin = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${(scrollTotal / heightWin) * 100}`;
+      setWidth(parseFloat(scroll));
     };
-    loadTickerData();
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (loading || tickerItems.length === 0) return null;
   return (
-    <div className="marquee-wrapper" style={{ background: '#14B8A6', height: '40px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', height: '100%', overflow: 'hidden' }}>
-        <div className="latest-news-label" style={{ background: '#0F766E', color: 'white', padding: '0 1.5rem', height: '100%', display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: '0.8rem', zIndex: 2, flexShrink: 0 }}>
-          <span className="desktop-text">LATEST NEWS</span>
-          <i className="fas fa-bullhorn mobile-icon" style={{ display: 'none' }}></i>
-        </div>
-        <div className="marquee-inner" style={{ display: 'flex' }}>
-          <div className="marquee-content" style={{ display: 'flex', gap: '3rem', paddingRight: '3rem' }}>
-            {tickerItems.map((item, i) => (
-              <span key={`1-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', whiteSpace: 'nowrap', color: 'white' }}>
-                <i className={item.icon} style={{ color: 'white', opacity: 0.8 }}></i>
-                {item.text}
-              </span>
-            ))}
-          </div>
-          <div className="marquee-content" style={{ display: 'flex', gap: '3rem', paddingRight: '3rem' }}>
-            {tickerItems.map((item, i) => (
-              <span key={`2-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', whiteSpace: 'nowrap', color: 'white' }}>
-                <i className={item.icon} style={{ color: 'white', opacity: 0.8 }}></i>
-                {item.text}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-      <style>{`
-        @media (max-width: 768px) {
-          .latest-news-label { padding: 0 1rem !important; }
-          .desktop-text { display: none !important; }
-          .mobile-icon { display: block !important; font-size: 1.1rem; }
-          .marquee-content { gap: 2rem !important; padding-right: 2rem !important; }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-export function HealthTipsSection() {
-  const tips = [
-    { icon: 'fas fa-heart-pulse', title: 'Heart Health Tips', excerpt: 'Learn the essential habits to keep your heart strong and healthy every day.', category: 'Cardiology', color: '#EF4444' },
-    { icon: 'fas fa-stethoscope', title: 'Regular Checkups', excerpt: 'Why preventive screenings are the key to long-term wellness and early detection.', category: 'Checkup', color: '#14B8A6' },
-    { icon: 'fas fa-apple-alt', title: 'Nutrition Guide', excerpt: 'Expert advice on building a balanced diet for sustained energy and vitality.', category: 'Nutrition', color: '#06B6D4' },
-  ];
-
-  return (
-    <section className="section-pad" style={{ background: 'var(--bg-primary)', borderTop: '1px solid #E2E8F0' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 className="section-title" style={{ color: '#0F2D52' }}>Health Tips</h2>
-          <div className="section-divider" style={{ margin: '12px auto 16px', background: '#14B8A6', width: '60px', height: '4px', borderRadius: '2px' }} />
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          {tips.map((tip, i) => (
-            <div key={i} style={{
-              background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '2rem',
-              boxShadow: '0 4px 12px rgba(15, 45, 82, 0.05)', transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLDivElement).style.borderColor = '#14B8A6'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'none'; (e.currentTarget as HTMLDivElement).style.borderColor = '#E2E8F0'; }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '10px', background: `${tip.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                <i className={tip.icon} style={{ fontSize: '1.2rem', color: tip.color }}></i>
-              </div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#0F2D52', marginBottom: '8px' }}>{tip.title}</h3>
-              <p style={{ fontSize: '0.9rem', color: '#64748B', lineHeight: 1.6, marginBottom: '1rem' }}>{tip.excerpt}</p>
-              <span style={{ color: '#14B8A6', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}>Learn More →</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        height: '4px',
+        backgroundColor: GOLD,
+        width: `${width}%`,
+        zIndex: 10001,
+        transition: 'width 0.2s ease-out'
+      }}
+    />
   );
 }
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const handler = () => setVisible(window.scrollY > 400);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
-  return visible ? (
-    <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ background: '#14B8A6', color: 'white', border: 'none', width: '40px', height: '40px', borderRadius: '8px', cursor: 'pointer', position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100, boxShadow: '0 4px 12px rgba(20,184,166,0.3)' }}>
-      <i className="fas fa-chevron-up"></i>
-    </button>
-  ) : null;
-}
 
-export function ProgressBar() {
-  const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const handler = () => {
-      const doc = document.documentElement;
-      const totalHeight = doc.scrollHeight - doc.clientHeight;
-      setProgress(totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0);
+    const handleScroll = () => {
+      setVisible(window.scrollY > 400);
     };
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  return <div style={{ position: 'fixed', top: 0, left: 0, height: '3px', background: '#14B8A6', width: `${progress}%`, zIndex: 9999, transition: 'width 0.1s ease' }}></div>;
-}
 
-export default function Footer({ onBook, onPortal }: { onBook: () => void; onPortal: () => void }) {
-  const quickLinks = [
-    { name: 'Departments', target: 'services' },
-    { name: 'Find a Doctor', target: 'doctors' },
-    { name: 'Book Appointment', action: onBook },
-    { name: 'Cancellation', target: 'contact' },
-    { name: 'Patient Feedback', target: 'contact' },
-  ];
-
-  const services = [
-    { name: 'Emergency Care', target: 'services' },
-    { name: 'Lab & Diagnostics', target: 'services' },
-    { name: 'Pharmacy', target: 'services' },
-    { name: 'Health Packages', target: 'services' },
-    { name: 'Telemedicine', target: 'services' },
-    { name: 'Ambulance', target: 'services' },
-  ];
-
-  const handleLinkClick = (link: any) => {
-    if (link.action) {
-      link.action();
-    } else if (link.target) {
-      const el = document.getElementById(link.target);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  if (!visible) return null;
 
   return (
-    <footer id="contact" className="footer-section" style={{ background: '#0F2D52', color: 'white' }}>
-      <div className="container">
-        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-              <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '36px', display: 'block' }} />
-            </div>
-            <p className="footer-logo-desc" style={{ fontSize: '0.85rem', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', marginBottom: '0.75rem', maxWidth: '300px' }}>
-              Combining compassionate care with advanced medicine. NABH accredited with 20+ years of excellence in healthcare.
-            </p>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              {[
-                { icon: 'facebook-f', link: '#' },
-                { icon: 'instagram', link: '#' },
-                { icon: 'twitter', link: '#' },
-                { icon: 'youtube', link: '#' }
-              ].map((social, i) => (
-                <div key={i} style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#14B8A6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer', transition: 'background 0.2s', fontSize: '1.1rem' }}
-                  onMouseEnter={e => (e.currentTarget.style.background = '#0F766E')}
-                  onMouseLeave={e => (e.currentTarget.style.background = '#14B8A6')}
-                >
-                  <i className={`fab fa-${social.icon}`}></i>
-                </div>
-              ))}
-            </div>
-          </div>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      style={{
+        position: 'fixed',
+        bottom: '2rem',
+        right: '2rem',
+        width: '45px',
+        height: '45px',
+        borderRadius: '50%',
+        backgroundColor: NAVY,
+        color: 'white',
+        border: 'none',
+        boxShadow: '0 8px 24px rgba(27, 53, 96, 0.25)',
+        cursor: 'pointer',
+        zIndex: 9990,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'transform 0.2s, opacity 0.2s',
+      }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
+      onMouseLeave={e => e.currentTarget.style.transform = 'none'}
+      aria-label="Back to top"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+  );
+}
 
-          <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Quick Links</h4>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              {quickLinks.map(link => (
-                <li key={link.name} style={{ marginBottom: '8px' }}>
-                  <span 
-                    onClick={() => handleLinkClick(link)}
-                    style={{ 
-                      fontSize: '0.9rem', 
-                      color: 'rgba(255,255,255,0.7)', 
-                      cursor: 'pointer',
-                      transition: 'color 0.2s'
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#14B8A6')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-                  >
-                    {link.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+// -------------------------------------------------------------
+// Contact Us Section (Reference Design)
+// -------------------------------------------------------------
+function ContactUs() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [sent, setSent] = useState(false);
 
-          <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Services</h4>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              {services.map(link => (
-                <li key={link.name} style={{ marginBottom: '8px' }}>
-                  <span 
-                    onClick={() => handleLinkClick(link)}
-                    style={{ 
-                      fontSize: '0.9rem', 
-                      color: 'rgba(255,255,255,0.7)', 
-                      cursor: 'pointer',
-                      transition: 'color 0.2s'
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#14B8A6')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-                  >
-                    {link.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  }
 
-          <div>
-            <h4 className="footer-col-title" style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Contact Us</h4>
-            <div className="footer-contact" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                <i className="fas fa-map-marker-alt" style={{ color: '#14B8A6', marginTop: '4px', fontSize: '1.1rem' }}></i>
-                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>
-                  123 Health Street,<br />Care City, HC 12345
-                </span>
-              </div>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                <i className="fas fa-phone-alt" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>+1 234 567 8900</span>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>+1 234 567 8901</span>
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                <i className="fas fa-envelope" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>info@havedahospital.com</span>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>support@havedahospital.com</span>
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                <i className="fas fa-clock" style={{ color: '#14B8A6', marginTop: '2px', fontSize: '1.1rem' }}></i>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Mon–Sun: 24 Hours</span>
-                  <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Emergency: 24/7</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSent(true);
+  }
 
-        <div className="footer-bottom" style={{ padding: '0.75rem 0', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)' }}>
-          <span>© 2026 Haveda Hospital. All rights reserved.</span>
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
-            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>Privacy Policy</span>
-            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>Terms of Service</span>
-            <span style={{ cursor: 'pointer' }} onMouseEnter={e => (e.currentTarget.style.color = 'white')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}>NABH Accreditation</span>
-          </div>
-        </div>
-      </div>
+  const info = [
+    { label: "Our Address", value: "123 HealthCare Lane, Medical City, NC 12345", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> },
+    { label: "Phone Number",  value: "+1 (555) 123-4567",            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> },
+    { label: "Email Address", value: "info@havedahospital.com",    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
+    { label: "Working Hours", value: "Mon–Sat: 8:00 AM – 8:00 PM · Emergency 24/7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+  ];
+
+  return (
+    <>
       <style>{`
-        .footer-section { padding-top: 1rem; }
-        .footer-grid { gap: 1rem; padding-bottom: 1rem; }
-        
-        @media (max-width: 768px) {
-          .footer-section { padding-top: 1.5rem; }
-          .footer-grid { gap: 1.5rem; padding-bottom: 1.5rem; }
-          .footer-logo-desc { margin-bottom: 1rem !important; }
-          .footer-col-title { margin-bottom: 0.75rem !important; }
-          .footer-contact { gap: 0.75rem !important; }
-          .footer-bottom { 
-            padding: 1rem 0 !important; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 1rem; 
-            text-align: center;
+        .hv-contact-grid {
+          display: grid;
+          grid-template-columns: 2fr 3fr;
+          gap: 2.5rem;
+        }
+        @media (max-width: 900px) {
+          .hv-contact-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
-    </footer>
+      <section id="contact" style={{ backgroundColor: "#f8f9fc", padding: "4rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
+          {/* Header */}
+          <div style={{ marginBottom: "2.5rem" }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: GOLD, letterSpacing: "0.08em", marginBottom: "0.4rem", textTransform: "uppercase" }}>Get In Touch</p>
+            <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.8rem", color: NAVY, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+              Contact <span style={{ color: GOLD }}>Us</span>
+            </h2>
+          </div>
+
+          <div className="hv-contact-grid">
+            {/* Info */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {/* Map placeholder */}
+              <div style={{ borderRadius: "14px", overflow: "hidden", height: "180px", backgroundColor: "#eef2fb", border: "1.5px solid rgba(27,53,96,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.5rem" }}>
+                <div style={{ textAlign: "center", color: "#94a3b8" }}>
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ marginBottom: "0.5rem", display: "inline-block" }}><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <p style={{ fontSize: "0.75rem", fontFamily: "'DM Sans', sans-serif" }}>123 HealthCare Lane, Medical City</p>
+                </div>
+              </div>
+              {info.map((item) => (
+                <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: "0.85rem", padding: "0.9rem 1rem", backgroundColor: "white", borderRadius: "12px", border: "1.5px solid rgba(27,53,96,0.08)" }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", backgroundColor: NAVY, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.icon}</div>
+                  <div>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.78rem", color: NAVY }}>{item.label}</p>
+                    <p style={{ fontSize: "0.73rem", color: "#64748b", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>{item.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Form */}
+            <div style={{ backgroundColor: "white", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(27,53,96,0.08)", boxShadow: "0 4px 24px rgba(27,53,96,0.06)" }}>
+              {sent ? (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: "1rem", padding: "3rem 1rem", textAlign: "center" }}>
+                  <div style={{ width: "60px", height: "60px", borderRadius: "50%", backgroundColor: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <p style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: NAVY }}>Message Sent!</p>
+                  <p style={{ fontSize: "0.85rem", color: "#64748b", fontFamily: "'DM Sans', sans-serif" }}>Our team will get back to you within 24 hours.</p>
+                  <button onClick={() => { setSent(false); setForm({ name: "", email: "", phone: "", subject: "", message: "" }); }} style={{ marginTop: "0.5rem", padding: "0.6rem 1.4rem", backgroundColor: NAVY, color: "white", borderRadius: "8px", border: "none", fontWeight: 700, fontSize: "0.83rem", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                    Send Another
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <p style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: NAVY, marginBottom: "0.25rem" }}>Send Us a Message</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    {[{ name: "name", label: "Full Name *", placeholder: "John Doe", type: "text" }, { name: "email", label: "Email *", placeholder: "john@example.com", type: "email" }].map((f) => (
+                      <div key={f.name} style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                        <label style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, fontFamily: "'DM Sans', sans-serif" }}>{f.label}</label>
+                        <input name={f.name} value={(form as any)[f.name]} onChange={handleChange} required type={f.type} placeholder={f.placeholder}
+                          style={{ borderRadius: "8px", border: "1.5px solid rgba(27,53,96,0.15)", backgroundColor: "#f8f9fc", padding: "0.6rem 0.85rem", fontSize: "0.83rem", outline: "none", fontFamily: "'DM Sans', sans-serif", color: NAVY }}
+                          onFocus={(e) => { e.currentTarget.style.borderColor = NAVY; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(27,53,96,0.15)"; }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, fontFamily: "'DM Sans', sans-serif" }}>Phone</label>
+                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (555) 000-0000"
+                        style={{ borderRadius: "8px", border: "1.5px solid rgba(27,53,96,0.15)", backgroundColor: "#f8f9fc", padding: "0.6rem 0.85rem", fontSize: "0.83rem", outline: "none", fontFamily: "'DM Sans', sans-serif", color: NAVY }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = NAVY; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(27,53,96,0.15)"; }}
+                      />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                      <label style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, fontFamily: "'DM Sans', sans-serif" }}>Subject *</label>
+                      <select name="subject" value={form.subject} onChange={handleChange} required
+                        style={{ borderRadius: "8px", border: "1.5px solid rgba(27,53,96,0.15)", backgroundColor: "#f8f9fc", padding: "0.6rem 0.85rem", fontSize: "0.83rem", outline: "none", fontFamily: "'DM Sans', sans-serif", color: NAVY }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = NAVY; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(27,53,96,0.15)"; }}
+                      >
+                        <option value="">Select subject</option>
+                        <option>Book Appointment</option>
+                        <option>General Inquiry</option>
+                        <option>Billing & Insurance</option>
+                        <option>Medical Records</option>
+                        <option>Feedback</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                    <label style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, fontFamily: "'DM Sans', sans-serif" }}>Message *</label>
+                    <textarea name="message" value={form.message} onChange={handleChange} required rows={4} placeholder="How can we help you?"
+                      style={{ borderRadius: "8px", border: "1.5px solid rgba(27,53,96,0.15)", backgroundColor: "#f8f9fc", padding: "0.6rem 0.85rem", fontSize: "0.83rem", outline: "none", fontFamily: "'DM Sans', sans-serif", color: NAVY, resize: "none" }}
+                      onFocus={(e) => { e.currentTarget.style.borderColor = NAVY; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(27,53,96,0.15)"; }}
+                    />
+                  </div>
+                  <button type="submit" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", backgroundColor: NAVY, color: "white", padding: "0.75rem", borderRadius: "9px", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", boxShadow: "0 4px 14px rgba(27,53,96,0.25)", transition: "opacity 0.2s" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Send Message
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// -------------------------------------------------------------
+// Main Footer
+// -------------------------------------------------------------
+interface FooterProps {
+  onBook: () => void;
+  onPortal: () => void;
+}
+
+export default function Footer({ onBook, onPortal }: FooterProps) {
+  const footerCols = {
+    "Quick Links":  ["Home", "About Us", "Our Doctors", "Services", "Health Packages", "Careers", "Contact Us"],
+    "Departments":  ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Gynecology", "Dermatology", "View All"],
+    "For Patients": ["Book Appointment", "Patient Portal", "Health Packages", "Insurance", "Pay Bill", "FAQ"],
+  };
+
+  return (
+    <>
+      <ContactUs />
+      
+      <style>{`
+        .hv-footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+          gap: 2.5rem;
+        }
+        @media (max-width: 1024px) {
+          .hv-footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+        }
+        @media (max-width: 640px) {
+          .hv-footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+      `}</style>
+      <footer style={{ backgroundColor: DARK, fontFamily: "'DM Sans', sans-serif" }}>
+        {/* CTA Banner */}
+        <div style={{ backgroundColor: NAVY, padding: "3rem 1.5rem" }}>
+          <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem" }}>
+            <div>
+              <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", letterSpacing: "0.08em", fontWeight: 700, textTransform: "uppercase", marginBottom: "0.4rem", fontFamily: "'DM Sans', sans-serif" }}>Ready to get care?</p>
+              <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.8rem", color: "white", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+                Book Your Appointment <span style={{ color: GOLD }}>Today</span>
+              </h3>
+            </div>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <button onClick={onBook}
+                style={{ backgroundColor: GOLD, color: "white", padding: "0.8rem 1.4rem", borderRadius: "9px", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Book Appointment
+              </button>
+              <button onClick={() => { document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "white", padding: "0.8rem 1.4rem", borderRadius: "9px", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "background 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.15)"}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer body */}
+        <div className="hv-footer-grid" style={{ maxWidth: "1280px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem" }}>
+          {/* Brand */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1rem" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "9px", backgroundColor: NAVY, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="10.5" y="3" width="3" height="18" rx="1.5" fill="white"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="white"/></svg>
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Outfit', sans-serif", color: "white", fontWeight: 800, fontSize: "1.2rem", lineHeight: 1.1, letterSpacing: "-0.02em" }}>Haveda</div>
+                <div style={{ color: GOLD, fontSize: "0.55rem", letterSpacing: "0.22em", fontWeight: 700 }}>HOSPITAL</div>
+              </div>
+            </div>
+            <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.75, marginBottom: "1.25rem", maxWidth: "260px" }}>
+              Compassionate care, expert doctors, advanced technology — for a healthier tomorrow.
+            </p>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              {[
+                <svg key="fb" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>,
+                <svg key="tw" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>,
+                <svg key="li" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>,
+              ].map((icon, i) => (
+                <a key={i} href="#" style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "all 0.2s" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = NAVY; (e.currentTarget as HTMLElement).style.color = "white"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.07)"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)"; }}
+                >{icon}</a>
+              ))}
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {Object.entries(footerCols).map(([section, links]) => (
+            <div key={section}>
+              <p style={{ color: "white", fontWeight: 700, fontSize: "0.85rem", marginBottom: "1.2rem", fontFamily: "'DM Sans', sans-serif" }}>{section}</p>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                {links.map((l) => (
+                  <li key={l}>
+                    <a href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (l === 'Book Appointment') onBook();
+                        if (l === 'Patient Portal') onPortal();
+                      }}
+                      style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", textDecoration: "none", transition: "color 0.2s", fontFamily: "'DM Sans', sans-serif" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "white"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.55)"; }}
+                    >{l}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Contact */}
+          <div>
+            <p style={{ color: "white", fontWeight: 700, fontSize: "0.85rem", marginBottom: "1.2rem", fontFamily: "'DM Sans', sans-serif" }}>Contact</p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {[
+                { emoji: "📍", text: "123 HealthCare Lane, Medical City, NC 12345" },
+                { emoji: "📞", text: "+1 (555) 123-4567" },
+                { emoji: "✉", text: "info@havedahospital.com" },
+              ].map((c) => (
+                <li key={c.emoji} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", fontFamily: "'DM Sans', sans-serif" }}>
+                  <span style={{ color: GOLD, flexShrink: 0 }}>{c.emoji}</span>{c.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", maxWidth: "1280px", margin: "0 auto", padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
+          <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", fontFamily: "'DM Sans', sans-serif" }}>© 2024 Haveda Hospital. All Rights Reserved.</p>
+          <div style={{ display: "flex", gap: "1.5rem" }}>
+            {["Privacy Policy", "Terms of Use", "Sitemap"].map((l) => (
+              <a key={l} href="#" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", textDecoration: "none", transition: "color 0.2s", fontFamily: "'DM Sans', sans-serif" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "white"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)"; }}
+              >{l}</a>
+            ))}
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }

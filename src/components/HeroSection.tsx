@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import heroImg from '../assets/new_hero.png';
 
-const stats = [
-  { value: 355000, label: 'Patients Served', suffix: '+', icon: 'fas fa-users' },
-  { value: 98, label: 'Satisfaction Rate', suffix: '%', icon: 'fas fa-heart' },
-  { value: 120, label: 'Expert Doctors', suffix: '+', icon: 'fas fa-user-md' },
-  { value: 24, label: 'Emergency Support', suffix: '/7', icon: 'fas fa-clock' },
-  { value: 15, label: 'Years of Excellence', suffix: '+', icon: 'fas fa-award' },
-];
-
+const NAVY = '#1b3560';
+const GOLD = '#d97706';
 
 function Counter({ target, suffix, duration = 2000 }: { target: number; suffix: string; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -37,9 +31,7 @@ function Counter({ target, suffix, duration = 2000 }: { target: number; suffix: 
     return () => observer.disconnect();
   }, [target, duration]);
 
-  // Format large numbers
   const formattedCount = target >= 1000 ? (count / 1000).toFixed(count >= 1000 && count < 10000 ? 1 : 0) + 'k' : count;
-
   return <span ref={ref}>{formattedCount}{suffix}</span>;
 }
 
@@ -49,374 +41,458 @@ interface HeroProps {
 }
 
 export default function HeroSection({ onBook, onDoctors }: HeroProps) {
+  const miniStats = [
+    { num: '500+', label: 'Beds' },
+    { num: '120+', label: 'Specialists' },
+    { num: '15', label: 'Depts' },
+    { num: '355k+', label: 'Patients' },
+  ];
+
+  const statsBar = [
+    { value: 25, label: 'Years of Excellence', suffix: '+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M8 21h8M12 17v4M7 4H4v5a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5V4h-3"/>
+        <rect x="7" y="2" width="10" height="4" rx="1"/>
+      </svg>
+    )},
+    { value: 355, label: 'Happy Patients', suffix: 'k+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    )},
+    { value: 120, label: 'Expert Doctors', suffix: '+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+        <line x1="12" y1="14" x2="12" y2="17"/>
+        <line x1="10.5" y1="15.5" x2="13.5" y2="15.5"/>
+      </svg>
+    )},
+    { value: 15, label: 'Specialities', suffix: '+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M12 2a9 9 0 0 1 9 9c0 3.5-2 6.5-4.5 8.5L12 22l-4.5-2.5C5 17.5 3 14.5 3 11a9 9 0 0 1 9-9z"/>
+        <line x1="12" y1="7" x2="12" y2="13"/>
+        <line x1="9" y1="10" x2="15" y2="10"/>
+      </svg>
+    )},
+    { value: 24, label: 'Emergency Care', suffix: '/7', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <polyline points="12 7 12 12 15 15"/>
+      </svg>
+    )},
+  ];
+
   return (
-    <section id="home" style={{
-      paddingTop: '80px',
-      position: 'relative',
-      overflow: 'hidden',
-      minHeight: '85vh',
-      display: 'flex',
-      flexDirection: 'column',
-      background: 'linear-gradient(135deg, #DFF7F4 0%, var(--bg-primary) 100%)',
-    }}>
+    <>
       <style>{`
-        /* Floating animations for icons */
-        @keyframes float1 {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(5deg); }
-          100% { transform: translateY(0) rotate(0deg); }
-        }
-        @keyframes float2 {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(15px) rotate(-5deg); }
-          100% { transform: translateY(0) rotate(0deg); }
-        }
-        @keyframes float3 {
-          0% { transform: translateY(0) scale(1); }
-          50% { transform: translateY(-10px) scale(1.05); }
-          100% { transform: translateY(0) scale(1); }
+        /* Hero section padding for sticky header (topbar ~34px + nav ~60px = ~94px) */
+        .hv-hero {
+          padding-top: 94px;
+          background: #f8f9fc;
+          overflow: hidden;
         }
 
-        .hero-floating-icon {
-          position: absolute;
-          background: rgba(255,255,255,0.8);
-          backdrop-filter: blur(8px);
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 8px 24px rgba(15,45,82,0.08);
-          z-index: 10;
-        }
-
-        .hero-floating-icon.icon-1 {
-          width: 56px; height: 56px;
-          top: 15%; left: 0%;
-          color: #14B8A6; font-size: 1.5rem;
-          animation: float1 6s ease-in-out infinite;
-        }
-
-        .hero-floating-icon.icon-2 {
-          width: 48px; height: 48px;
-          bottom: 25%; left: -5%;
-          color: #06B6D4; font-size: 1.25rem;
-          animation: float2 5s ease-in-out infinite;
-        }
-
-        .hero-floating-icon.icon-3 {
-          width: 64px; height: 64px;
-          top: 30%; right: -5%;
-          color: #0F766E; font-size: 1.75rem;
-          animation: float3 7s ease-in-out infinite;
-        }
-
-        /* Circular Glow Behind Image */
-        .hero-circular-glow {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 120%; height: 120%;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(20,184,166,0.05) 100%);
-          filter: blur(60px);
-          z-index: 0;
-        }
-
-        .hero-stat-bar {
+        .hv-hero-inner {
+          max-width: 1280px;
+          margin: 0 auto;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          gap: 1.5rem;
-          background: rgba(255,255,255,0.85);
-          backdrop-filter: blur(16px);
-          border-radius: 20px;
-          padding: 1.5rem 2rem;
-          border: 1px solid rgba(226,232,240,0.8);
-          box-shadow: 0 12px 32px rgba(15,45,82,0.06);
-          margin-top: 0.5rem;
-          transform: translateY(-20px);
-        }
-        .hero-stat-item {
-          display: flex; align-items: center; gap: 1rem;
-        }
-        .hero-stat-icon {
-          width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
-          background: rgba(20,184,166,0.1);
-          border: 1px solid rgba(20,184,166,0.2);
-          display: flex; align-items: center; justify-content: center;
-        }
-        .hero-stat-num {
-          font-family: 'Poppins', sans-serif;
-          font-size: 1.5rem; font-weight: 700; color: #0F2D52; line-height: 1;
-        }
-        .hero-stat-label {
-          font-size: 0.8rem; color: #64748B;
-          margin-top: 0.2rem; font-weight: 500;
+          grid-template-columns: 52% 48%;
+          min-height: 480px;
+          align-items: stretch;
         }
 
-        .hero-layout {
+        /* LEFT: text content */
+        .hv-hero-content {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 4rem;
-          padding: 3.5rem 0 1rem;
-        }
-
-        .hero-content {
-          flex: 1;
-          max-width: 800px;
-          z-index: 2;
-        }
-
-        .hero-image-wrapper {
-          flex: 1.4;
-          position: relative;
-          display: flex;
+          flex-direction: column;
           justify-content: center;
+          padding: 3.5rem 3rem 3.5rem 4rem;
+        }
+
+        .hv-hero-badge {
+          display: inline-flex;
           align-items: center;
-          z-index: 1;
+          gap: 0.4rem;
+          background: #fef3c7;
+          color: ${GOLD};
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 0.3rem 0.85rem;
+          border-radius: 999px;
+          margin-bottom: 1.4rem;
+          width: fit-content;
+          border: 1px solid #fde68a;
+          letter-spacing: 0.04em;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        .hv-hero-h1 {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 800;
+          font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+          line-height: 1.15;
+          color: ${NAVY};
+          margin-bottom: 1.1rem;
+          letter-spacing: -0.025em;
+        }
+
+        .hv-hero-h1 span {
+          color: ${GOLD};
+        }
+
+        .hv-hero-desc {
+          color: #475569;
+          font-size: 0.93rem;
+          line-height: 1.8;
+          margin-bottom: 1.4rem;
+          max-width: 420px;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Mini stats strip */
+        .hv-hero-mini-stats {
+          display: flex;
+          gap: 0;
+          margin-bottom: 2rem;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid rgba(27, 53, 96, 0.12);
+          width: fit-content;
+        }
+
+        .hv-mini-stat {
+          padding: 0.7rem 1.2rem;
+          text-align: center;
+          border-right: 1px solid rgba(27, 53, 96, 0.1);
+          background: white;
+        }
+        .hv-mini-stat:last-child { border-right: none; }
+
+        .hv-mini-stat-num {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 800;
+          font-size: 1.15rem;
+          color: ${NAVY};
+          line-height: 1;
+        }
+
+        .hv-mini-stat-lbl {
+          font-size: 0.63rem;
+          color: #94a3b8;
+          font-weight: 600;
+          margin-top: 0.18rem;
+          letter-spacing: 0.04em;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        /* CTAs */
+        .hv-hero-ctas {
+          display: flex;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          align-items: center;
+          margin-bottom: 2rem;
+        }
+
+        .hv-btn-primary {
+          background: ${NAVY};
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9px;
+          font-weight: 700;
+          font-size: 0.85rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-decoration: none;
+          box-shadow: 0 6px 20px rgba(27, 53, 96, 0.28);
+          font-family: 'DM Sans', sans-serif;
+          border: none;
           cursor: pointer;
+          transition: transform 0.15s, opacity 0.2s;
+        }
+        .hv-btn-primary:hover { transform: translateY(-1px); opacity: 0.9; }
+
+        .hv-btn-secondary-hero {
+          color: ${NAVY};
+          padding: 0.75rem 1.5rem;
+          border-radius: 9px;
+          font-weight: 600;
+          font-size: 0.85rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          border: 1.5px solid rgba(27, 53, 96, 0.2);
+          text-decoration: none;
+          background: white;
+          font-family: 'DM Sans', sans-serif;
+          cursor: pointer;
+          transition: border-color 0.2s, background 0.2s;
+        }
+        .hv-btn-secondary-hero:hover { border-color: ${NAVY}; background: rgba(27,53,96,0.04); }
+
+        /* Doctor avatars row */
+        .hv-hero-doctors {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
         }
 
-        /* Pulsing outer ring */
-        .hero-image-wrapper::before {
-          content: '';
-          position: absolute;
-          inset: -10px;
-          border-radius: 38px;
-          border: 2px solid rgba(20,184,166,0);
-          transition: border-color 0.4s ease, inset 0.4s ease;
-          z-index: 0;
-          pointer-events: none;
-        }
-        .hero-image-wrapper:hover::before {
-          border-color: rgba(20,184,166,0.45);
-          inset: -14px;
-          animation: hero-ring-pulse 2s ease-in-out infinite;
-        }
-        @keyframes hero-ring-pulse {
-          0%, 100% { border-color: rgba(20,184,166,0.45); }
-          50%       { border-color: rgba(6,182,212,0.7); }
+        .hv-hero-avatars {
+          display: flex;
         }
 
-        /* Shimmer overlay */
-        .hero-image-wrapper::after {
-          content: '';
-          position: absolute;
-          inset: 8px;
-          border-radius: 24px;
-          background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
-          background-size: 200% 100%;
-          background-position: 200% 0;
-          z-index: 10;
-          pointer-events: none;
-          transition: background-position 0s;
-        }
-        .hero-image-wrapper:hover::after {
-          animation: hero-shimmer 0.8s ease forwards;
-        }
-        @keyframes hero-shimmer {
-          0%   { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-
-        .hero-image {
-          width: 100%;
-          height: auto;
-          border-radius: 30px;
-          z-index: 2;
-          position: relative;
-          box-shadow: 0 30px 60px rgba(15,45,82,0.2);
-          border: 8px solid white;
+        .hv-hero-avatar {
+          width: 34px; height: 34px;
+          border-radius: 50%;
           object-fit: cover;
-          transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1),
-                      box-shadow 0.45s ease,
-                      border-color 0.35s ease;
+          border: 2.5px solid white;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.12);
         }
-        .hero-image-wrapper:hover .hero-image {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 40px rgba(15,45,82,0.15);
+        .hv-hero-avatar:not(:first-child) { margin-left: -10px; }
+
+        .hv-hero-doctor-info { font-family: 'DM Sans', sans-serif; }
+        .hv-hero-doctor-title { font-weight: 700; font-size: 0.82rem; color: ${NAVY}; }
+        .hv-hero-doctor-sub { font-size: 0.7rem; color: #94a3b8; }
+
+        /* RIGHT: image */
+        .hv-hero-img-wrapper {
+          position: relative;
+          min-height: 480px;
+          margin: 1.5rem 1.5rem 1.5rem 0;
+          border-radius: 16px;
+          overflow: hidden;
+          border: 2px solid rgba(27, 53, 96, 0.15);
+          box-shadow: 0 12px 40px rgba(27, 53, 96, 0.12);
         }
 
-        /* Floating badge top-left */
-        .hero-img-badge-tl {
-          position: absolute; top: 18px; left: 18px; z-index: 20;
-          background: rgba(255,255,255,0.92);
-          backdrop-filter: blur(10px);
-          border-radius: 14px; padding: 8px 14px;
-          display: flex; align-items: center; gap: 8px;
-          box-shadow: 0 8px 24px rgba(15,45,82,0.14);
-          border: 1px solid rgba(20,184,166,0.2);
-          opacity: 0; transform: translate(-8px,-8px) scale(0.9);
-          transition: opacity 0.35s ease 0.05s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.05s;
-          pointer-events: none;
-        }
-        .hero-img-badge-br {
-          position: absolute; bottom: 24px; right: 18px; z-index: 20;
-          background: rgba(255,255,255,0.92);
-          backdrop-filter: blur(10px);
-          border-radius: 14px; padding: 8px 14px;
-          display: flex; align-items: center; gap: 8px;
-          box-shadow: 0 8px 24px rgba(15,45,82,0.14);
-          border: 1px solid rgba(20,184,166,0.2);
-          opacity: 0; transform: translate(8px,8px) scale(0.9);
-          transition: opacity 0.35s ease 0.12s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.12s;
-          pointer-events: none;
-        }
-        .hero-image-wrapper:hover .hero-img-badge-tl,
-        .hero-image-wrapper:hover .hero-img-badge-br {
-          opacity: 1; transform: translate(0,0) scale(1);
-        }
-        .hero-badge-icon {
-          width: 32px; height: 32px; border-radius: 9px;
-          background: linear-gradient(135deg,#14B8A6,#0F766E);
-          display: flex; align-items: center; justify-content: center;
-          color: white; font-size: 0.85rem; flex-shrink: 0;
-        }
-        .hero-badge-num  { font-size: 1rem; font-weight: 700; color: #0F2D52; line-height: 1; }
-        .hero-badge-lbl  { font-size: 0.65rem; color: #64748B; font-weight: 500; }
-
-        /* ── Tablet ── */
-        @media (max-width: 992px) {
-          .hero-layout {
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem 0 0.5rem;
-            gap: 2rem;
-          }
-          .hero-content {
-            margin: 0 auto;
-            align-items: center;
-            max-width: 100%;
-          }
-          .hero-btn-group {
-            justify-content: center;
-          }
-          .hero-image-wrapper {
-            width: 100%;
-            max-width: 520px;
-            margin: 0 auto;
-          }
+        .hv-hero-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          display: block;
         }
 
-        /* ── Mobile ── */
-        @media (max-width: 576px) {
-          .hero-layout {
-            padding: 1.5rem 0 0.5rem;
-            gap: 1.2rem;
+        /* Rating badge on image */
+        .hv-hero-img-badge {
+          position: absolute;
+          bottom: 1.2rem; left: 1.2rem;
+          background: white;
+          border-radius: 12px;
+          padding: 0.7rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .hv-hero-badge-icon {
+          width: 36px; height: 36px;
+          border-radius: 50%;
+          background: #fef3c7;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .hv-hero-badge-num {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 800;
+          font-size: 0.92rem;
+          color: ${NAVY};
+          line-height: 1;
+        }
+
+        .hv-hero-badge-lbl {
+          font-size: 0.65rem;
+          color: #94a3b8;
+          margin-top: 0.1rem;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Stats bar below hero */
+        .hv-stats-bar {
+          background: ${NAVY};
+          max-width: 100%;
+        }
+
+        .hv-stats-bar-inner {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+        }
+
+        .hv-stat-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem 1.2rem;
+          justify-content: center;
+          border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hv-stat-item:last-child { border-right: none; }
+
+        .hv-stat-icon-box {
+          width: 40px; height: 40px;
+          border-radius: 10px;
+          background: rgba(217, 119, 6, 0.15);
+          border: 1px solid rgba(217, 119, 6, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .hv-stat-num {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 800;
+          font-size: 1.3rem;
+          line-height: 1;
+          color: white;
+          letter-spacing: -0.02em;
+        }
+
+        .hv-stat-lbl {
+          font-size: 0.67rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 0.2rem;
+          font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+          .hv-hero-inner {
+            grid-template-columns: 1fr;
+            min-height: auto;
           }
-          .hero-content {
-            text-align: center;
+          .hv-hero-content {
+            padding: 2.5rem 2rem;
           }
-          /* Hero heading responsive */
-          .hero-content h1 {
-            font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
-            margin-bottom: 0.8rem !important;
+          .hv-hero-img-wrapper {
+            min-height: 300px;
+            margin: 0 1.5rem 1.5rem;
           }
-          /* Hero paragraph shorter on mobile */
-          .hero-content p {
-            font-size: 0.88rem !important;
-            line-height: 1.6 !important;
-            margin-bottom: 1.4rem !important;
+          .hv-stats-bar-inner {
+            grid-template-columns: repeat(3, 1fr);
           }
-          /* Buttons full-width stacked */
-          .hero-btn-group {
-            flex-direction: column;
-            gap: 0.6rem !important;
-            align-items: stretch;
+          .hv-stat-item:nth-child(3) { border-right: none; }
+          .hv-stat-item:nth-child(4), .hv-stat-item:nth-child(5) {
+            border-top: 1px solid rgba(255,255,255,0.1);
           }
-          .hero-btn-group button {
-            justify-content: center;
-            padding: 0.75rem 1rem !important;
-            font-size: 0.9rem !important;
-          }
-          /* Image smaller & no clipping border on mobile */
-          .hero-image {
-            border-radius: 20px !important;
-            border-width: 5px !important;
-          }
-          .hero-image-wrapper {
-            max-width: 340px;
-          }
-          /* Hover badges hidden on mobile (touch) */
-          .hero-img-badge-tl,
-          .hero-img-badge-br { display: none; }
-          /* Stat bar compact */
-          .hero-stat-bar {
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 0.6rem !important;
-            padding: 0.9rem 0.75rem !important;
-            border-radius: 14px !important;
-            transform: none !important;
-            margin-top: 0 !important;
-          }
-          .hero-stat-item { gap: 0.5rem !important; }
-          .hero-stat-icon {
-            width: 36px !important; height: 36px !important;
-            border-radius: 9px !important;
-          }
-          .hero-stat-icon i { font-size: 0.9rem !important; }
-          .hero-stat-num { font-size: 1.1rem !important; }
-          .hero-stat-label { font-size: 0.65rem !important; }
-          /* Page bottom padding so content isn't behind mobile bar */
-          body { padding-bottom: 72px; }
+          .hv-stat-item:nth-child(5) { border-right: none; }
+        }
+
+        @media (max-width: 600px) {
+          .hv-hero-content { padding: 2rem 1.25rem; }
+          .hv-hero-img-wrapper { margin: 0 1rem 1rem; }
+          .hv-stats-bar-inner { grid-template-columns: 1fr 1fr; }
+          .hv-stat-item { border-right: 1px solid rgba(255,255,255,0.1); }
+          .hv-stat-item:nth-child(2n) { border-right: none; }
+          .hv-stat-item:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.1); }
+          .hv-stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.1); }
+          .hv-hero-mini-stats { width: 100%; }
+          .hv-mini-stat { flex: 1; }
         }
       `}</style>
 
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 5, flex: 1, display: 'flex', flexDirection: 'column', padding: '0 5%' }}>
+      <section id="home" className="hv-hero">
+        <div className="hv-hero-inner">
+          {/* Left: text */}
+          <div className="hv-hero-content">
+            {/* NABH Badge */}
+            <div className="hv-hero-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              NABH Accredited · Trusted Since 2009
+            </div>
 
-        <div className="hero-layout">
-          <div className="hero-content">
-            <h1 style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-              color: '#0F2D52',
-              fontWeight: 700,
-              lineHeight: 1.2,
-              marginBottom: '1.25rem',
-            }}>
-              Your Health, <br />
-              <span style={{ color: '#14B8A6' }}>Our Priority.</span>
+            {/* Headline */}
+            <h1 className="hv-hero-h1">
+              Your Health,{' '}
+              <span>Our Priority</span>
             </h1>
 
-            <p style={{
-              color: '#64748B', fontSize: '1.05rem', lineHeight: 1.7,
-              marginBottom: '2.5rem', fontWeight: 400,
-            }}>
-              At Haveda Hospital, we combine advanced technology with compassionate care to help you and your family live healthier, happier lives. Our experienced healthcare professionals are dedicated to delivering safe, trusted, and patient-centered medical services with excellence, innovation, and 24/7 support.
+            {/* Description */}
+            <p className="hv-hero-desc">
+              Haveda Hospital is a NABH-accredited multispeciality centre with 500+ beds, 120+ expert doctors across 15+ specialities, and a 24/7 emergency unit — delivering world-class healthcare close to home.
             </p>
 
-            <div className="hero-btn-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <button className="btn-primary" onClick={onBook} style={{ padding: '0.875rem 2rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                🗓️ Book Appointment
+            {/* Mini stats */}
+            <div className="hv-hero-mini-stats">
+              {miniStats.map(s => (
+                <div key={s.label} className="hv-mini-stat">
+                  <div className="hv-mini-stat-num">{s.num}</div>
+                  <div className="hv-mini-stat-lbl">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="hv-hero-ctas">
+              <button className="hv-btn-primary" onClick={onBook}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Book Appointment
               </button>
-              <button className="btn-secondary" onClick={onDoctors} style={{ padding: '0.875rem 2rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                🩺 Find a Doctor
+              <button className="hv-btn-secondary-hero" onClick={onDoctors}>
+                Our Departments
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
+            </div>
+
+            {/* Doctor avatars */}
+            <div className="hv-hero-doctors">
+              <div className="hv-hero-avatars">
+                {[
+                  'https://images.unsplash.com/photo-1612531385446-f7e6d131e1d0?w=40&h=40&fit=crop&auto=format',
+                  'https://images.unsplash.com/photo-1659353888906-adb3e0041693?w=40&h=40&fit=crop&auto=format',
+                  'https://images.unsplash.com/photo-1758691463393-a2aa9900af8a?w=40&h=40&fit=crop&auto=format',
+                ].map((src, i) => (
+                  <img key={i} src={src} alt="doctor" className="hv-hero-avatar" />
+                ))}
+              </div>
+              <div className="hv-hero-doctor-info">
+                <div className="hv-hero-doctor-title">120+ Expert Doctors</div>
+                <div className="hv-hero-doctor-sub">Ready to serve you 24/7</div>
+              </div>
             </div>
           </div>
 
-          <div className="hero-image-wrapper">
-            <div className="hero-circular-glow"></div>
-            <img src={heroImg} alt="Hospital Facility" className="hero-image" />
+          {/* Right: image */}
+          <div className="hv-hero-img-wrapper">
+            <img src={heroImg} alt="Haveda Hospital Facility" className="hv-hero-img" />
+            {/* Rating badge */}
+            <div className="hv-hero-img-badge">
+              <div className="hv-hero-badge-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill={GOLD}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <div className="hv-hero-badge-num">4.9 / 5.0</div>
+                <div className="hv-hero-badge-lbl">50,000+ Patient Reviews</div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Stats bar */}
-        <div className="hero-stat-bar">
-          {stats.map(stat => (
-            <div key={stat.label} className="hero-stat-item">
-              <div className="hero-stat-icon">
-                <i className={stat.icon} style={{ fontSize: '1.2rem', color: '#14B8A6' }} />
-              </div>
-              <div>
-                <div className="hero-stat-num">
-                  <Counter target={stat.value} suffix={stat.suffix} />
+        <div className="hv-stats-bar">
+          <div className="hv-stats-bar-inner">
+            {statsBar.map((s, i) => (
+              <div key={s.label} className="hv-stat-item">
+                <div className="hv-stat-icon-box">{s.icon}</div>
+                <div>
+                  <div className="hv-stat-num"><Counter target={s.value} suffix={s.suffix} /></div>
+                  <div className="hv-stat-lbl">{s.label}</div>
                 </div>
-                <div className="hero-stat-label">{stat.label}</div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
