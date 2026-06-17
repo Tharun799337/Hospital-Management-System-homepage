@@ -119,6 +119,20 @@ export const fetchServices = () =>
     return [];
   });
 
+export const fetchPackages = () =>
+  apiClient.get(`${HP}/packages`).then(r => {
+    return r.data.data || r.data;
+  }).catch((err) => {
+    console.error('fetchPackages error:', err);
+    // Fallback if backend route is not yet reloaded
+    return [
+      { id: 1, name: 'shravan-cbp', title: 'Shravan Complete Blood Picture (CBP)', description: 'A comprehensive blood analysis to check for overall health, infections, and anemia.', price: 499.00, tests_included: 'Hemoglobin, RBC, WBC, Platelets, Hematocrit', icon: 'fas fa-vial' },
+      { id: 2, name: 'basic-health', title: 'Basic Health Checkup', description: 'Essential tests to monitor your basic health vitals and detect early signs of common conditions.', price: 999.00, tests_included: 'CBP, Lipid Profile, Fasting Blood Sugar', icon: 'fas fa-heartbeat' },
+      { id: 3, name: 'advanced-cardiac', title: 'Advanced Cardiac Care', description: 'Thorough screening of the heart for those with a family history of cardiac issues.', price: 2499.00, tests_included: 'ECG, Echo, Lipid Profile, TMT', icon: 'fas fa-heart' }
+    ];
+  });
+
+
 export const fetchDepartments = () =>
   apiClient.get(`${HP}/departments`).then(r => r.data.data || r.data);
 

@@ -310,26 +310,27 @@ const ChatBot: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div initial={{ opacity: 0, y: 40, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="mb-6 w-80 sm:w-[400px] h-[600px] bg-[#F8FFFE] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-[#E2E8F0]">
-            <div className="p-6 text-white flex-shrink-0" style={{ background: 'linear-gradient(135deg, #0F766E 0%, #14B8A6 100%)' }}>
+            className="mb-6 w-80 sm:w-[400px] h-[600px] rounded-3xl shadow-2xl flex flex-col overflow-hidden" style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)' }}>
+            <div className="p-6 text-white flex-shrink-0" style={{ background: 'linear-gradient(135deg, var(--navy), var(--teal))' }}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shadow-lg"><FaRobot className="text-2xl" /></div>
                   <div>
-                    <h3 className="text-xl font-bold">Haveda AI</h3>
+                    <h3 className="text-xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>Haveda AI</h3>
                     <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span><span className="text-xs opacity-80 uppercase tracking-widest">Online</span></div>
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setIsMuted(!isMuted)} className="p-2 bg-white/10 rounded-xl">{isMuted ? <FaVolumeMute /> : <FaVolumeUp />}</button>
-                  <button onClick={() => setIsOpen(false)} className="p-2 bg-white/10 rounded-xl"><FaTimes /></button>
+                  <button onClick={() => setIsMuted(!isMuted)} className="p-2 bg-white/10 rounded-xl hover:bg-white/20 transition-all">{isMuted ? <FaVolumeMute /> : <FaVolumeUp />}</button>
+                  <button onClick={() => setIsOpen(false)} className="p-2 bg-white/10 rounded-xl hover:bg-white/20 transition-all"><FaTimes /></button>
                 </div>
               </div>
             </div>
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F8FFFE] custom-scrollbar">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar" style={{ background: 'var(--bg-primary)' }}>
               {messages.map((msg, i) => (
                 <div key={i} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                  <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-[14px] ${msg.sender === 'user' ? 'bg-[#14B8A6] text-white rounded-tr-none' : 'bg-[#ECFEFF] text-[#0F172A] border border-[#E2E8F0] rounded-tl-none shadow-sm'}`}>
+                  <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-[14px] ${msg.sender === 'user' ? 'rounded-tr-none' : 'border rounded-tl-none shadow-sm'}`}
+                       style={msg.sender === 'user' ? { background: 'var(--teal)', color: 'white' } : { background: 'var(--card-bg)', color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}>
                     {msg.text}
                   </div>
                   {msg.sender === 'bot' && msg.showPicker && (
@@ -338,8 +339,8 @@ const ChatBot: React.FC = () => {
                   {/* Service banner + quick actions after the first bot message */}
                   {msg.sender === 'bot' && i === 0 && quickActionsVisible && (
                     <div className="w-full mt-3">
-                      <div className="text-[12px] text-[#64748B] bg-white border border-[#E2E8F0] rounded-xl px-3 py-2 mb-3 shadow-sm" style={{ lineHeight: 1.5 }}>
-                        <span style={{ color: '#14B8A6', fontWeight: 600 }}>💬 </span>{SERVICE_BANNER}
+                      <div className="text-[12px] bg-white border rounded-xl px-3 py-2 mb-3 shadow-sm" style={{ lineHeight: 1.5, color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}>
+                        <span style={{ color: 'var(--teal)', fontWeight: 600 }}>💬 </span>{SERVICE_BANNER}
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         {QUICK_ACTIONS.map((action) => (
@@ -347,9 +348,9 @@ const ChatBot: React.FC = () => {
                             key={action.label}
                             onClick={() => handleQuickAction(action.message)}
                             className="text-left px-3 py-2.5 rounded-xl border text-[12px] font-semibold transition-all"
-                            style={{ background: '#F8FFFE', borderColor: '#E2E8F0', color: '#0F172A' }}
-                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#14B8A6'; (e.currentTarget as HTMLButtonElement).style.color = 'white'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#14B8A6'; }}
-                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#F8FFFE'; (e.currentTarget as HTMLButtonElement).style.color = '#0F172A'; (e.currentTarget as HTMLButtonElement).style.borderColor = '#E2E8F0'; }}
+                            style={{ background: 'var(--card-bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--teal)'; (e.currentTarget as HTMLButtonElement).style.color = 'white'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--teal)'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--card-bg)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-primary)'; (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-color)'; }}
                           >
                             {action.label}
                           </button>
@@ -359,19 +360,19 @@ const ChatBot: React.FC = () => {
                   )}
                 </div>
               ))}
-              {isProcessing && <div className="flex gap-1 p-2"><div className="w-2 h-2 bg-[#14B8A6] rounded-full animate-bounce"></div><div className="w-2 h-2 bg-[#14B8A6] rounded-full animate-bounce delay-75"></div><div className="w-2 h-2 bg-[#14B8A6] rounded-full animate-bounce delay-150"></div></div>}
+              {isProcessing && <div className="flex gap-1 p-2"><div className="w-2 h-2 rounded-full animate-bounce" style={{ background: 'var(--teal)' }}></div><div className="w-2 h-2 rounded-full animate-bounce delay-75" style={{ background: 'var(--teal)' }}></div><div className="w-2 h-2 rounded-full animate-bounce delay-150" style={{ background: 'var(--teal)' }}></div></div>}
             </div>
-            <div className="p-5 border-t border-[#E2E8F0] bg-white">
+            <div className="p-5 border-t" style={{ borderColor: 'var(--border-color)', background: 'var(--card-bg)' }}>
               <div className="flex gap-2">
-                <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendText()} placeholder="Type a message..." className="flex-1 px-4 py-3 bg-[#F8FFFE] rounded-xl border border-[#E2E8F0] outline-none focus:border-[#14B8A6] transition-all" />
-                <button onClick={isRecording ? () => mediaRecorderRef.current?.stop() : startRecording} className={`p-4 rounded-xl ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-[#F8FFFE] text-[#64748B] border border-[#E2E8F0]'}`}><FaMicrophone /></button>
-                <button onClick={handleSendText} className="p-4 bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] text-white rounded-xl shadow-lg"><FaPaperPlane /></button>
+                <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendText()} placeholder="Type a message..." className="flex-1 px-4 py-3 rounded-xl border outline-none transition-all" style={{ background: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} onFocus={e => (e.currentTarget.style.borderColor = 'var(--teal)')} onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-color)')} />
+                <button onClick={isRecording ? () => mediaRecorderRef.current?.stop() : startRecording} className={`p-4 rounded-xl border transition-all ${isRecording ? 'bg-red-500 text-white animate-pulse border-red-500' : ''}`} style={!isRecording ? { background: 'var(--bg-primary)', color: 'var(--text-secondary)', borderColor: 'var(--border-color)' } : {}}><FaMicrophone /></button>
+                <button onClick={handleSendText} className="p-4 text-white rounded-xl shadow-lg transition-transform hover:scale-105" style={{ background: 'linear-gradient(135deg, var(--teal), var(--navy))' }}><FaPaperPlane /></button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => { setIsOpen(!isOpen); if (!isOpen) setQuickActionsVisible(messages.length <= 1); }} className="w-16 h-16 bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-white cursor-move"><FaRobot className="text-3xl" /></motion.button>
+      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => { setIsOpen(!isOpen); if (!isOpen) setQuickActionsVisible(messages.length <= 1); }} className="w-16 h-16 text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-white cursor-move" style={{ background: 'linear-gradient(135deg, var(--teal), var(--navy))' }}><FaRobot className="text-3xl" /></motion.button>
     </motion.div>
   );
 };

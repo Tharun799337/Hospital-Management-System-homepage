@@ -41,14 +41,17 @@ interface HeroProps {
 }
 
 export default function HeroSection({ onBook, onDoctors }: HeroProps) {
-  const miniStats = [
-    { num: '500+', label: 'Beds' },
-    { num: '120+', label: 'Specialists' },
-    { num: '15', label: 'Depts' },
-    { num: '355k+', label: 'Patients' },
-  ];
+
 
   const statsBar = [
+    { value: 500, label: 'Hospital Beds', suffix: '+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M3 7v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7" />
+        <path d="M3 13h18" />
+        <path d="M8 7v6" />
+        <path d="M16 7v6" />
+      </svg>
+    )},
     { value: 25, label: 'Years of Excellence', suffix: '+', icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
         <path d="M8 21h8M12 17v4M7 4H4v5a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5V4h-3"/>
@@ -88,9 +91,9 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
   return (
     <>
       <style>{`
-        /* Hero section padding for sticky header (topbar ~34px + nav ~60px = ~94px) */
-        .hv-hero {
-          padding-top: 94px;
+        /* Hero section padding for sticky header (measured header = 114.625px) */
+        section.hv-hero {
+          padding-top: 140px !important;
           background: #f8f9fc;
           overflow: hidden;
         }
@@ -108,7 +111,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-hero-content {
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           padding: 3.5rem 3rem 3.5rem 4rem;
         }
 
@@ -118,7 +121,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           gap: 0.4rem;
           background: #fef3c7;
           color: ${GOLD};
-          font-size: 0.72rem;
+          font-size: 0.82rem;
           font-weight: 700;
           padding: 0.3rem 0.85rem;
           border-radius: 999px;
@@ -132,7 +135,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-hero-h1 {
           font-family: 'Outfit', sans-serif;
           font-weight: 800;
-          font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+          font-size: clamp(2rem, 3.5vw, 2.8rem);
           line-height: 1.15;
           color: ${NAVY};
           margin-bottom: 1.1rem;
@@ -145,7 +148,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
 
         .hv-hero-desc {
           color: #475569;
-          font-size: 0.93rem;
+          font-size: 1.05rem;
           line-height: 1.8;
           margin-bottom: 1.4rem;
           max-width: 420px;
@@ -174,13 +177,13 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-mini-stat-num {
           font-family: 'Outfit', sans-serif;
           font-weight: 800;
-          font-size: 1.15rem;
+          font-size: 1.3rem;
           color: ${NAVY};
           line-height: 1;
         }
 
         .hv-mini-stat-lbl {
-          font-size: 0.63rem;
+          font-size: 0.72rem;
           color: #94a3b8;
           font-weight: 600;
           margin-top: 0.18rem;
@@ -203,7 +206,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           padding: 0.75rem 1.5rem;
           border-radius: 9px;
           font-weight: 700;
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
@@ -325,7 +328,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           margin: 0 auto;
           padding: 0 1.5rem;
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(6, 1fr);
         }
 
         .hv-stat-item {
@@ -352,14 +355,14 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-stat-num {
           font-family: 'Outfit', sans-serif;
           font-weight: 800;
-          font-size: 1.3rem;
+          font-size: 1.45rem;
           line-height: 1;
           color: white;
           letter-spacing: -0.02em;
         }
 
         .hv-stat-lbl {
-          font-size: 0.67rem;
+          font-size: 0.78rem;
           color: rgba(255, 255, 255, 0.6);
           margin-top: 0.2rem;
           font-family: 'DM Sans', sans-serif;
@@ -381,11 +384,10 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           .hv-stats-bar-inner {
             grid-template-columns: repeat(3, 1fr);
           }
-          .hv-stat-item:nth-child(3) { border-right: none; }
-          .hv-stat-item:nth-child(4), .hv-stat-item:nth-child(5) {
+          .hv-stat-item:nth-child(3n) { border-right: none; }
+          .hv-stat-item:nth-child(n+4) {
             border-top: 1px solid rgba(255,255,255,0.1);
           }
-          .hv-stat-item:nth-child(5) { border-right: none; }
         }
 
         @media (max-width: 600px) {
@@ -395,7 +397,6 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           .hv-stat-item { border-right: 1px solid rgba(255,255,255,0.1); }
           .hv-stat-item:nth-child(2n) { border-right: none; }
           .hv-stat-item:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.1); }
-          .hv-stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.1); }
           .hv-hero-mini-stats { width: 100%; }
           .hv-mini-stat { flex: 1; }
         }
@@ -422,15 +423,6 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
               Haveda Hospital is a NABH-accredited multispeciality centre with 500+ beds, 120+ expert doctors across 15+ specialities, and a 24/7 emergency unit — delivering world-class healthcare close to home.
             </p>
 
-            {/* Mini stats */}
-            <div className="hv-hero-mini-stats">
-              {miniStats.map(s => (
-                <div key={s.label} className="hv-mini-stat">
-                  <div className="hv-mini-stat-num">{s.num}</div>
-                  <div className="hv-mini-stat-lbl">{s.label}</div>
-                </div>
-              ))}
-            </div>
 
             {/* CTAs */}
             <div className="hv-hero-ctas">

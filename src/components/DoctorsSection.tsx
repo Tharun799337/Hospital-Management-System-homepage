@@ -305,10 +305,10 @@ export default function DoctorsSection({ onBook }: DoctorsSectionProps) {
   };
 
   const renderDoctor = (doc: Doctor, i: number) => (
-    <div key={doc.id} className="doctor-scroll-item" style={{ flex: '0 0 auto', width: '180px', scrollSnapAlign: 'center', padding: '0.5rem 0' }}>
+    <div key={doc.id} className="doctor-scroll-item" style={{ flex: '0 0 auto', width: '260px', scrollSnapAlign: 'center', padding: '0.5rem 0' }}>
       <AnimatedCard delay={i * 60}>
         <div className="doctor-card" style={{ height: '100%', transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}>
-          <div style={{ position: 'relative', height: '110px', overflow: 'hidden', background: 'var(--navy)', cursor: 'pointer' }}
+          <div style={{ position: 'relative', height: '170px', overflow: 'hidden', background: 'var(--navy)', cursor: 'pointer' }}
             onClick={() => setSelectedDoctor(doc)}>
             {doc.photo ? (
               <img src={doc.photo}
@@ -331,48 +331,48 @@ export default function DoctorsSection({ onBook }: DoctorsSectionProps) {
               </span>
             </div>
           </div>
-          <div style={{ padding: '0.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.1rem', lineHeight: 1.2 }}>
+          <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.2rem', lineHeight: 1.3 }}>
               {formatDoctorName(doc.name)}
             </h3>
-            <p style={{ color: 'var(--teal)', fontSize: '0.65rem', fontWeight: 600, marginBottom: '0.3rem' }}>{doc.specialization}</p>
+            <p style={{ color: 'var(--teal)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.4rem' }}>{doc.specialization}</p>
 
-            <div style={{ marginBottom: '0.4rem', transform: 'scale(0.85)', transformOrigin: 'left center' }}>
+            <div style={{ marginBottom: '0.5rem' }}>
               <StarRating rating={doc.rating} />
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.2rem', marginBottom: '0.4rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.5rem' }}>
               {doc.qualification && (
-                <span style={{ fontSize: '0.6rem', background: 'rgba(6,182,212,0.06)', color: '#06B6D4', padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid rgba(6,182,212,0.1)', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                  <i className="fas fa-graduation-cap" style={{ fontSize: '0.55rem' }}></i>
+                <span style={{ fontSize: '0.72rem', background: 'rgba(6,182,212,0.08)', color: '#06B6D4', padding: '0.2rem 0.6rem', borderRadius: '6px', border: '1px solid rgba(6,182,212,0.15)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}>
+                  <i className="fas fa-graduation-cap" style={{ fontSize: '0.65rem' }}></i>
                   {doc.qualification}
                 </span>
               )}
-              <span style={{ fontSize: '0.6rem', background: 'rgba(200,169,81,0.06)', color: 'var(--gold)', padding: '0.1rem 0.4rem', borderRadius: '4px', border: '1px solid rgba(200,169,81,0.1)', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                <i className="fas fa-award" style={{ fontSize: '0.55rem' }}></i>
-                {doc.experience}y
+              <span style={{ fontSize: '0.72rem', background: 'rgba(200,169,81,0.08)', color: 'var(--gold)', padding: '0.2rem 0.6rem', borderRadius: '6px', border: '1px solid rgba(200,169,81,0.15)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}>
+                <i className="fas fa-award" style={{ fontSize: '0.65rem' }}></i>
+                {doc.experience} yrs
               </span>
             </div>
 
-            <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.6rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>
-                <i className="fas fa-calendar-day" style={{ color: 'var(--teal)', width: '10px' }}></i>
+            <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '0.6rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+                <i className="fas fa-calendar-day" style={{ color: 'var(--teal)', width: '12px' }}></i>
                 {doc.available_days}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.6rem', color: 'var(--text-muted)' }}>
-                <i className="fas fa-clock" style={{ color: 'var(--teal)', width: '10px' }}></i>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                <i className="fas fa-clock" style={{ color: 'var(--teal)', width: '12px' }}></i>
                 {doc.timings}
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.6rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
               <button className="btn-primary" onClick={() => onBook(doc)}
-                style={{ flex: 1.5, justifyContent: 'center', padding: '0.4rem', fontSize: '0.65rem', borderRadius: '6px' }}>
-                <i className="fas fa-calendar-check" style={{ marginRight: '0.2rem' }}></i>Book
+                style={{ flex: 1.5, justifyContent: 'center', padding: '0.55rem', fontSize: '0.78rem', borderRadius: '8px' }}>
+                <i className="fas fa-calendar-check" style={{ marginRight: '0.3rem' }}></i>Book
               </button>
               <button onClick={() => setSelectedDoctor(doc)} style={{
-                flex: 1, padding: '0.4rem', borderRadius: '6px', border: '1.5px solid var(--border-color)',
-                background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.65rem',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.2rem', fontWeight: 600, transition: 'all 0.2s'
+                flex: 1, padding: '0.55rem', borderRadius: '8px', border: '1.5px solid var(--border-color)',
+                background: 'transparent', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.78rem',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem', fontWeight: 600, transition: 'all 0.2s'
               }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--teal)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--teal)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-color)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-secondary)'; }}>
@@ -512,7 +512,7 @@ export default function DoctorsSection({ onBook }: DoctorsSectionProps) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingBottom: '1.5rem' }}>
             <div className="horizontal-scroll" style={{ display: 'flex', overflowX: 'auto', gap: '1rem', padding: '0.5rem', scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}>
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} style={{ flex: '0 0 auto', width: '180px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-color)', scrollSnapAlign: 'center', background: 'var(--card-bg)' }}>
+                <div key={i} style={{ flex: '0 0 auto', width: '260px', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-color)', scrollSnapAlign: 'center', background: 'var(--card-bg)' }}>
                   <div className="skeleton" style={{ height: '110px' }}></div>
                   <div style={{ padding: '0.75rem' }}>
                     <div className="skeleton" style={{ height: '14px', marginBottom: '0.4rem' }}></div>

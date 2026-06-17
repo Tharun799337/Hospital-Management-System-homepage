@@ -80,7 +80,7 @@ export default function ComplaintSuggestion({ onClose }: Props) {
         .csm-header {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 22px;
-          background: linear-gradient(135deg, #0F2D52 0%, #1a4a7a 100%);
+          background: linear-gradient(135deg, var(--navy) 0%, #1a4a7a 100%);
           flex-shrink: 0;
         }
         .csm-header-left { display: flex; align-items: center; gap: 12px; }
@@ -88,7 +88,7 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           width: 38px; height: 38px; border-radius: 10px;
           background: rgba(255,255,255,0.12);
           display: flex; align-items: center; justify-content: center;
-          font-size: 1.1rem; color: #14B8A6;
+          font-size: 1.1rem; color: var(--teal);
         }
         .csm-header-title { font-size: 1rem; font-weight: 700; color: #fff; margin: 0; }
         .csm-header-sub   { font-size: 0.7rem; color: rgba(255,255,255,0.6); margin: 2px 0 0; }
@@ -123,23 +123,23 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
         }
-        .csm-sb-title { font-size: 0.75rem; font-weight: 700; color: #0F2D52; }
+        .csm-sb-title { font-size: 0.75rem; font-weight: 700; color: var(--navy); }
         .csm-sb-desc  { font-size: 0.65rem; color: #64748B; line-height: 1.4; }
         .csm-how {
           margin-top: 4px; background: #fff; border-radius: 12px;
           padding: 10px 12px; border: 1px solid #E2E8F0;
           box-shadow: 0 2px 8px rgba(15,45,82,0.05);
         }
-        .csm-how-title { font-size: 0.72rem; font-weight: 700; color: #0F2D52; margin-bottom: 8px; }
+        .csm-how-title { font-size: 0.72rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
         .csm-step { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
         .csm-step-dot {
           width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
-          background: linear-gradient(135deg,#14B8A6,#0F766E);
+          background: linear-gradient(135deg, var(--teal), var(--navy));
           color: #fff; font-size: 0.6rem; font-weight: 700;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 2px 6px rgba(20,184,166,0.35);
+          box-shadow: 0 2px 6px rgba(106,205,193,0.35);
         }
-        .csm-step-text { font-size: 0.68rem; color: #0F2D52; font-weight: 500; }
+        .csm-step-text { font-size: 0.68rem; color: var(--navy); font-weight: 500; }
 
         /* ── FORM AREA ── */
         .csm-form-area {
@@ -156,7 +156,7 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           background: #fff; color: #94A3B8;
           transition: all 0.22s;
         }
-        .csm-tab:hover { border-color: #14B8A6; color: #14B8A6; }
+        .csm-tab:hover { border-color: var(--teal); color: var(--teal); }
         .csm-tab.active { color: #fff; border-color: transparent; box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
 
         /* Anon row */
@@ -166,27 +166,27 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           border-radius: 9px; padding: 8px 12px; margin-bottom: 10px; cursor: pointer;
         }
         .csm-anon-check {
-          width: 16px; height: 16px; accent-color: #14B8A6; cursor: pointer; flex-shrink: 0;
+          width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; flex-shrink: 0;
         }
-        .csm-anon-label { font-size: 0.76rem; font-weight: 600; color: #0F2D52; cursor: pointer; }
+        .csm-anon-label { font-size: 0.76rem; font-weight: 600; color: var(--navy); cursor: pointer; }
 
         /* Field groups */
         .csm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         .csm-field { margin-bottom: 10px; }
         .csm-label {
           display: block; font-size: 0.85rem; font-weight: 700;
-          color: #0F2D52; margin-bottom: 6px;
+          color: var(--navy); margin-bottom: 6px;
           display: flex; align-items: center; gap: 6px;
         }
-        .csm-label i { font-size: 0.8rem; color: #14B8A6; }
+        .csm-label i { font-size: 0.8rem; color: var(--teal); }
         .csm-input {
           width: 100%; padding: 10px 14px; box-sizing: border-box;
           border: 1.5px solid #E2E8F0; border-radius: 9px;
-          background: #F8FFFE; color: #0F2D52;
+          background: #F8FFFE; color: var(--navy);
           font-size: 0.95rem; font-weight: 500; font-family: 'Poppins', sans-serif;
           outline: none; transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .csm-input:focus { border-color: #14B8A6; box-shadow: 0 0 0 3px rgba(20,184,166,0.12); background: #fff; }
+        .csm-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(106,205,193,0.12); background: #fff; }
         .csm-input::placeholder { color: #64748B; opacity: 1; }
         select.csm-input { cursor: pointer; }
         textarea.csm-input { resize: none; min-height: 68px; }
@@ -224,11 +224,11 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           0% { transform: scale(0); opacity: 0; }
           100% { transform: scale(1); opacity: 1; }
         }
-        .csm-success h3 { font-size: 1.25rem; font-weight: 700; color: #0F2D52; margin: 0 0 6px; }
+        .csm-success h3 { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin: 0 0 6px; }
         .csm-success p  { font-size: 0.8rem; color: #64748B; margin: 0 0 1.2rem; line-height: 1.6; }
         .csm-ref {
           background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 9px;
-          padding: 8px 16px; font-size: 0.75rem; color: #0F766E; font-weight: 600;
+          padding: 8px 16px; font-size: 0.75rem; color: var(--teal); font-weight: 600;
           margin-bottom: 1.2rem; letter-spacing: 0.5px;
         }
         .csm-success-btns { display: flex; gap: 10px; }
@@ -237,12 +237,12 @@ export default function ComplaintSuggestion({ onClose }: Props) {
           cursor: pointer; border: 1.5px solid #E2E8F0; background: #fff; color: #64748B;
           transition: all 0.2s;
         }
-        .csm-btn-outline:hover { border-color: #14B8A6; color: #14B8A6; }
+        .csm-btn-outline:hover { border-color: var(--teal); color: var(--teal); }
         .csm-btn-solid {
           padding: 9px 20px; border-radius: 9px; font-size: 0.8rem; font-weight: 700;
           cursor: pointer; border: none; color: #fff;
-          background: linear-gradient(135deg,#14B8A6,#0F766E);
-          box-shadow: 0 4px 12px rgba(20,184,166,0.3); transition: all 0.2s;
+          background: linear-gradient(135deg, var(--teal), var(--navy));
+          box-shadow: 0 4px 12px rgba(106,205,193,0.3); transition: all 0.2s;
         }
         .csm-btn-solid:hover { opacity: 0.9; transform: translateY(-1px); }
 
@@ -299,7 +299,7 @@ export default function ComplaintSuggestion({ onClose }: Props) {
                   <label className="csm-anon">
                     <input type="checkbox" name="anonymous" checked={form.anonymous}
                       onChange={handleChange} className="csm-anon-check" />
-                    <i className="fas fa-user-secret" style={{ color: '#14B8A6', fontSize: '0.85rem' }} />
+                    <i className="fas fa-user-secret" style={{ color: 'var(--teal)', fontSize: '0.85rem' }} />
                     <span className="csm-anon-label">Submit Anonymously</span>
                   </label>
 

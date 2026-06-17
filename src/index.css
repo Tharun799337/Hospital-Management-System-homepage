@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -16,10 +16,10 @@
   --navy: #163B65;
 
   --teal: #6acdc1;
-  --teal-light: #DFF7F4;
+  --teal-light: #f2fcfbf9;
   --teal-dark: #3a5c5a;
 
-  --bg-primary: #f8f9fc;
+  --bg-primary: #f7f8fae8;
   --bg-secondary: #f8f9fc;
   --bg-tertiary: #f8f9fc;
   --bg-section: #f8f9fc;
@@ -79,7 +79,7 @@ html {
 
 body {
   font-family: 'DM Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 1rem;
+  font-size: 1.06rem;
   line-height: 1.75;
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -365,7 +365,7 @@ h4 {
 /* SECTION STYLES */
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   color: var(--text-primary);
   font-weight: 700;
   text-align: center;
@@ -376,7 +376,7 @@ h4 {
 .section-subtitle {
   color: var(--text-muted);
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   margin-bottom: 3rem;
   line-height: 1.7;
 }
@@ -1335,7 +1335,7 @@ section {
   }
 
   .compliment-feedback {
-    font-size: 0.8rem !important;
+    font-size: 0.9rem !important;
   }
 
   .section-title {

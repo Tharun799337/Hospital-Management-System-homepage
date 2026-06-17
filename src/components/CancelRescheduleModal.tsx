@@ -257,8 +257,8 @@ export default function CancelRescheduleModal({ onClose }: Props) {
           background: #fff; color: #334155;
           transition: all 0.18s ease;
         }
-        .crm-slot:hover:not(:disabled) { border-color: #14B8A6; color: #14B8A6; background: #F0FDFA; }
-        .crm-slot.selected { background: #14B8A6; border-color: #14B8A6; color: #fff; }
+        .crm-slot:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); background: #F0FDFA; }
+        .crm-slot.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
         .crm-slot:disabled { opacity: 0.4; cursor: not-allowed; }
         .crm-cal-day {
           aspect-ratio:1; border-radius: 8px; border: none;
@@ -266,9 +266,9 @@ export default function CancelRescheduleModal({ onClose }: Props) {
           cursor: pointer; transition: all 0.15s;
           display: flex; align-items: center; justify-content: center;
         }
-        .crm-cal-day:hover:not(:disabled) { background: #EFF; color: #14B8A6; }
-        .crm-cal-day.selected { background: #14B8A6; color: #fff; font-weight: 700; }
-        .crm-cal-day.today-day { border: 2px solid #14B8A6; color: #14B8A6; }
+        .crm-cal-day:hover:not(:disabled) { background: #EFF; color: var(--teal); }
+        .crm-cal-day.selected { background: var(--teal); color: #fff; font-weight: 700; }
+        .crm-cal-day.today-day { border: 2px solid var(--teal); color: var(--teal); }
         .crm-cal-day:disabled { opacity: 0.3; cursor: not-allowed; }
       `}</style>
 
@@ -280,7 +280,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
             padding: '1.5rem 1.75rem 1.25rem',
             borderBottom: '1px solid #F1F5F9',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            background: 'linear-gradient(135deg, #F59E0B 0%, #B45309 100%)',
+            background: 'linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%)',
             borderRadius: '24px 24px 0 0',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -326,14 +326,14 @@ export default function CancelRescheduleModal({ onClose }: Props) {
               <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                 <div style={{
                   width: 72, height: 72, borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #14B8A6, #0F766E)',
+                  background: 'linear-gradient(135deg, var(--teal), #0F766E)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   margin: '0 auto 1.25rem',
                   boxShadow: '0 8px 24px rgba(20,184,166,0.3)',
                 }}>
                   <i className="fas fa-check" style={{ fontSize: '1.8rem', color: '#fff' }} />
                 </div>
-                <h3 style={{ color: '#0F2D52', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+                <h3 style={{ color: 'var(--navy)', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.5rem' }}>
                   Appointment Rescheduled!
                 </h3>
                 <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
@@ -342,7 +342,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 <button
                   onClick={onClose}
                   style={{
-                    background: 'linear-gradient(135deg, #14B8A6, #0F766E)',
+                    background: 'linear-gradient(135deg, var(--teal), #0F766E)',
                     color: '#fff', border: 'none', borderRadius: '50px',
                     padding: '0.75rem 2rem', fontSize: '0.9rem', fontWeight: 600,
                     cursor: 'pointer', boxShadow: '0 4px 14px rgba(20,184,166,0.3)',
@@ -359,7 +359,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 <button
                   onClick={() => { setIsRescheduling(false); setSelectedDate(''); setSelectedSlot(''); }}
                   style={{
-                    background: 'none', border: 'none', color: '#14B8A6',
+                    background: 'none', border: 'none', color: 'var(--teal)',
                     fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.25rem', padding: 0,
                   }}
@@ -375,7 +375,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 }}>
                   <div style={{
                     width: 44, height: 44, borderRadius: '10px',
-                    background: 'linear-gradient(135deg, #14B8A6, #0F766E)',
+                    background: 'linear-gradient(135deg, var(--teal), #0F766E)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
                     <i className="fas fa-user-md" style={{ color: '#fff', fontSize: '1.1rem' }} />
@@ -398,7 +398,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                         border: '1px solid #E2E8F0',
                         fontSize: '0.95rem',
                         fontWeight: 700,
-                        color: '#0F2D52',
+                        color: 'var(--navy)',
                         background: '#fff',
                         marginBottom: '0.2rem',
                         cursor: 'pointer'
@@ -410,7 +410,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                         </option>
                       ))}
                     </select>
-                    <div style={{ fontSize: '0.8rem', color: '#14B8A6', fontWeight: 500 }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--teal)', fontWeight: 500 }}>
                       {reschedulingDoctor?.specialization}
                     </div>
                   </div>
@@ -423,7 +423,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                       style={{ background: 'none', border: '1px solid #E2E8F0', borderRadius: '8px', width: 30, height: 30, cursor: 'pointer', color: '#64748B' }}>
                       <i className="fas fa-chevron-left" style={{ fontSize: '0.7rem' }} />
                     </button>
-                    <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#0F2D52' }}>
+                    <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--navy)' }}>
                       {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
                     </span>
                     <button onClick={() => setCurrentMonth(new Date(year, month + 1, 1))}
@@ -458,10 +458,10 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 {selectedDate && (
                   <div style={{ marginBottom: '1.25rem' }}>
                     <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569', display: 'block', marginBottom: '0.6rem' }}>
-                      <i className="fas fa-clock" style={{ marginRight: '0.4rem', color: '#14B8A6' }} />
+                      <i className="fas fa-clock" style={{ marginRight: '0.4rem', color: 'var(--teal)' }} />
                       Available Time Slots
                       {timeLeft !== null && (
-                        <span style={{ marginLeft: '0.75rem', background: timeLeft <= 60 ? '#FEF2F2' : '#F0FDFA', color: timeLeft <= 60 ? '#EF4444' : '#14B8A6', padding: '2px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700 }}>
+                        <span style={{ marginLeft: '0.75rem', background: timeLeft <= 60 ? '#FEF2F2' : '#F0FDFA', color: timeLeft <= 60 ? '#EF4444' : 'var(--teal)', padding: '2px 10px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700 }}>
                           {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')} left
                         </span>
                       )}
@@ -497,7 +497,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                   style={{
                     width: '100%', padding: '0.85rem',
                     background: selectedDate && selectedSlot
-                      ? 'linear-gradient(135deg, #14B8A6, #0F766E)'
+                      ? 'linear-gradient(135deg, var(--teal), #0F766E)'
                       : '#E2E8F0',
                     color: selectedDate && selectedSlot ? '#fff' : '#94A3B8',
                     border: 'none', borderRadius: '12px',
@@ -522,7 +522,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div className="form-group">
                     <label>
-                      <i className="fas fa-phone" style={{ marginRight: '0.35rem', color: '#14B8A6' }} />
+                      <i className="fas fa-phone" style={{ marginRight: '0.35rem', color: 'var(--teal)' }} />
                       Phone Number
                     </label>
                     <input
@@ -535,7 +535,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                   </div>
                   <div className="form-group">
                     <label>
-                      <i className="fas fa-calendar-alt" style={{ marginRight: '0.35rem', color: '#14B8A6' }} />
+                      <i className="fas fa-calendar-alt" style={{ marginRight: '0.35rem', color: 'var(--teal)' }} />
                       Appointment Date
                     </label>
                     <input
@@ -549,7 +549,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 {otpSent && !isVerified && (
                   <div className="form-group" style={{ marginBottom: '1.25rem' }}>
                     <label>
-                      <i className="fas fa-key" style={{ marginRight: '0.35rem', color: '#14B8A6' }} />
+                      <i className="fas fa-key" style={{ marginRight: '0.35rem', color: 'var(--teal)' }} />
                       Enter WhatsApp OTP
                     </label>
                     <input
@@ -568,7 +568,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                   disabled={searching}
                   style={{
                     width: '100%', padding: '0.75rem',
-                    background: 'linear-gradient(135deg, #14B8A6, #0F766E)',
+                    background: 'linear-gradient(135deg, var(--teal), #0F766E)',
                     color: '#fff', border: 'none', borderRadius: '12px',
                     fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
@@ -589,7 +589,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 {searchResult.length > 0 && (
                   <div>
                     <h4 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569', marginBottom: '0.75rem' }}>
-                      <i className="fas fa-list" style={{ marginRight: '0.4rem', color: '#14B8A6' }} />
+                      <i className="fas fa-list" style={{ marginRight: '0.4rem', color: 'var(--teal)' }} />
                       Found {searchResult.length} Appointment{searchResult.length > 1 ? 's' : ''}
                     </h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -602,15 +602,15 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                         }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
                             <div>
-                              <div style={{ fontWeight: 700, color: '#0F2D52', fontSize: '0.95rem' }}>
+                              <div style={{ fontWeight: 700, color: 'var(--navy)', fontSize: '0.95rem' }}>
                                 {appt.doctor_name}
                               </div>
                               <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '2px' }}>
-                                <i className="fas fa-calendar-alt" style={{ marginRight: '0.3rem', color: '#14B8A6' }} />{appt.date} <span style={{ margin: '0 4px' }}>•</span>
-                                <i className="fas fa-clock" style={{ marginRight: '0.3rem', color: '#14B8A6' }} />{appt.time}
+                                <i className="fas fa-calendar-alt" style={{ marginRight: '0.3rem', color: 'var(--teal)' }} />{appt.date} <span style={{ margin: '0 4px' }}>•</span>
+                                <i className="fas fa-clock" style={{ marginRight: '0.3rem', color: 'var(--teal)' }} />{appt.time}
                               </div>
                               <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginTop: '2px' }}>
-                                Ref: <span style={{ color: '#14B8A6', fontWeight: 600 }}>{appt.reference_number}</span>
+                                Ref: <span style={{ color: 'var(--teal)', fontWeight: 600 }}>{appt.reference_number}</span>
                               </div>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', alignItems: 'flex-end' }}>
@@ -628,14 +628,14 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                                   }
                                 }}
                                 style={{
-                                  background: '#F0FDFA', border: '1.5px solid #14B8A6',
-                                  color: '#14B8A6', borderRadius: '8px',
+                                  background: '#F0FDFA', border: '1.5px solid var(--teal)',
+                                  color: 'var(--teal)', borderRadius: '8px',
                                   padding: '5px 14px', fontSize: '0.78rem', fontWeight: 600,
                                   cursor: 'pointer', whiteSpace: 'nowrap',
                                   transition: 'all 0.18s',
                                 }}
-                                onMouseEnter={e => { e.currentTarget.style.background = '#14B8A6'; e.currentTarget.style.color = '#fff'; }}
-                                onMouseLeave={e => { e.currentTarget.style.background = '#F0FDFA'; e.currentTarget.style.color = '#14B8A6'; }}
+                                onMouseEnter={e => { e.currentTarget.style.background = 'var(--teal)'; e.currentTarget.style.color = '#fff'; }}
+                                onMouseLeave={e => { e.currentTarget.style.background = '#F0FDFA'; e.currentTarget.style.color = 'var(--teal)'; }}
                               >
                                 <i className="fas fa-calendar-alt" style={{ marginRight: '0.3rem' }} />
                                 Reschedule
@@ -690,7 +690,7 @@ export default function CancelRescheduleModal({ onClose }: Props) {
                 <i className="fas fa-exclamation-triangle" style={{ color: '#EF4444', fontSize: '1rem' }} />
               </div>
               <div>
-                <h4 style={{ color: '#0F2D52', fontWeight: 700, fontSize: '1rem', margin: 0 }}>Cancel Appointment</h4>
+                <h4 style={{ color: 'var(--navy)', fontWeight: 700, fontSize: '1rem', margin: 0 }}>Cancel Appointment</h4>
                 <p style={{ color: '#94A3B8', fontSize: '0.78rem', margin: 0 }}>Please provide a reason</p>
               </div>
             </div>

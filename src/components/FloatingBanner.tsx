@@ -16,9 +16,9 @@ export default function FloatingBanner({ onBook, onFindDoctor, onCancel, onFeedb
 
   const actions = [
     { label: 'Book Appointment', icon: 'fas fa-calendar-plus', color: '#0F766E', bg: 'linear-gradient(135deg,#14B8A6,#0F766E)', onClick: onBook },
-    { label: 'Find Doctor',      icon: 'far fa-user',           color: '#2563EB', bg: 'linear-gradient(135deg,#3B82F6,#2563EB)', onClick: onFindDoctor },
-    { label: 'Cancel/Reschedule',icon: 'far fa-file-alt',       color: '#B45309', bg: 'linear-gradient(135deg,#F59E0B,#B45309)', onClick: handleCancelClick },
-    { label: 'Feedback',         icon: 'far fa-star',           color: '#BE185D', bg: 'linear-gradient(135deg,#EC4899,#BE185D)', onClick: onFeedback },
+    { label: 'Find Doctor', icon: 'far fa-user', color: '#2563EB', bg: 'linear-gradient(135deg,#3B82F6,#2563EB)', onClick: onFindDoctor },
+    { label: 'Cancel/Reschedule', icon: 'far fa-file-alt', color: '#B45309', bg: 'linear-gradient(135deg,#F59E0B,#B45309)', onClick: handleCancelClick },
+    { label: 'Feedback', icon: 'far fa-star', color: '#BE185D', bg: 'linear-gradient(135deg,#EC4899,#BE185D)', onClick: onFeedback },
   ];
 
   return (
@@ -33,27 +33,30 @@ export default function FloatingBanner({ onBook, onFindDoctor, onCancel, onFeedb
           z-index: 9998;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 12px;
+          align-items: flex-end;
         }
         .fb-desktop-btn {
           background: white;
-          padding: 11px 18px;
+          padding: 8px;
           border-radius: 14px;
           box-shadow: 0 6px 20px rgba(0,0,0,0.08);
           display: flex;
           align-items: center;
-          gap: 10px;
           cursor: pointer;
           font-weight: 600;
           font-size: 0.85rem;
           border: 1px solid #E2E8F0;
-          transition: all 0.22s;
+          transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
           white-space: nowrap;
-          min-width: 180px;
           font-family: 'Poppins', sans-serif;
+          max-width: 50px;
+          overflow: hidden;
         }
         .fb-desktop-btn:hover {
-          transform: translateX(-4px) scale(1.02);
+          max-width: 250px;
+          padding-right: 18px;
+          transform: translateX(-4px);
           box-shadow: 0 10px 28px rgba(0,0,0,0.12);
           border-color: transparent;
         }
@@ -61,6 +64,15 @@ export default function FloatingBanner({ onBook, onFindDoctor, onCancel, onFeedb
           width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
           color: white; font-size: 0.9rem;
+        }
+        .fb-desktop-label {
+          opacity: 0;
+          margin-left: 0;
+          transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fb-desktop-btn:hover .fb-desktop-label {
+          opacity: 1;
+          margin-left: 10px;
         }
 
         /* ── Mobile bottom bar ── */
@@ -132,7 +144,7 @@ export default function FloatingBanner({ onBook, onFindDoctor, onCancel, onFeedb
             <div className="fb-desktop-icon" style={{ background: a.bg }}>
               <i className={a.icon} />
             </div>
-            {a.label}
+            <span className="fb-desktop-label">{a.label}</span>
           </div>
         ))}
       </div>
@@ -147,8 +159,8 @@ export default function FloatingBanner({ onBook, onFindDoctor, onCancel, onFeedb
               </div>
               <span className="fb-mobile-label">
                 {a.label === 'Book Appointment' ? 'Book' :
-                 a.label === 'Find Doctor' ? 'Doctors' :
-                 a.label === 'Cancel/Reschedule' ? 'Cancel' : 'Feedback'}
+                  a.label === 'Find Doctor' ? 'Doctors' :
+                    a.label === 'Cancel/Reschedule' ? 'Cancel' : 'Feedback'}
               </span>
             </button>
           ))}

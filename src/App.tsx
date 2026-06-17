@@ -18,6 +18,7 @@ import FeaturesSection from './components/FeaturesSection';
 import Footer, { BackToTop, ProgressBar } from './components/FooterAndMisc';
 import ChatBot from './components/ChatBot';
 import FloatingBanner from './components/FloatingBanner';
+import HealthPackagesSection from './components/HealthPackagesSection';
 import { Doctor } from './api';
 
 function AppContent() {
@@ -77,6 +78,9 @@ function AppContent() {
 
         {/* 3. Departments */}
         <DepartmentsSection onBook={(doctor) => handleBookAppointment(doctor, false)} />
+
+        {/* Health Packages (Under Doctors/Departments) */}
+        <HealthPackagesSection />
 
         {/* 4. Patient Reviews */}
         <TestimonialsSection />
