@@ -8,7 +8,7 @@ class EventNews:
     def get_all() -> List[Dict[str, Any]]:
         """Get all events and news"""
         query = """
-        SELECT id, title, description, event_date as datetime, type as category, created_at
+        SELECT id, title, description, event_date as datetime, type as category, image, created_at
         FROM news_events 
         ORDER BY event_date DESC
         """
@@ -18,7 +18,7 @@ class EventNews:
     def get_by_category(category: str) -> List[Dict[str, Any]]:
         """Get events/news by category"""
         query = """
-        SELECT id, title, description, event_date as datetime, type as category, created_at
+        SELECT id, title, description, event_date as datetime, type as category, image, created_at
         FROM news_events 
         WHERE type = %s
         ORDER BY event_date DESC
@@ -29,7 +29,7 @@ class EventNews:
     def get_recent(limit: int = 10) -> List[Dict[str, Any]]:
         """Get recent events and news for ticker"""
         query = """
-        SELECT title, event_date as datetime, type as category
+        SELECT id, title, description, event_date as datetime, type as category, image
         FROM news_events 
         ORDER BY event_date DESC 
         LIMIT %s
@@ -40,9 +40,9 @@ class EventNews:
     def create(event_data: Dict[str, Any]) -> Dict[str, Any]:
         """Create new event/news"""
         query = """
-        INSERT INTO news_events (title, description, event_date, type)
-        VALUES (%s, %s, %s, %s)
-        RETURNING id, title, description, event_date as datetime, type as category, created_at
+        INSERT INTO news_events (title, description, event_date, type, image)
+        VALUES (%s, %s, %s, %s, %s)
+        RETURNING id, title, description, event_date as datetime, type as category, image, created_at
         """
         params = (
             event_data['title'],
@@ -78,7 +78,7 @@ class EventNews:
         UPDATE news_events 
         SET {', '.join(set_clauses)}
         WHERE id = %s
-        RETURNING id, title, description, event_date as datetime, type as category, created_at
+        RETURNING id, title, description, event_date as datetime, type as category, image, created_at
         """
         return db.execute_query(query, params, fetch_all=False)
     
@@ -86,7 +86,7 @@ class EventNews:
     def get_by_id(event_id: int) -> Optional[Dict[str, Any]]:
         """Get event/news by ID"""
         query = """
-        SELECT id, title, description, event_date as datetime, type as category, created_at
+        SELECT id, title, description, event_date as datetime, type as category, image, created_at
         FROM news_events 
         WHERE id = %s
         """

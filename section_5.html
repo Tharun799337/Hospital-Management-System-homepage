@@ -1,0 +1,68 @@
+<section class="feedback" id="feedback" style="display:none;">
+  <p class="section-p">Real experiences from real patients. Your feedback shapes our care.</p>
+  <div class="feedback-grid">
+    <div class="reviews-list">
+      <div class="rv-card">
+        <div class="rv-header">
+          <div class="rv-avatar">AK</div>
+          <div><div class="rv-name">Anjali Kapoor</div><div class="rv-dept">Cardiology · Dr. Sarah Johnson</div></div>
+        </div>
+        <div class="rv-stars">⭐⭐⭐⭐⭐</div>
+        <p class="rv-text">Dr. Johnson is outstanding. She explained everything clearly and the entire team was incredibly supportive throughout my treatment. The facility is truly world-class.</p>
+        <div class="rv-date">May 18, 2026</div>
+      </div>
+      <div class="rv-card">
+        <div class="rv-header">
+          <div class="rv-avatar" style="background:#0891b2">RV</div>
+          <div><div class="rv-name">Ramesh Verma</div><div class="rv-dept">Orthopedics · Dr. Arjun Patel</div></div>
+        </div>
+        <div class="rv-stars">⭐⭐⭐⭐⭐</div>
+        <p class="rv-text">Had knee replacement surgery with Dr. Patel — recovery was faster than expected. The physiotherapy team and nursing staff were exceptional. Highly recommend Haveda.</p>
+        <div class="rv-date">May 12, 2026</div>
+      </div>
+      <div class="rv-card">
+        <div class="rv-header">
+          <div class="rv-avatar" style="background:#1a3c7e">SS</div>
+          <div><div class="rv-name">Sunita Singh</div><div class="rv-dept">Pediatrics · Dr. Priya Sharma</div></div>
+        </div>
+        <div class="rv-stars">⭐⭐⭐⭐⭐</div>
+        <p class="rv-text">Dr. Sharma is amazing with children. My daughter was scared but felt completely at ease. Online booking was seamless and the waiting time was minimal. 10/10!</p>
+        <div class="rv-date">May 5, 2026</div>
+      </div>
+    </div>
+    <div class="fb-form">
+      <h3>Share Your Experience</h3>
+      <p class="rating-lbl">Rate your experience *</p>
+      <div class="star-row">
+        <span class="sstar" onclick="setRating(1)">★</span>
+        <span class="sstar" onclick="setRating(2)">★</span>
+        <span class="sstar" onclick="setRating(3)">★</span>
+        <span class="sstar" onclick="setRating(4)">★</span>
+        <span class="sstar" onclick="setRating(5)">★</span>
+      </div>
+      <div class="form-group"><label>Your Name *</label><input type="text" id="fb-name" placeholder="Your full name"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Department *</label>
+          <select id="fb-dept">
+            <option value="">Select</option>
+            <option>Cardiology</option><option>Neurology</option><option>Orthopedics</option>
+            <option>Pediatrics</option><option>General Medicine</option><option>Emergency</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Doctor (optional)</label><input type="text" id="fb-doc" placeholder="Doctor's name"></div>
+      </div>
+      <p class="rating-lbl">What went well?</p>
+      <div class="cat-tags">
+        <span class="ctag" onclick="this.classList.toggle('sel')">Doctor's Expertise</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Staff Behavior</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Cleanliness</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Wait Time</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Facilities</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Easy Booking</span>
+        <span class="ctag" onclick="this.classList.toggle('sel')">Value for Money</span>
+      </div>
+      <div class="form-group"><label>Your Review *</label><textarea id="fb-text" placeholder="Tell us about your experience. Your feedback helps us improve and helps others choose confidently."></textarea></div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;font-size:0.9rem;justify-content:center;" onclick="submitFeedback()">📤 Submit Review</button>
+    </div>
+  </div>
+</section>

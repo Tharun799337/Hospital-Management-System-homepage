@@ -40,43 +40,45 @@ export default function AboutSection() {
               Comprehensive <br/><span style={{ color: 'var(--blue-primary)' }}>Medical Care</span>
             </h2>
             
-            <div className="services-marquee-container" style={{ overflow: 'hidden', position: 'relative', width: '100%', padding: '1rem 0' }}>
-              <div className="services-marquee-inner" style={{ display: 'inline-flex', gap: '1.5rem', animation: 'servicesScroll 25s linear infinite' }}>
-                {/* Duplicate list for seamless scrolling */}
-                {[...services, ...services].map((s, idx) => (
-                  <div key={`${s.id}-${idx}`} style={{
-                    width: '280px',
-                    height: '230px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '1.5rem',
-                    background: 'white',
-                    borderRadius: '20px',
-                    border: '1px solid rgba(15, 45, 82, 0.12)',
-                    boxShadow: '0 10px 30px rgba(15, 45, 82, 0.1)',
-                    textAlign: 'center',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
-                    boxSizing: 'border-box',
-                    cursor: 'pointer'
-                  }}
+            <div className="services-marquee-container" style={{ overflow: 'hidden', position: 'relative', width: '100%', padding: '1rem 0', minHeight: '270px' }}>
+              <div className="services-marquee-inner" style={{ display: 'inline-flex', gap: '1.5rem', animation: 'servicesScroll 20s linear infinite' }}>
+                {services.length === 0 ? (
+                  Array.from({ length: 6 }).map((_, idx) => (
+                    <div key={`skel-${idx}`} className="skeleton" style={{ width: '280px', height: '230px', borderRadius: '20px' }}></div>
+                  ))
+                ) : (
+                  [...services, ...services].map((s, idx) => (
+                  <div key={`${s.id}-${idx}`}
+                    className="service-card"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'white',
+                      borderRadius: '20px',
+                      border: '1px solid rgba(15, 45, 82, 0.12)',
+                      boxShadow: '0 10px 30px rgba(15, 45, 82, 0.1)',
+                      textAlign: 'center',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+                      boxSizing: 'border-box',
+                      cursor: 'pointer'
+                    }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(20, 184, 166, 0.22)'; e.currentTarget.style.borderColor = 'rgba(20, 184, 166, 0.3)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(15, 45, 82, 0.1)'; e.currentTarget.style.borderColor = 'rgba(15, 45, 82, 0.12)'; }}
                   >
-                    <div style={{
-                      width: '56px', height: '56px', borderRadius: '50%',
+                    <div className="service-card-icon" style={{
+                      borderRadius: '50%',
                       background: '#F8FFFE', color: 'var(--blue-primary)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '1.6rem', marginBottom: '14px',
                       flexShrink: 0
                     }}>
                       <i className={s.icon || 'fas fa-stethoscope'}></i>
                     </div>
-                    <h4 style={{ margin: '0 0 6px 0', fontSize: '1.1rem', color: 'var(--text-dark)', fontWeight: 600 }}>{s.title}</h4>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748B', lineHeight: '1.5', fontWeight: 400 }}>{s.description}</p>
+                    <h4 className="service-card-title" style={{ margin: '0 0 6px 0', color: 'var(--text-dark)', fontWeight: 600 }}>{s.title}</h4>
+                    <p className="service-card-desc" style={{ margin: 0, color: '#64748B', lineHeight: '1.5', fontWeight: 400 }}>{s.description}</p>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
             
@@ -85,8 +87,29 @@ export default function AboutSection() {
                 0% { transform: translateX(0); }
                 100% { transform: translateX(calc(-50% - 0.75rem)); }
               }
+              .services-marquee-inner {
+                animation: servicesScroll 20s linear infinite;
+              }
               .services-marquee-inner:hover {
                 animation-play-state: paused;
+              }
+              .service-card {
+                width: 280px; height: 230px; padding: 1.5rem;
+              }
+              .service-card-icon {
+                width: 56px; height: 56px; font-size: 1.6rem; margin-bottom: 14px;
+              }
+              .service-card-title { font-size: 1.1rem; }
+              .service-card-desc { font-size: 0.85rem; }
+
+              @media (max-width: 768px) {
+                .service-card {
+                  width: 160px; height: 180px; padding: 1rem 0.75rem;
+                }
+                .skeleton { width: 160px !important; height: 180px !important; }
+                .service-card-icon { width: 44px; height: 44px; font-size: 1.3rem; margin-bottom: 8px; }
+                .service-card-title { font-size: 0.95rem; }
+                .service-card-desc { font-size: 0.75rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
               }
             `}</style>
 

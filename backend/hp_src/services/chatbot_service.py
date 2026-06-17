@@ -30,7 +30,7 @@ from hp_src.services.whatsapp_service import send_whatsapp_confirmation
 
 HOSPITAL_PHONE = os.getenv('HOSPITAL_PHONE', '7993376939')
 HOSPITAL_NAME  = os.getenv('HOSPITAL_NAME', 'Haveda Hospital')
-HF_TOKEN       = os.getenv("HF_TOKEN", "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")
+GROQ_API_KEY   = os.getenv("GROQ_API_KEY")
 
 print(f"DEBUG: chatbot_service.py LOADED AT {datetime.now()}")
 
@@ -370,11 +370,20 @@ CRITICAL: The current language is {language}. All user-facing text MUST be in {l
 
 class HospitalAgent:
     def __init__(self):
-        self.client = OpenAI(
-            base_url="https://router.huggingface.co/v1",
-            api_key=HF_TOKEN,
-        )
-        self.model = "meta-llama/Llama-3.1-8B-Instruct"
+        self._client = None
+        self.model = "llama-3.1-8b-instant"
+
+    @property
+    def client(self):
+        if self._client is None:
+            api_key = os.getenv("GROQ_API_KEY", "").strip()
+            if not api_key:
+                raise RuntimeError("GROQ_API_KEY is not set in environment variables.")
+            self._client = OpenAI(
+                base_url="https://api.groq.com/openai/v1",
+                api_key=api_key,
+            )
+        return self._client
 
     def _call_hf(self, messages: List[Dict], max_tokens: int = 2048) -> Optional[str]:
         for attempt in range(3):  # 🔥 retry 3 times

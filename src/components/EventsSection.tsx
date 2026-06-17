@@ -107,8 +107,8 @@ export default function EventsSection() {
 
   const sorted = [...events].sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime());
   const byCategory = sorted.reduce((acc, ev) => {
-    // Normalize category to Title Case (e.g. 'news' -> 'News')
-    const cat = ev.category.charAt(0).toUpperCase() + ev.category.slice(1).toLowerCase();
+    const catStr = ev.category || 'Event';
+    const cat = catStr.charAt(0).toUpperCase() + catStr.slice(1).toLowerCase();
     acc[cat] = acc[cat] || [];
     acc[cat].push({...ev, category: cat as EventItem['category']});
     return acc;
@@ -154,6 +154,17 @@ export default function EventsSection() {
           box-shadow: 0 16px 40px rgba(20, 184, 166, 0.22);
           border-color: rgba(20, 184, 166, 0.35);
         }
+        @media (max-width: 768px) {
+          .ev-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+            margin-bottom: 2rem !important;
+          }
+          .ev-card-header { padding: 0.75rem 1rem !important; }
+          .ev-card-body { padding: 1rem !important; }
+          .ev-card-title { font-size: 0.95rem !important; margin-bottom: 6px !important; }
+          .ev-card-desc { font-size: 0.8rem !important; margin-bottom: 10px !important; }
+        }
       `}</style>
 
       <div className="ev-dot-grid" />
@@ -168,12 +179,21 @@ export default function EventsSection() {
         </AnimCard>
 
         {loading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid #E2E8F0' }}>
-                <div className="skeleton" style={{ height: '12px', margin: '1.25rem', borderRadius: '6px' }} />
-                <div className="skeleton" style={{ height: '14px', margin: '0 1.25rem 0.5rem', borderRadius: '6px', width: '60%' }} />
-                <div className="skeleton" style={{ height: '60px', margin: '0 1.25rem 1.25rem' }} />
+              <div key={i} style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid #E2E8F0', height: '280px', display: 'flex', flexDirection: 'column' }}>
+                {/* Skeleton Header */}
+                <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div className="skeleton" style={{ width: '80px', height: '20px', borderRadius: '4px' }} />
+                  <div className="skeleton" style={{ width: '50px', height: '14px', borderRadius: '4px' }} />
+                </div>
+                {/* Skeleton Body */}
+                <div style={{ padding: '1.5rem', flex: 1 }}>
+                  <div className="skeleton" style={{ height: '24px', marginBottom: '12px', borderRadius: '4px', width: '90%' }} />
+                  <div className="skeleton" style={{ height: '14px', marginBottom: '16px', borderRadius: '4px', width: '40%' }} />
+                  <div className="skeleton" style={{ height: '60px', marginBottom: '16px', borderRadius: '4px', width: '100%' }} />
+                  <div className="skeleton" style={{ height: '16px', width: '80px', borderRadius: '4px' }} />
+                </div>
               </div>
             ))}
           </div>
@@ -194,14 +214,14 @@ export default function EventsSection() {
             </div>
 
             {/* Events grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
+            <div className="ev-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
               {sorted.map((event, i) => {
                 const color = getCategoryColor(event.category);
                 return (
                   <AnimCard key={event.id} delay={i * 70} direction={i % 2 === 0 ? 'left' : 'right'}>
                     <div className="ev-card" onClick={() => setSelectedEvent(event)}>
                       {/* Card header */}
-                      <div style={{
+                      <div className="ev-card-header" style={{
                         background: '#F8FFFE',
                         padding: '1rem 1.5rem',
                         borderBottom: `1px solid #E2E8F0`,
@@ -222,16 +242,16 @@ export default function EventsSection() {
                         </div>
                       </div>
                       {/* Card body */}
-                      <div style={{ padding: '1.5rem' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#0F2D52', marginBottom: '8px', lineHeight: 1.4 }}>
+                      <div className="ev-card-body" style={{ padding: '1.5rem' }}>
+                        <h3 className="ev-card-title" style={{ fontSize: '1.1rem', fontWeight: 600, color: '#0F2D52', marginBottom: '8px', lineHeight: 1.4 }}>
                           {event.title}
                         </h3>
                         <p style={{ fontSize: '0.8rem', color: '#64748B', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <i className="fas fa-clock" style={{ color }} />
                           {new Date(event.datetime).toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}
                         </p>
-                        <p style={{ fontSize: '0.9rem', color: '#64748B', lineHeight: 1.6, marginBottom: '16px' }}>
-                          {event.description.length > 120 ? event.description.slice(0, 120) + '...' : event.description}
+                        <p className="ev-card-desc" style={{ fontSize: '0.9rem', color: '#4b5e7a', lineHeight: 1.6, marginBottom: '16px', fontFamily: 'DM Sans, sans-serif' }}>
+                          {(event.description || '').length > 120 ? (event.description || '').slice(0, 120) + '...' : (event.description || '')}
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color, fontWeight: 500, fontSize: '0.85rem' }}>
                           Read More <i className="fas fa-arrow-right" style={{ fontSize: '0.75rem' }} />
@@ -245,30 +265,7 @@ export default function EventsSection() {
           </>
         )}
 
-        {/* Achievements */}
-        <AnimCard>
-          <h3 style={{ fontSize: '1.5rem', color: '#0F2D52', fontWeight: 700, textAlign: 'center', marginBottom: '12px' }}>
-            Our Achievements
-          </h3>
-          <div className="section-divider" style={{ margin: '0 auto 2rem', background: '#14B8A6', width: '60px', height: '4px', borderRadius: '2px' }} />
-        </AnimCard>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
-          {achievementsData.map((ach, i) => (
-            <AnimCard key={ach.id} delay={i * 100} direction={i % 2 === 0 ? 'left' : 'right'}>
-              <div className="ach-card">
-                <div style={{
-                  width: '56px', height: '56px', borderRadius: '12px',
-                  background: '#F8FFFE', border: '1px solid #E2E8F0',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px',
-                }}>
-                  <i className={ach.icon || 'fas fa-trophy'} style={{ fontSize: '1.4rem', color: '#14B8A6' }} />
-                </div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#14B8A6', marginBottom: '4px' }}>{ach.value}</div>
-                <h4 style={{ fontWeight: 500, color: '#0F2D52', fontSize: '0.95rem' }}>{ach.title}</h4>
-              </div>
-            </AnimCard>
-          ))}
-        </div>
+
       </div>
 
       {selectedEvent && <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />}

@@ -154,8 +154,40 @@ export const fetchPatientPrescriptions = (phone: string) =>
 export const fetchPatientLabOrders = (patientId: string) =>
   apiClient.get(`${HP}/patients/${patientId}/lab_orders`).then(r => r.data);
 
+const dummyEvents: EventNews[] = [
+  {
+    id: 1001,
+    title: 'Free Heart Checkup Camp',
+    description: 'Join us for a free comprehensive heart checkup camp on World Heart Day. Includes ECG, BP check, and cardiologist consultation.',
+    datetime: '2026-07-15T09:00:00Z',
+    category: 'Event',
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80'
+  },
+  {
+    id: 1002,
+    title: 'New Advanced Robotic Surgery Wing',
+    description: 'We have inaugurated a new wing dedicated to minimally invasive robotic surgeries, ensuring faster recovery and better precision.',
+    datetime: '2026-06-10T10:30:00Z',
+    category: 'News',
+    image: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&q=80'
+  },
+  {
+    id: 1003,
+    title: 'Awarded NABH Excellence',
+    description: 'Haveda Hospital has been awarded the prestigious NABH Excellence award for maintaining the highest standards of patient safety and care quality.',
+    datetime: '2026-05-28T14:00:00Z',
+    category: 'Achievement',
+    image: 'https://images.unsplash.com/photo-1551076805-e1869043e560?w=800&q=80'
+  }
+];
+
 export const fetchEvents = () =>
-  apiClient.get(`${HP}/events`).then(r => r.data.data || r.data).catch(() => []);
+  apiClient.get(`${HP}/events`)
+    .then(r => {
+      const data = r.data.data || r.data || [];
+      return [...data, ...dummyEvents];
+    })
+    .catch(() => dummyEvents);
 
 export const fetchAchievements = () =>
   apiClient.get(`${HP}/achievements`).then(r => r.data.data || r.data).catch(() => []);
@@ -194,8 +226,8 @@ export const searchAppointments = (phone: string, date: string) =>
 export const cancelAppointmentRequest = (id: string, reason: string) =>
   apiClient.post(`${HP}/cancellations/cancel`, { id, reason }).then(r => r.data);
 
-export const rescheduleAppointment = (id: string | number, date: string, time: string, lockToken?: string) =>
-  apiClient.put(`${HP}/appointments/reschedule`, { id, date, time, lock_token: lockToken }).then(r => r.data);
+export const rescheduleAppointment = (id: string | number, date: string, time: string, lockToken?: string, doctorId?: number | string) =>
+  apiClient.put(`${HP}/cancellations/reschedule`, { id, date, time, lock_token: lockToken, doctor_id: doctorId }).then(r => r.data);
 
 export const searchPatient = (query: string) =>
   apiClient.get(`${HP}/patients/search`, { params: { q: query } }).then(r => r.data);

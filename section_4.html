@@ -1,0 +1,60 @@
+<section class="cancellation" id="cancellation" style="display:none;">
+    
+  <p class="">We understand plans change. Our flexible policy makes it easy to cancel or reschedule without hassle.</p>
+  <div class="cancel-grid">
+    <div class="policy-cards">
+      <div class="pcrd green">
+        <div class="pcrd-icon">✅</div>
+        <div><h4>Free Cancellation (24+ hours)</h4><p>Cancel or reschedule 24+ hours before your appointment at no charge. Full refund within 3–5 business days.</p></div>
+      </div>
+      <div class="pcrd amber">
+        <div class="pcrd-icon">⚠️</div>
+        <div><h4>Late Cancellation (4–24 hours)</h4><p>Cancellations between 4 and 24 hours before incur a 20% fee. Rescheduling is always free in this window.</p></div>
+      </div>
+      <div class="pcrd red">
+        <div class="pcrd-icon">❌</div>
+        <div><h4>No-Show / Same Day (&lt;4 hours)</h4><p>Cancellations within 4 hours or no-shows are charged 50% of the consultation fee. Medical emergencies are excepted.</p></div>
+      </div>
+      <div class="pcrd blue">
+        <div class="pcrd-icon">🔄</div>
+        <div><h4>Free Reschedule Anytime</h4><p>Rescheduling is always free with 4+ hours notice. Use your Appointment ID online or call us.</p></div>
+      </div>
+    </div>
+    <div class="cancel-form-box">
+      <h3>Cancel or Reschedule</h3>
+      <div class="tab-bar">
+        <button class="tab active" onclick="switchTab(this,'cx')">Cancel</button>
+        <button class="tab" onclick="switchTab(this,'rs')">Reschedule</button>
+      </div>
+      <div id="cx-tab">
+        <div class="form-group"><label>Appointment ID *</label><input type="text" id="cx-id" placeholder="e.g. APT-2026-00123"></div>
+        <div class="form-group"><label>Registered Phone *</label><input type="tel" id="cx-phone" placeholder="+91 XXXXX XXXXX"></div>
+        <div class="form-group"><label>Reason for Cancellation</label>
+          <select id="cx-reason">
+            <option value="">Select reason</option>
+            <option>Personal emergency</option><option>Feeling better</option>
+            <option>Schedule conflict</option><option>Doctor unavailable</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Additional Notes</label><textarea placeholder="Any additional information..."></textarea></div>
+        <button class="btn" style="background:var(--red);color:white;width:100%;padding:13px;font-size:0.9rem;justify-content:center;" onclick="submitCancellation()">🗑️ Cancel Appointment</button>
+      </div>
+      <div id="rs-tab" style="display:none">
+        <div class="form-group"><label>Appointment ID *</label><input type="text" id="rs-id" placeholder="e.g. APT-2026-00123"></div>
+        <div class="form-group"><label>Registered Phone *</label><input type="tel" id="rs-phone" placeholder="+91 XXXXX XXXXX"></div>
+        <div class="form-row">
+          <div class="form-group"><label>New Date *</label><input type="date" id="rs-date"></div>
+          <div class="form-group"><label>New Time *</label>
+            <select id="rs-time">
+              <option value="">Select Time</option>
+              <option>09:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>02:00 PM</option><option>03:00 PM</option><option>04:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:13px;font-size:0.9rem;justify-content:center;" onclick="submitReschedule()">🔄 Reschedule Appointment</button>
+      </div>
+    </div>
+  </div>
+
+</section>

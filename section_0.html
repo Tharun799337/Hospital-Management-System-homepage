@@ -1,0 +1,111 @@
+<section class="hero" id="home">
+  <div>
+    
+    
+<h1>Your Health, <em>Our Priority</em></h1>
+<p>
+At Haveda Hospital, we combine advanced technology with compassionate care to help you and your family live healthier, happier lives. Our experienced healthcare professionals are dedicated to delivering safe, trusted, and patient-centered medical services with excellence, innovation, and 24/7 support.
+</p>
+
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="document.querySelector('#booking').scrollIntoView({behavior:'smooth'})">🗓️ Book Appointment</button>
+      <button class="btn btn-outline" onclick="document.querySelector('#departments').scrollIntoView({behavior:'smooth'})">🩺 Find a Doctor</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><h3>1.2<span>L+</span></h3><p>Happy Patients</p></div>
+      <div class="stat"><h3>250<span>+</span></h3><p>Specialist Doctors</p></div>
+      <div class="stat"><h3>20<span>+</span></h3><p>Years of Excellence</p></div>
+      <div class="stat"><h3>24<span>/7</span></h3><p>Emergency Care</p></div>
+    </div>
+  </div>
+  <div class="hero-img-col">
+    <div 
+class="hero-img-box">
+  <img src="[BASE64_IMAGE]" 
+       alt="Modern Hospital" 
+       style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:24px;">
+</div>
+    <div class="hero-quick vertical-quick">
+      <div class="qcard qcard-book" onclick="document.querySelector('#booking').scrollIntoView({behavior:'smooth'})">
+        <div class="qicon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg></div>
+        <div class="qlabel">Book Appointment</div>
+      </div>
+      <div class="qcard qcard-doctor" onclick="document.querySelector('#departments').scrollIntoView({behavior:'smooth'})">
+        <div class="qicon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v4"/><path d="M10 13h4"/></svg></div>
+        <div class="qlabel">Find Doctor</div>
+      </div>
+      <div class="qcard qcard-cancel" onclick="openQuickPopup('Cancellation Policy', document.querySelector('#cancellation').innerHTML)">
+        <div class="qicon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="qlabel">Cancel/Reschedule</div>
+      </div>
+      <div class="qcard qcard-feedback" onclick="openQuickPopup('Patient Feedback', document.querySelector('#feedback').innerHTML)">
+        <div class="qicon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="qlabel">Feedback</div>
+      </div>
+    </div>
+
+    <style>
+      /* Coloured quick-action cards */
+      .qcard-book {
+        border: 3px solid #14b8a6 !important;
+        background: linear-gradient(135deg, #f0fdfa, #ccfbf1) !important;
+        box-shadow: 0 6px 20px rgba(20,184,166,0.22) !important;
+      }
+      .qcard-book .qicon { color: #0f766e; }
+      .qcard-book .qlabel { color: #0f766e !important; }
+      .qcard-book:hover {
+        background: linear-gradient(135deg, #14b8a6, #0f766e) !important;
+        border-color: #0f766e !important;
+        box-shadow: 0 10px 28px rgba(20,184,166,0.4) !important;
+      }
+      .qcard-book:hover .qlabel { color: #fff !important; }
+
+      .qcard-doctor {
+        border: 3px solid #3b82f6 !important;
+        background: linear-gradient(135deg, #eff6ff, #bfdbfe) !important;
+        box-shadow: 0 6px 20px rgba(59,130,246,0.22) !important;
+      }
+      .qcard-doctor .qicon { color: #1d4ed8; }
+      .qcard-doctor .qlabel { color: #1d4ed8 !important; }
+      .qcard-doctor:hover {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+        border-color: #1d4ed8 !important;
+        box-shadow: 0 10px 28px rgba(59,130,246,0.4) !important;
+      }
+      .qcard-doctor:hover .qlabel { color: #fff !important; }
+
+      .qcard-cancel {
+        border: 3px solid #f59e0b !important;
+        background: linear-gradient(135deg, #fffbeb, #fde68a) !important;
+        box-shadow: 0 6px 20px rgba(245,158,11,0.22) !important;
+      }
+      .qcard-cancel .qicon { color: #b45309; }
+      .qcard-cancel .qlabel { color: #b45309 !important; }
+      .qcard-cancel:hover {
+        background: linear-gradient(135deg, #f59e0b, #b45309) !important;
+        border-color: #b45309 !important;
+        box-shadow: 0 10px 28px rgba(245,158,11,0.4) !important;
+      }
+      .qcard-cancel:hover .qlabel { color: #fff !important; }
+
+      .qcard-feedback {
+        border: 3px solid #ec4899 !important;
+        background: linear-gradient(135deg, #fdf2f8, #fbcfe8) !important;
+        box-shadow: 0 6px 20px rgba(236,72,153,0.22) !important;
+      }
+      .qcard-feedback .qicon { color: #be185d; }
+      .qcard-feedback .qlabel { color: #be185d !important; }
+      .qcard-feedback:hover {
+        background: linear-gradient(135deg, #ec4899, #be185d) !important;
+        border-color: #be185d !important;
+        box-shadow: 0 10px 28px rgba(236,72,153,0.4) !important;
+      }
+      .qcard-feedback:hover .qlabel { color: #fff !important; }
+
+      /* smooth colour transition on hover */
+      .qcard-book, .qcard-doctor, .qcard-cancel, .qcard-feedback {
+        transition: all 0.25s ease !important;
+      }
+    </style>
+  </div>
+</section>

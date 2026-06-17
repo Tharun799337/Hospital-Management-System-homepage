@@ -1,241 +1,97 @@
-import { useState, useEffect, useRef } from 'react';
-import { fetchCompliments } from '../api';
+import React, { useState } from "react";
 
-interface Compliment {
-  id: number | string;
-  name: string;
-  feedback: string;
-  created_at?: string;
-  rating?: number;
-}
+const NAVY = "#1b3560";
+const GOLD = "#d97706";
+
+const reviews = [
+  { id: 1, name: "Ramesh Iyer",    treatment: "Cardiac Surgery",          rating: 5, text: "The cardiology team at Haveda saved my life. Dr. Rajesh Sharma performed my bypass surgery with incredible precision. The staff was compassionate throughout my recovery. I am forever grateful.", img: "https://images.unsplash.com/photo-1606166228927-3feafb447265?w=80&h=80&fit=crop&auto=format", date: "March 2024" },
+  { id: 2, name: "Sunita Patel",   treatment: "Orthopaedic Treatment",    rating: 5, text: "After years of knee pain, Dr. Suresh Pillai performed my knee replacement. Within 6 weeks I was walking without pain. The physiotherapy team was exceptional. Haveda truly lives up to its name.", img: "https://images.unsplash.com/photo-1550791871-0bcd47c97881?w=80&h=80&fit=crop&auto=format", date: "February 2024" },
+  { id: 3, name: "Aditya Krishnan","treatment": "Neurology Consultation",  rating: 5, text: "Dr. Anil Gupta diagnosed my condition accurately when other hospitals had failed. His expertise in neurology is unmatched. The hospital is clean, modern and the staff is incredibly helpful.", img: "https://images.unsplash.com/photo-1606166187734-a4cb74079037?w=80&h=80&fit=crop&auto=format", date: "January 2024" },
+  { id: 4, name: "Meera Nair",     treatment: "Maternity & Gynaecology",  rating: 5, text: "Dr. Smita Joshi and the maternity team made my delivery experience beautiful and stress-free. The NICU team took amazing care of my newborn. I cannot thank Haveda enough for their support.", img: "https://images.unsplash.com/photo-1578496781985-452d4a934d50?w=80&h=80&fit=crop&auto=format", date: "April 2024" },
+  { id: 5, name: "Vikrant Sharma", treatment: "Ophthalmology – LASIK",    rating: 5, text: "Dr. Sunil Khanna performed my LASIK surgery and my vision is now perfect. The procedure was quick, painless and the follow-up care was excellent. The equipment and skilled team are outstanding.", img: "https://images.unsplash.com/photo-1765222385062-11262da1ff2e?w=80&h=80&fit=crop&auto=format", date: "May 2024" },
+  { id: 6, name: "Lakshmi Reddy",  treatment: "Paediatric Care",          rating: 5, text: "Dr. Pooja Mathur treated my daughter with so much care and patience. She explained everything clearly and made my child feel comfortable. The paediatric ward is child-friendly. Best hospital!", img: "https://images.unsplash.com/photo-1578496781985-452d4a934d50?w=80&h=80&fit=crop&auto=format", date: "March 2024" },
+];
+
+const Star = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill={GOLD} stroke={GOLD} strokeWidth="0.5">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </svg>
+);
 
 export default function TestimonialsSection() {
-  const [compliments, setCompliments] = useState<Compliment[]>([]);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const animRef = useRef<number>(0);
-  const positionRef = useRef(0);
-  const lastTimeRef = useRef(0);
-  const isPausedRef = useRef(false);
-  const complimentsLenRef = useRef(0);
-
-  // Fetch compliments from database — runs once on mount
-  useEffect(() => {
-    fetchCompliments()
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setCompliments(data);
-          complimentsLenRef.current = data.length;
-        }
-      })
-      .catch(() => {/* silently use empty state */});
-  }, []);
-
-  // Intersection observer for fade-in
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    el.style.opacity = '1';
-    el.style.transform = 'translateY(0)';
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el); }
-    }, { threshold: 0.1 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  // Keep isPausedRef in sync WITHOUT triggering animation effect
-  useEffect(() => {
-    isPausedRef.current = isPaused;
-    if (!isPaused) lastTimeRef.current = 0; // reset delta on resume
-  }, [isPaused]);
-
-  // Animation loop — updates DOM directly via ref, NO state updates = NO re-renders
-  useEffect(() => {
-    if (compliments.length === 0) return;
-
-    const speed = 0.5;
-    const cardWidth = 320; // card width (300px) + margin (20px)
-    const totalWidth = compliments.length * cardWidth;
-
-    const animate = (time: number) => {
-      if (!isPausedRef.current) {
-        if (lastTimeRef.current) {
-          const delta = time - lastTimeRef.current;
-          positionRef.current += speed * (delta / 16);
-          if (positionRef.current >= totalWidth) {
-            positionRef.current = 0;
-          }
-          if (trackRef.current) {
-            trackRef.current.style.transform = `translateX(-${positionRef.current}px)`;
-          }
-        }
-        lastTimeRef.current = time;
-      }
-      animRef.current = requestAnimationFrame(animate);
-    };
-
-    animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
-  }, [compliments.length]); // only re-run if data changes
-
-  const hasCompliments = compliments.length > 0;
+  const [current, setCurrent] = useState(0);
+  const perPage = 3;
+  const pages = Math.ceil(reviews.length / perPage);
+  const visible = reviews.slice(current * perPage, current * perPage + perPage);
 
   return (
-    <section className="section-pad" style={{
-      background: 'var(--bg-section)',
-      overflow: 'hidden',
-      position: 'relative',
-      minHeight: '200px'
-    }}>
+    <>
       <style>{`
-        .compliment-blob {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
+        .hv-reviews-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
         }
-        .compliment-blob-1 {
-          top: -60px; left: -60px; width: 320px; height: 320px;
-          background: radial-gradient(circle, rgba(20, 184, 166,0.05) 0%, transparent 65%);
+        @media (max-width: 1024px) {
+          .hv-reviews-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
         }
-        .compliment-blob-2 {
-          bottom: -40px; right: -40px; width: 280px; height: 280px;
-          background: radial-gradient(circle, rgba(43,191,156,0.05) 0%, transparent 65%);
+        @media (max-width: 640px) {
+          .hv-reviews-grid {
+            grid-template-columns: 1fr;
+          }
         }
-        .compliment-card {
-          background: #FFFFFF;
-          backdrop-filter: blur(14px);
-          border-radius: 16px;
-          padding: 1.5rem;
-          border: 1px solid rgba(15, 45, 82, 0.12);
-          box-shadow: 0 10px 30px rgba(15, 45, 82, 0.1);
-          flex-shrink: 0;
-          width: 300px;
-          position: relative;
-          transition: all 0.3s ease;
-          margin-right: 20px;
-        }
-        .compliment-card:hover {
-          box-shadow: 0 16px 40px rgba(20, 184, 166, 0.22);
-          border-color: rgba(20, 184, 166, 0.35);
-          transform: translateY(-4px);
-        }
-        .compliment-quote-icon {
-          position: absolute; bottom: 1rem; right: 1rem;
-          font-size: 1.2rem; color: rgba(20, 184, 166,0.15);
-        }
-        .compliment-name {
-          font-weight: 600; color: #0F2D52; font-size: 1rem;
-          margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .compliment-feedback {
-          font-size: 0.875rem; color: #64748B; line-height: 1.6;
-          font-style: italic; margin-bottom: 0.5rem;
-        }
-        .compliment-stars { display: flex; gap: 2px; margin-top: 0.75rem; }
-        .compliment-star { font-size: 0.75rem; color: #FFD700; }
       `}</style>
+      <section id="patient-reviews" style={{ backgroundColor: "white", padding: "4rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
 
-      <div className="compliment-blob compliment-blob-1" />
-      <div className="compliment-blob compliment-blob-2" />
-
-      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        <div ref={sectionRef} style={{
-          marginBottom: '2rem', opacity: 1, transform: 'translateY(0)', transition: 'all 0.6s ease'
-        }}>
-          <h2 style={{
-            color: '#0F2D52', textAlign: 'center', fontSize: '2.5rem', fontWeight: '700',
-            marginBottom: '1rem', fontFamily: 'Playfair Display, serif', position: 'relative', zIndex: 10
-          }}>
-            What Our Patients Say
-          </h2>
-          <div style={{
-            margin: '12px auto 16px', background: '#14B8A6',
-            width: '60px', height: '4px', borderRadius: '2px', display: 'block'
-          }} />
-          <p style={{
-            color: '#64748B', textAlign: 'center', maxWidth: '600px',
-            margin: '0 auto 2rem', fontSize: '1.1rem', lineHeight: '1.6'
-          }}>
-            Real feedback from our valued patients who trusted us with their health.
-          </p>
-        </div>
-      </div>
-
-      <div
-        style={{ overflow: 'hidden', position: 'relative', paddingBottom: '1rem', paddingTop: '0.5rem' }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        {hasCompliments ? (
-          <>
-            {/* trackRef — position updated directly, no React state */}
-            <div ref={trackRef} style={{
-              display: 'flex',
-              willChange: 'transform',
-              padding: '0.5rem 0'
-            }}>
-              {/* Triple the array for seamless infinite loop */}
-              {[...compliments, ...compliments, ...compliments].map((compliment, i) => (
-                <div key={`${compliment.id}-${i}`} className="compliment-card">
-                  <div className="compliment-name">
-                    <i className="fas fa-user-circle" style={{ color: '#14B8A6', fontSize: '1.2rem' }} />
-                    {compliment.name}
-                  </div>
-                  <div className="compliment-feedback">
-                    "{compliment.feedback}"
-                  </div>
-                  <div className="compliment-stars">
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <i key={star} className="fas fa-star compliment-star" />
-                    ))}
-                  </div>
-                  <i className="fas fa-quote-right compliment-quote-icon" />
-                </div>
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "2.5rem" }}>
+            <div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: GOLD, letterSpacing: "0.08em", marginBottom: "0.4rem", textTransform: "uppercase" }}>What Patients Say</p>
+              <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.6rem", color: NAVY, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+                Patient <span style={{ color: GOLD }}>Reviews</span>
+              </h2>
+            </div>
+            {/* Pagination dots */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              {Array.from({ length: pages }).map((_, i) => (
+                <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? "28px" : "8px", height: "8px", borderRadius: "999px", backgroundColor: i === current ? NAVY : "#cbd5e1", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }} />
               ))}
             </div>
-
-            {/* Gradient fade edges */}
-            <div style={{
-              position: 'absolute', left: 0, top: 0, bottom: 0, width: '80px',
-              background: 'linear-gradient(to right, var(--bg-primary), transparent)',
-              pointerEvents: 'none', zIndex: 1
-            }} />
-            <div style={{
-              position: 'absolute', right: 0, top: 0, bottom: 0, width: '80px',
-              background: 'linear-gradient(to left, var(--bg-primary), transparent)',
-              pointerEvents: 'none', zIndex: 1
-            }} />
-          </>
-        ) : (
-          <div style={{
-            textAlign: 'center', padding: '3rem 2rem',
-            color: '#64748B', fontSize: '1.1rem', fontStyle: 'italic'
-          }}>
-            <i className="fas fa-heart" style={{ fontSize: '2rem', color: '#14B8A6', marginBottom: '1rem', display: 'block' }} />
-            We'd love to hear from you! Share your experience with us.
-            <div style={{ marginTop: '1rem' }}>
-              <button
-                style={{
-                  background: '#14B8A6', color: 'white', border: 'none',
-                  padding: '0.75rem 1.5rem', borderRadius: '8px',
-                  fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease'
-                }}
-                onMouseOver={(e) => (e.target as HTMLButtonElement).style.background = '#1e8bc3'}
-                onMouseOut={(e) => (e.target as HTMLButtonElement).style.background = '#14B8A6'}
-                onClick={() => {
-                  const feedbackSection = document.querySelector('[data-section="feedback"]');
-                  if (feedbackSection) feedbackSection.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Share Your Feedback
-              </button>
-            </div>
           </div>
-        )}
-      </div>
-    </section>
+
+          {/* Cards */}
+          <div className="hv-reviews-grid">
+            {visible.map((r) => (
+              <div key={r.id} style={{ backgroundColor: "#f8f9fc", borderRadius: "16px", padding: "1.5rem", border: "1.5px solid rgba(27,53,96,0.08)", display: "flex", flexDirection: "column" }}>
+                {/* Quote mark + stars */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1rem" }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill={NAVY} opacity="0.12"/>
+                    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" fill={NAVY} opacity="0.12"/>
+                  </svg>
+                  <div style={{ display: "flex", gap: "2px" }}>
+                    {Array.from({ length: r.rating }).map((_, i) => <Star key={i} />)}
+                  </div>
+                </div>
+
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: "#475569", lineHeight: 1.75, flex: 1 }}>"{r.text}"</p>
+
+                <div style={{ borderTop: "1px solid rgba(27,53,96,0.08)", marginTop: "1rem", paddingTop: "1rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <img src={r.img} alt={r.name} style={{ width: "42px", height: "42px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.82rem", color: NAVY }}>{r.name}</p>
+                    <p style={{ fontSize: "0.7rem", color: GOLD, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{r.treatment}</p>
+                  </div>
+                  <p style={{ fontSize: "0.62rem", color: "#94a3b8", flexShrink: 0, fontFamily: "'DM Sans', sans-serif" }}>{r.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,100 +1,77 @@
+import React from 'react';
+
+const NAVY = "#1b3560";
+const GOLD = "#d97706";
+
 const services = [
-  { icon: 'fas fa-heartbeat', title: 'Cardiology', desc: 'Expert care for your heart with state-of-the-art diagnostics and treatments.' },
-  { icon: 'fas fa-brain', title: 'Neurology', desc: 'Comprehensive care for neurological disorders by top specialists.' },
-  { icon: 'fas fa-bone', title: 'Orthopedics', desc: 'Advanced surgical and non-surgical solutions for bone and joint health.' },
-  { icon: 'fas fa-baby', title: 'Pediatrics', desc: 'Compassionate, expert medical care tailored specifically for children.' },
-  { icon: 'fas fa-tooth', title: 'Dental Care', desc: 'Complete dental services from routine checkups to complex surgeries.' },
-  { icon: 'fas fa-eye', title: 'Ophthalmology', desc: 'Specialized eye care to protect and enhance your vision.' },
+  { title: "Emergency Care",       desc: "24/7 rapid emergency response", img: "https://images.unsplash.com/photo-1554734867-bf3c00a49371?w=400&h=220&fit=crop&auto=format" },
+  { title: "Diagnostic Services",  desc: "Advanced labs & imaging",        img: "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=400&h=220&fit=crop&auto=format" },
+  { title: "Surgical Care",        desc: "Minimally invasive procedures",   img: "https://images.unsplash.com/photo-1640876777002-badf6aee5bcc?w=400&h=220&fit=crop&auto=format" },
+  { title: "ICU & Critical Care",  desc: "State-of-the-art critical units", img: "https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=400&h=220&fit=crop&auto=format" },
+  { title: "Pharmacy",             desc: "Medicines & healthcare products", img: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=400&h=220&fit=crop&auto=format" },
+  { title: "Rehabilitation",       desc: "Personalised recovery therapy",   img: "https://images.unsplash.com/photo-1622253694238-3b22139576c6?w=400&h=220&fit=crop&auto=format" },
 ];
 
 export default function ServicesSection() {
   return (
-    <section id="services" style={{ padding: '6rem 0', background: 'var(--bg-primary)' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '4rem', maxWidth: '700px', margin: '0 auto 4rem' }}>
-          <span style={{
-            color: 'var(--primary)',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            fontSize: '0.85rem',
-            display: 'block',
-            marginBottom: '1rem'
-          }}>Our Services</span>
-          
-          <h2 style={{
-            fontFamily: 'Poppins, sans-serif',
-            fontSize: '2.5rem',
-            color: 'var(--text-primary)',
-            lineHeight: 1.2,
-            marginBottom: '1rem'
-          }}>
-            High-Quality Services for <br/>Your Health
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.6 }}>
-            We provide a wide range of medical services designed to meet all your healthcare needs under one roof.
-          </p>
-        </div>
+    <>
+      <style>{`
+        .hv-services-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
+        }
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '2rem'
-        }}>
-          {services.map((service, index) => (
-            <div key={index} style={{
-              background: 'var(--card-bg)',
-              borderRadius: '20px',
-              padding: '2rem',
-              border: '1px solid var(--border-color)',
-              boxShadow: 'var(--shadow-sm)',
-              transition: 'all 0.3s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-8px)';
-              (e.currentTarget as HTMLDivElement).style.boxShadow = 'var(--shadow-lg)';
-              const iconBox = e.currentTarget.querySelector('.service-icon-box') as HTMLDivElement;
-              if(iconBox) iconBox.style.background = 'var(--primary)';
-              const icon = e.currentTarget.querySelector('.service-icon') as HTMLElement;
-              if(icon) icon.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = 'none';
-              (e.currentTarget as HTMLDivElement).style.boxShadow = 'var(--shadow-sm)';
-              const iconBox = e.currentTarget.querySelector('.service-icon-box') as HTMLDivElement;
-              if(iconBox) iconBox.style.background = 'var(--primary-light)';
-              const icon = e.currentTarget.querySelector('.service-icon') as HTMLElement;
-              if(icon) icon.style.color = 'var(--primary)';
-            }}
-            >
-              <div className="service-icon-box" style={{
-                width: '64px', height: '64px',
-                borderRadius: '16px',
-                background: 'var(--primary-light)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '1.5rem',
-                transition: 'all 0.3s ease'
-              }}>
-                <i className={`service-icon ${service.icon}`} style={{ fontSize: '1.8rem', color: 'var(--primary)', transition: 'color 0.3s' }}></i>
-              </div>
-              <h4 style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: '1.25rem',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                marginBottom: '1rem'
-              }}>{service.title}</h4>
-              <p style={{
-                color: 'var(--text-secondary)',
-                fontSize: '0.95rem',
-                lineHeight: 1.6,
-                marginBottom: 0
-              }}>{service.desc}</p>
+        @media (max-width: 900px) {
+          .hv-services-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .hv-services-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+      <section id="services" style={{ backgroundColor: "#f8f9fc", padding: "4rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
+
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
+            <div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: GOLD, letterSpacing: "0.08em", marginBottom: "0.4rem", textTransform: "uppercase" }}>What We Offer</p>
+              <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.8rem", color: NAVY, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+                Our <span style={{ color: GOLD }}>Services</span>
+              </h2>
             </div>
-          ))}
+            <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }} style={{ fontSize: "0.85rem", fontWeight: 700, color: NAVY, textDecoration: "none", display: "flex", alignItems: "center", gap: "0.4rem", borderBottom: `1.5px solid ${GOLD}`, paddingBottom: "2px" }}>
+              View All Services →
+            </a>
+          </div>
+
+          {/* Grid */}
+          <div className="hv-services-grid">
+            {services.map((s) => (
+              <div
+                key={s.title}
+                style={{ backgroundColor: "white", borderRadius: "14px", overflow: "hidden", border: "1.5px solid rgba(27,53,96,0.08)", cursor: "pointer", transition: "all 0.2s" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(27,53,96,0.12)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+              >
+                <div style={{ backgroundColor: "#eef2fb", height: "180px", overflow: "hidden" }}>
+                  <img src={s.img} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                </div>
+                <div style={{ padding: "1.25rem 1.4rem" }}>
+                  <p style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: "1.05rem", color: NAVY, marginBottom: "0.4rem" }}>{s.title}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", color: "#64748b", lineHeight: 1.5, marginBottom: "1rem" }}>{s.desc}</p>
+                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: GOLD }}>Learn More →</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

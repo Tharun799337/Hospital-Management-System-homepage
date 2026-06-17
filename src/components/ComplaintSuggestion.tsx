@@ -174,20 +174,20 @@ export default function ComplaintSuggestion({ onClose }: Props) {
         .csm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         .csm-field { margin-bottom: 10px; }
         .csm-label {
-          display: block; font-size: 0.72rem; font-weight: 600;
-          color: #0F2D52; margin-bottom: 4px;
-          display: flex; align-items: center; gap: 5px;
+          display: block; font-size: 0.85rem; font-weight: 700;
+          color: #0F2D52; margin-bottom: 6px;
+          display: flex; align-items: center; gap: 6px;
         }
-        .csm-label i { font-size: 0.65rem; color: #14B8A6; }
+        .csm-label i { font-size: 0.8rem; color: #14B8A6; }
         .csm-input {
-          width: 100%; padding: 8px 11px; box-sizing: border-box;
+          width: 100%; padding: 10px 14px; box-sizing: border-box;
           border: 1.5px solid #E2E8F0; border-radius: 9px;
           background: #F8FFFE; color: #0F2D52;
-          font-size: 0.8rem; font-family: 'Poppins', sans-serif;
+          font-size: 0.95rem; font-weight: 500; font-family: 'Poppins', sans-serif;
           outline: none; transition: border-color 0.2s, box-shadow 0.2s;
         }
         .csm-input:focus { border-color: #14B8A6; box-shadow: 0 0 0 3px rgba(20,184,166,0.12); background: #fff; }
-        .csm-input::placeholder { color: #CBD5E1; }
+        .csm-input::placeholder { color: #64748B; opacity: 1; }
         select.csm-input { cursor: pointer; }
         textarea.csm-input { resize: none; min-height: 68px; }
 
@@ -276,37 +276,7 @@ export default function ComplaintSuggestion({ onClose }: Props) {
         {/* ── Body ── */}
         <div className="csm-body">
 
-          {/* Sidebar */}
-          <div className="csm-sidebar">
-            {[
-              { icon: 'fas fa-shield-alt', title: 'Confidential', desc: 'Secure & anonymous.', bg: 'linear-gradient(135deg,#14B8A6,#0F766E)', light: '#F0FDFA' },
-              { icon: 'fas fa-bolt',       title: 'Fast Response', desc: 'Reviewed in 48 hrs.', bg: 'linear-gradient(135deg,#0EA5E9,#0284C7)', light: '#F0F9FF' },
-              { icon: 'fas fa-seedling',   title: 'Improvement',  desc: 'Better patient care.', bg: 'linear-gradient(135deg,#A855F7,#7C3AED)', light: '#FAF5FF' },
-            ].map((item, i) => (
-              <div key={i} className="csm-sb-card">
-                <div className="csm-sb-icon" style={{ background: item.bg }}>
-                  <i className={item.icon} style={{ color: '#fff' }} />
-                </div>
-                <div>
-                  <div className="csm-sb-title">{item.title}</div>
-                  <div className="csm-sb-desc">{item.desc}</div>
-                </div>
-              </div>
-            ))}
 
-            <div className="csm-how">
-              <div className="csm-how-title">
-                <i className="fas fa-route" style={{ color: '#14B8A6', marginRight: 5 }} />
-                How it works
-              </div>
-              {['Submit feedback', 'Review & investigate', 'Resolution & follow-up'].map((s, i) => (
-                <div key={i} className="csm-step">
-                  <div className="csm-step-dot">{i + 1}</div>
-                  <div className="csm-step-text">{s}</div>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* Form */}
           <div className="csm-form-area">
