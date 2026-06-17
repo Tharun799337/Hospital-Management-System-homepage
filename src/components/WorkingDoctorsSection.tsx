@@ -3,9 +3,9 @@ import { fetchDoctors, fetchDepartments, Doctor } from '../api';
 
 interface Props { onBook: (doctor: Doctor) => void; }
 
-const CARD_W = 290;
-const CARD_H = 410;
-const VISIBLE = 5;
+const CARD_W = 340;
+const CARD_H = 470;
+const VISIBLE = 4;
 
 const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -91,7 +91,7 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
         {/* Skeleton Grid */}
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px', maxWidth: '1200px', margin: '0 auto' }}>
           {[1,2,3,4,5].map(i => (
-             <div key={i} className="skeleton" style={{ height: '410px', width: '290px', maxWidth: '100%' }}></div>
+             <div key={i} className="skeleton" style={{ height: '470px', width: '340px', maxWidth: '100%' }}></div>
           ))}
         </div>
       </div>
@@ -178,7 +178,7 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
 
         /* Card Grid Shell */
         .wds-card {
-          width: 290px;
+          width: 340px;
           max-width: 100%;
           border-radius: 20px;
           overflow: visible;
@@ -216,7 +216,7 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
 
         /* Hero banner */
         .wds-hero {
-          height: 140px;
+          height: 170px;
           background: linear-gradient(135deg, #DFF5F2 0%, #EAF4FF 100%);
           position: relative;
           display: flex;
@@ -227,7 +227,7 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
 
         /* Circular avatar */
         .wds-avatar-ring {
-          width: 84px; height: 84px;
+          width: 100px; height: 100px;
           border-radius: 50%;
           border: 4px solid #FFFFFF;
           box-shadow: 0 4px 16px rgba(15, 45, 82, 0.1);
@@ -261,14 +261,14 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
           text-align: center;
         }
         .wds-name {
-          margin: 0 0 4px;
-          font-size: 1.1rem; font-weight: 600;
+          margin: 0 0 6px;
+          font-size: 1.2rem; font-weight: 700;
           color: #0F2D52;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .wds-spec {
-          margin: 0 0 8px;
-          font-size: 0.8rem; font-weight: 500;
+          margin: 0 0 6px;
+          font-size: 0.85rem; font-weight: 500;
           color: #14B8A6;
           text-transform: uppercase; letter-spacing: 0.05em;
         }
@@ -529,6 +529,12 @@ const WorkingDoctorsSection: React.FC<Props> = ({ onBook }) => {
                             {doctor.name.startsWith('Dr.') ? doctor.name : `Dr. ${doctor.name}`}
                           </p>
                           <p className="wds-spec">{doctor.specialization}</p>
+                          {doctor.qualification && (
+                            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.15)', borderRadius: '20px', padding: '3px 12px', marginBottom: '8px', fontSize: '0.75rem', fontWeight: 600, color: '#06B6D4' }}>
+                              <i className="fas fa-graduation-cap" style={{ fontSize: '0.65rem' }} />
+                              {doctor.qualification}
+                            </div>
+                          )}
                           {doctor.is_active !== false ? (
                             <div className="wds-verified">
                               <i className="fas fa-check-circle" />

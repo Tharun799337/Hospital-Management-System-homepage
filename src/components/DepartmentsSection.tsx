@@ -76,8 +76,8 @@ export default function DepartmentsSection({ onBook }: { onBook: (doctor: Doctor
       <style>{`
         .hv-doc-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 1rem;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
           flex: 1;
         }
         @media (max-width: 1024px) {
@@ -153,23 +153,29 @@ export default function DepartmentsSection({ onBook }: { onBook: (doctor: Doctor
               {!loading && filteredDoctors.map((doc) => (
                 <div key={doc.id} style={{ backgroundColor: "white", borderRadius: "12px", border: "1px solid #f3f4f6", overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.05)", transition: "box-shadow 0.2s" }} onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)"} onMouseLeave={e => e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.05)"}>
                   <div style={{ position: "relative" }}>
-                    <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", backgroundColor: doc.is_active !== false ? "#22c55e" : "#f59e0b", color: "white", padding: "0.1rem 0.5rem", borderRadius: "999px", zIndex: 10, fontSize: "0.6rem", fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
+                    <span style={{ position: "absolute", top: "0.6rem", left: "0.6rem", backgroundColor: doc.is_active !== false ? "#22c55e" : "#f59e0b", color: "white", padding: "0.2rem 0.6rem", borderRadius: "999px", zIndex: 10, fontSize: "0.7rem", fontWeight: 700, fontFamily: "'DM Sans', sans-serif" }}>
                       {doc.is_active !== false ? 'Available Today' : 'Unavailable'}
                     </span>
-                    <img src={doc.photo || getDoctorTheme(doc.name)} alt={doc.name} onError={(e) => { e.currentTarget.src = getDoctorTheme(doc.name) }} style={{ width: "100%", height: "168px", objectFit: "cover", objectPosition: "top", display: "block" }} />
+                    <img src={doc.photo || getDoctorTheme(doc.name)} alt={doc.name} onError={(e) => { e.currentTarget.src = getDoctorTheme(doc.name) }} style={{ width: "100%", height: "220px", objectFit: "cover", objectPosition: "top", display: "block" }} />
                   </div>
-                  <div style={{ padding: "0.75rem" }}>
-                    <p style={{ color: "#111827", marginBottom: "0.15rem", fontWeight: 700, fontSize: "0.78rem", fontFamily: "'DM Sans', sans-serif" }}>{doc.name}</p>
-                    <p style={{ color: TEAL, fontSize: "0.7rem", marginBottom: "0.15rem", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{doc.department}</p>
-                    <p style={{ color: "#6b7280", marginBottom: "0.5rem", fontSize: "0.63rem", fontFamily: "'DM Sans', sans-serif" }}>{doc.experience} Years Experience</p>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", marginBottom: "0.65rem" }}>
+                  <div style={{ padding: "1rem" }}>
+                    <p style={{ color: "#111827", marginBottom: "0.2rem", fontWeight: 700, fontSize: "1rem", fontFamily: "'DM Sans', sans-serif" }}>{doc.name}</p>
+                    <p style={{ color: TEAL, fontSize: "0.85rem", marginBottom: "0.2rem", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{doc.department}</p>
+                    {doc.qualification && (
+                      <p style={{ color: "#06B6D4", marginBottom: "0.3rem", fontSize: "0.75rem", fontWeight: 600, fontFamily: "'DM Sans', sans-serif", display: "flex", alignItems: "center", gap: "5px" }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        {doc.qualification}
+                      </p>
+                    )}
+                    <p style={{ color: "#6b7280", marginBottom: "0.6rem", fontSize: "0.75rem", fontFamily: "'DM Sans', sans-serif" }}>{doc.experience} Years Experience</p>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", marginBottom: "1rem" }}>
                       <StarIcon />
-                      <span style={{ fontSize: "0.7rem", fontWeight: 700 }}>{doc.rating}</span>
-                      <span style={{ fontSize: "0.63rem", color: "#9ca3af" }}>({Math.floor(Math.random() * 200) + 50} reviews)</span>
+                      <span style={{ fontSize: "0.8rem", fontWeight: 700 }}>{doc.rating}</span>
+                      <span style={{ fontSize: "0.75rem", color: "#9ca3af" }}>({Math.floor(Math.random() * 200) + 50} reviews)</span>
                     </div>
                     <button
                       onClick={() => onBook(doc)}
-                      style={{ display: "block", width: "100%", textAlign: "center", color: "white", borderRadius: "6px", padding: "0.35rem 0", transition: "opacity 0.2s", backgroundColor: TEAL, fontSize: "0.7rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ display: "block", width: "100%", textAlign: "center", color: "white", borderRadius: "8px", padding: "0.6rem 0", transition: "opacity 0.2s", backgroundColor: TEAL, fontSize: "0.85rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
                       onMouseEnter={e => e.currentTarget.style.opacity = "0.9"}
                       onMouseLeave={e => e.currentTarget.style.opacity = "1"}
                     >

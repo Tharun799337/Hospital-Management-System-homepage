@@ -128,12 +128,18 @@ function ContactUs() {
           <div className="hv-contact-grid">
             {/* Info */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              {/* Map placeholder */}
-              <div style={{ borderRadius: "14px", overflow: "hidden", height: "180px", backgroundColor: "#eef2fb", border: "1.5px solid rgba(27,53,96,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.5rem" }}>
-                <div style={{ textAlign: "center", color: "#94a3b8" }}>
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ marginBottom: "0.5rem", display: "inline-block" }}><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <p style={{ fontSize: "0.75rem", fontFamily: "'DM Sans', sans-serif" }}>123 HealthCare Lane, Medical City</p>
-                </div>
+              {/* Map Embedded */}
+              <div style={{ borderRadius: "14px", overflow: "hidden", height: "180px", border: "1.5px solid rgba(27,53,96,0.1)", marginBottom: "0.5rem", position: "relative" }}>
+                <iframe 
+                  src="https://maps.google.com/maps?q=Hospital&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Hospital Location"
+                ></iframe>
               </div>
               {info.map((item) => (
                 <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: "0.85rem", padding: "0.9rem 1rem", backgroundColor: "white", borderRadius: "12px", border: "1.5px solid rgba(27,53,96,0.08)" }}>
@@ -253,31 +259,6 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
         }
       `}</style>
       <footer style={{ backgroundColor: DARK, fontFamily: "'DM Sans', sans-serif" }}>
-        {/* CTA Banner */}
-        <div style={{ backgroundColor: NAVY, padding: "3rem 1.5rem" }}>
-          <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem" }}>
-            <div>
-              <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", letterSpacing: "0.08em", fontWeight: 700, textTransform: "uppercase", marginBottom: "0.4rem", fontFamily: "'DM Sans', sans-serif" }}>Ready to get care?</p>
-              <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: "1.8rem", color: "white", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
-                Book Your Appointment <span style={{ color: GOLD }}>Today</span>
-              </h3>
-            </div>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <button onClick={onBook}
-                style={{ backgroundColor: GOLD, color: "white", padding: "0.8rem 1.4rem", borderRadius: "9px", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Book Appointment
-              </button>
-              <button onClick={() => { document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "white", padding: "0.8rem 1.4rem", borderRadius: "9px", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "background 0.2s" }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.15)"}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"}
-              >
-                Contact Us
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Footer body */}
         <div className="hv-footer-grid" style={{ maxWidth: "1280px", margin: "0 auto", padding: "3.5rem 1.5rem 2rem" }}>

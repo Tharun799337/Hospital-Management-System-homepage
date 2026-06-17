@@ -37,9 +37,9 @@ export default function FeaturesSection({ onBook, onDoctors, onPortal }: Feature
     },
     {
       color: "#fff1f2", iconColor: "#e11d48",
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="1.8" strokeLinecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>,
-      title: "Pay Your Bill", desc: "Quick and secure payments", 
-      href: "#contact" // Linking to contact for now as billing portal isn't built
+      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="1.8" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>,
+      title: "Health Packages", desc: "View our comprehensive packages", 
+      href: "#health-packages"
     },
     {
       color: "#eef2fb", iconColor: NAVY,

@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Departments', href: '#departments' },
   { label: 'News', href: '#news' },
-  { label: 'Health Tips', href: '#healthtips' },
+  { label: 'Health Packages', href: '#health-packages' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -53,8 +53,8 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hv-topbar {
           background: ${NAVY};
           color: white;
-          font-size: 0.72rem;
-          padding: 0.4rem 1.5rem;
+          font-size: 0.78rem;
+          padding: 0.65rem 1.5rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -133,7 +133,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hv-link {
           color: #4b5563;
           font-weight: 500;
-          font-size: 0.83rem;
+          font-size: 0.88rem;
           padding: 1.1rem 0.8rem;
           text-decoration: none;
           border-bottom: 2.5px solid transparent;
@@ -174,7 +174,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           color: ${NAVY};
           padding: 0.5rem 1rem;
           border-radius: 8px;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
@@ -196,7 +196,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           color: #ffffff;
           padding: 0.55rem 1.1rem;
           border-radius: 8px;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           font-weight: 700;
           cursor: pointer;
           display: flex;
@@ -314,26 +314,6 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
       <header className="hv-header">
         {/* Top utility bar */}
         <div className="hv-topbar">
-          <div className="hv-topbar-left">
-            <span className="hv-topbar-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-              24/7 Emergency: <strong>+91 98765 43210</strong>
-            </span>
-            <span className="hv-topbar-sep">|</span>
-            <span className="hv-topbar-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Mon–Sat: 8:00 AM – 8:00 PM
-            </span>
-          </div>
-          <div className="hv-topbar-right">
-            <span className="hv-topbar-item" style={{ gap: '1rem' }}>
-              <span className="hv-topbar-link" onClick={() => onPortalClick?.()}>Patient Portal</span>
-              <span style={{ opacity: 0.3 }}>|</span>
-              <span className="hv-topbar-link" onClick={() => onCancelClick?.()}>Manage Appointment</span>
-              <span style={{ opacity: 0.3 }}>|</span>
-              <span className="hv-topbar-link" onClick={() => onFeedbackClick?.()}>Feedback</span>
-            </span>
-          </div>
         </div>
 
         {/* Main nav */}
