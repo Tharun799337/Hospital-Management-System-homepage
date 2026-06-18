@@ -325,7 +325,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         <nav className={`hv-nav${scrolled ? ' scrolled' : ''}`}>
           {/* Logo */}
           <a className="hv-logo" href="#home" onClick={e => { e.preventDefault(); scrollTo('#home'); }}>
-            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '80px', width: 'auto', display: 'block', objectFit: 'contain', imageRendering: 'high-quality', mixBlendMode: 'multiply' }} />
+            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '80px', width: 'auto', display: 'block', objectFit: 'contain', mixBlendMode: 'multiply' }} />
           </a>
 
           {/* Desktop links */}
