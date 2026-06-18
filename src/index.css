@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -80,6 +80,7 @@ html {
 body {
   font-family: 'DM Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.06rem;
+  font-weight: 300;
   line-height: 1.75;
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -94,6 +95,7 @@ h2,
 h3,
 h4 {
   font-family: 'Outfit', 'DM Sans', sans-serif;
+  font-weight: 600;
 }
 
 /* SCROLLBAR */

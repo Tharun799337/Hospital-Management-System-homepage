@@ -134,7 +134,7 @@ export default function AmbulanceService() {
                   display: 'flex', alignItems: 'center', gap: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 }}>
-                  <i className="fas fa-phone-alt" /> +91 1800 123 4567
+                  <i className="fas fa-phone-alt" /> +91 79950 74500
                 </a>
               </div>
             </div>

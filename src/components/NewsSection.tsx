@@ -52,8 +52,8 @@ export default function NewsSection() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <span style={{ display: "inline-block", fontSize: "0.62rem", fontWeight: 700, color: GOLD, backgroundColor: "#fef3c7", padding: "0.15rem 0.5rem", borderRadius: "999px", marginBottom: "0.35rem", letterSpacing: "0.04em", fontFamily: "'DM Sans', sans-serif" }}>{n.tag}</span>
                     <a href="#" style={{ display: "block", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.8rem", color: NAVY, lineHeight: 1.4, marginBottom: "0.25rem", textDecoration: "none" }}>{n.title}</a>
-                    <p style={{ fontSize: "0.7rem", color: "#64748b", lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif" }}>{n.desc}</p>
-                    <p style={{ fontSize: "0.65rem", color: "#94a3b8", marginTop: "0.35rem", fontFamily: "'DM Sans', sans-serif" }}>{n.date}</p>
+                    <p style={{ fontSize: '0.7rem', color: '#64748b', lineHeight: 1.5, fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}>{n.desc}</p>
+                    <p style={{ fontSize: '0.65rem', color: '#94a3b8', marginTop: '0.35rem', fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}>{n.date}</p>
                   </div>
                 </div>
               ))}

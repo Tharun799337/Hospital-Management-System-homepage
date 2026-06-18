@@ -5,12 +5,12 @@ const NAVY = '#1b3560';
 const GOLD = '#d97706';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Departments', href: '#departments' },
-  { label: 'News', href: '#news' },
-  { label: 'Health Packages', href: '#health-packages' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'HOME', href: '#home' },
+  { label: 'SERVICES', href: '#services' },
+  { label: 'DEPARTMENTS', href: '#departments' },
+  { label: 'NEWS', href: '#news' },
+  { label: 'HEALTH PACKAGES', href: '#health-packages' },
+  { label: 'CONTACT', href: '#contact' },
 ];
 
 interface NavbarProps {
@@ -99,19 +99,19 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         /* Main nav */
         .hv-nav {
           background: #ffffff;
-          border-bottom: 1px solid rgba(27, 53, 96, 0.1);
+          border-bottom: 2px solid rgba(27, 53, 96, 0.12);
           padding: 0 1.5rem;
           display: grid;
           grid-template-columns: 1fr auto 1fr;
           align-items: center;
           min-height: 90px;
-          box-shadow: 0 1px 12px rgba(27, 53, 96, 0.07);
+          box-shadow: 0 4px 24px rgba(27, 53, 96, 0.1);
           transition: all 0.3s ease;
           overflow: hidden;
         }
 
         .hv-nav.scrolled {
-          box-shadow: 0 4px 20px rgba(27, 53, 96, 0.1);
+          box-shadow: 0 6px 28px rgba(27, 53, 96, 0.14);
         }
 
         /* Logo */
@@ -135,8 +135,9 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
 
         .hv-link {
           color: #4b5563;
-          font-weight: 500;
-          font-size: 0.88rem;
+          font-weight: 400;
+          font-size: 0.92rem;
+          letter-spacing: 0.05em;
           padding: 1.1rem 0.8rem;
           text-decoration: none;
           border-bottom: 2.5px solid transparent;

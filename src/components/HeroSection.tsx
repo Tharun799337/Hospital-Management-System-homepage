@@ -44,25 +44,17 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
 
 
   const statsBar = [
-    { value: 500, label: 'Hospital Beds', suffix: '+', icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
-        <path d="M3 7v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7" />
-        <path d="M3 13h18" />
-        <path d="M8 7v6" />
-        <path d="M16 7v6" />
-      </svg>
-    )},
     { value: 25, label: 'Years of Excellence', suffix: '+', icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
         <path d="M8 21h8M12 17v4M7 4H4v5a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5V4h-3"/>
         <rect x="7" y="2" width="10" height="4" rx="1"/>
       </svg>
     )},
-    { value: 355, label: 'Happy Patients', suffix: 'k+', icon: (
+    { value: 15, label: 'Specialities', suffix: '+', icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        <path d="M12 2a9 9 0 0 1 9 9c0 3.5-2 6.5-4.5 8.5L12 22l-4.5-2.5C5 17.5 3 14.5 3 11a9 9 0 0 1 9-9z"/>
+        <line x1="12" y1="7" x2="12" y2="13"/>
+        <line x1="9" y1="10" x2="15" y2="10"/>
       </svg>
     )},
     { value: 120, label: 'Expert Doctors', suffix: '+', icon: (
@@ -73,11 +65,19 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         <line x1="10.5" y1="15.5" x2="13.5" y2="15.5"/>
       </svg>
     )},
-    { value: 15, label: 'Specialities', suffix: '+', icon: (
+    { value: 500, label: 'Hospital Beds', suffix: '+', icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
-        <path d="M12 2a9 9 0 0 1 9 9c0 3.5-2 6.5-4.5 8.5L12 22l-4.5-2.5C5 17.5 3 14.5 3 11a9 9 0 0 1 9-9z"/>
-        <line x1="12" y1="7" x2="12" y2="13"/>
-        <line x1="9" y1="10" x2="15" y2="10"/>
+        <path d="M3 7v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7" />
+        <path d="M3 13h18" />
+        <path d="M8 7v6" />
+        <path d="M16 7v6" />
+      </svg>
+    )},
+    { value: 355, label: 'Happy Patients', suffix: 'k+', icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
       </svg>
     )},
     { value: 24, label: 'Emergency Care', suffix: '/7', icon: (
@@ -99,12 +99,13 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         }
 
         .hv-hero-inner {
-          max-width: 1280px;
-          margin: 0 auto;
+          width: 100%;
+          padding: 0 1.5rem;
           display: grid;
-          grid-template-columns: 52% 48%;
-          min-height: 480px;
+          grid-template-columns: 58% 42%;
+          min-height: 300px;
           align-items: stretch;
+          box-sizing: border-box;
         }
 
         /* LEFT: text content */
@@ -112,7 +113,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          padding: 3.5rem 3rem 3.5rem 4rem;
+          padding: 3.5rem 2rem 3.5rem 0;
         }
 
         .hv-hero-badge {
@@ -149,9 +150,10 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-hero-desc {
           color: #475569;
           font-size: 1.05rem;
+          font-weight: 300;
           line-height: 1.8;
           margin-bottom: 1.4rem;
-          max-width: 420px;
+          max-width: 740px;
           font-family: 'DM Sans', sans-serif;
         }
 
@@ -264,8 +266,8 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         /* RIGHT: image */
         .hv-hero-img-wrapper {
           position: relative;
-          min-height: 480px;
-          margin: 1.5rem 1.5rem 1.5rem 0;
+          min-height: 240px;
+          margin: 1.5rem 0 1.5rem 1rem;
           border-radius: 16px;
           overflow: hidden;
           border: 2px solid rgba(27, 53, 96, 0.15);
@@ -320,15 +322,22 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         /* Stats bar below hero */
         .hv-stats-bar {
           background: ${NAVY};
-          max-width: 100%;
+          width: 100%;
+          overflow: hidden;
         }
 
         .hv-stats-bar-inner {
-          max-width: 1280px;
-          margin: 0 auto;
+          width: 100%;
           padding: 0 1.5rem;
           display: grid;
           grid-template-columns: repeat(6, 1fr);
+          box-sizing: border-box;
+        }
+
+        @keyframes statDrop {
+          0%   { opacity: 0; transform: translateY(-28px) scale(0.92); }
+          60%  { opacity: 1; transform: translateY(4px) scale(1.02); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .hv-stat-item {
@@ -338,8 +347,16 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           padding: 1rem 1.2rem;
           justify-content: center;
           border-right: 1px solid rgba(255, 255, 255, 0.1);
+          opacity: 0;
+          animation: statDrop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         .hv-stat-item:last-child { border-right: none; }
+        .hv-stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .hv-stat-item:nth-child(2) { animation-delay: 0.22s; }
+        .hv-stat-item:nth-child(3) { animation-delay: 0.34s; }
+        .hv-stat-item:nth-child(4) { animation-delay: 0.46s; }
+        .hv-stat-item:nth-child(5) { animation-delay: 0.58s; }
+        .hv-stat-item:nth-child(6) { animation-delay: 0.70s; }
 
         .hv-stat-icon-box {
           width: 40px; height: 40px;
@@ -366,6 +383,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           color: rgba(255, 255, 255, 0.6);
           margin-top: 0.2rem;
           font-family: 'DM Sans', sans-serif;
+          font-weight: 300;
         }
 
         /* Responsive */
@@ -373,13 +391,14 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           .hv-hero-inner {
             grid-template-columns: 1fr;
             min-height: auto;
+            padding: 0 1.5rem;
           }
           .hv-hero-content {
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 0;
           }
           .hv-hero-img-wrapper {
-            min-height: 300px;
-            margin: 0 1.5rem 1.5rem;
+            min-height: 320px;
+            margin: 0 0 1.5rem;
           }
           .hv-stats-bar-inner {
             grid-template-columns: repeat(3, 1fr);
@@ -418,9 +437,14 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
               <span>Our Priority</span>
             </h1>
 
+            {/* Tagline */}
+            <p style={{ fontSize: '0.8rem', fontWeight: 700, color: '#d97706', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem', fontFamily: "'DM Sans', sans-serif" }}>
+              NABH Accredited · ISO Certified · 24/7 Emergency
+            </p>
+
             {/* Description */}
             <p className="hv-hero-desc">
-              Haveda Hospital is a NABH-accredited multispeciality centre with 500+ beds, 120+ expert doctors across 15+ specialities, and a 24/7 emergency unit — delivering world-class healthcare close to home.
+              Haveda Hospital is a premier NABH-accredited multispeciality centre featuring 500+ beds, 120+ expert doctors, 15+ specialities, and dedicated 24/7 emergency care. Trusted by over 3,55,000 patients across the region, we blend cutting-edge medical technology with a compassionate, patient-first approach to deliver world-class healthcare right close to your home. From advanced diagnostics to personalized recovery plans, your well-being is our utmost priority.
             </p>
 
 

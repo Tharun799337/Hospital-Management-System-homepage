@@ -95,8 +95,8 @@ function ContactUs() {
   }
 
   const info = [
-    { label: "Our Address", value: "123 HealthCare Lane, Medical City, NC 12345", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> },
-    { label: "Phone Number",  value: "+91 1800 123 4567",            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> },
+    { label: "Our Address", value: "#107, 1st Floor, Sri Durga Sai Hub, KPHB 13th Phase Road, KPHB Colony, Hyderabad - 500081", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> },
+    { label: "Phone Number",  value: "+91 79950 74500",            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> },
     { label: "Email Address", value: "info@havedahospital.com",    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
     { label: "Working Hours", value: "Mon–Sat: 8:00 AM – 8:00 PM · Emergency 24/7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
   ];
@@ -131,14 +131,14 @@ function ContactUs() {
               {/* Map Embedded */}
               <div style={{ borderRadius: "14px", overflow: "hidden", height: "180px", border: "1.5px solid rgba(27,53,96,0.1)", marginBottom: "0.5rem", position: "relative" }}>
                 <iframe 
-                  src="https://maps.google.com/maps?q=Hospital&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Haveda+Infotech+Private+Limited,+KPHB+13th+Phase,+Hyderabad,+Telangana+500081&t=&z=16&ie=UTF8&iwloc=&output=embed"
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
                   allowFullScreen={true} 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Hospital Location"
+                  title="Haveda Infotech Location - KPHB Hyderabad"
                 ></iframe>
               </div>
               {info.map((item) => (
@@ -236,8 +236,7 @@ interface FooterProps {
 
 export default function Footer({ onBook, onPortal }: FooterProps) {
   const footerCols = {
-    "Quick Links":  ["Home", "About Us", "Our Doctors", "Services", "Health Packages", "Careers", "Contact Us"],
-    "Departments":  ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Gynecology", "Dermatology", "View All"],
+    "Quick Links":  ["Home", "Services", "Departments", "News", "Health Packages", "Contact"],
     "For Patients": ["Book Appointment", "Patient Portal", "Health Packages", "Insurance", "Pay Bill", "FAQ"],
   };
 
@@ -248,7 +247,7 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
       <style>{`
         .hv-footer-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+          grid-template-columns: 2fr 1fr 1fr 1.4fr;
           gap: 2.5rem;
         }
         @media (max-width: 1024px) {
@@ -273,7 +272,7 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
                 <div style={{ color: GOLD, fontSize: "0.55rem", letterSpacing: "0.22em", fontWeight: 700 }}>HOSPITAL</div>
               </div>
             </div>
-            <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.75, marginBottom: "1.25rem", maxWidth: "260px" }}>
+            <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, marginBottom: '1.25rem', maxWidth: '260px', fontWeight: 300 }}>
               Compassionate care, expert doctors, advanced technology — for a healthier tomorrow.
             </p>
             <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -303,7 +302,7 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
                         if (l === 'Book Appointment') onBook();
                         if (l === 'Patient Portal') onPortal();
                       }}
-                      style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", textDecoration: "none", transition: "color 0.2s", fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.55)', textDecoration: 'none', transition: 'color 0.2s', fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
                       onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "white"; }}
                       onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.55)"; }}
                     >{l}</a>
@@ -318,8 +317,8 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
             <p style={{ color: "white", fontWeight: 700, fontSize: "0.85rem", marginBottom: "1.2rem", fontFamily: "'DM Sans', sans-serif" }}>Contact</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
-                { emoji: "📍", text: "123 HealthCare Lane, Medical City, NC 12345" },
-                { emoji: "📞", text: "+91 1800 123 4567" },
+                { emoji: "📍", text: "#107, 1st Floor, Sri Durga Sai Hub, KPHB 13th Phase, Hyderabad - 500081" },
+                { emoji: "📞", text: "+91 79950 74500" },
                 { emoji: "✉", text: "info@havedahospital.com" },
               ].map((c) => (
                 <li key={c.emoji} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", fontFamily: "'DM Sans', sans-serif" }}>

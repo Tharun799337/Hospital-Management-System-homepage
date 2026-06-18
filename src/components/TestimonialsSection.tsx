@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
           }
         }
       `}</style>
-      <section id="patient-reviews" style={{ backgroundColor: "white", padding: "4rem 0" }}>
+      <section id="patient-reviews" style={{ backgroundColor: '#f9fafb', padding: '4rem 0' }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
 
           {/* Header */}
@@ -77,13 +77,13 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
 
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: "#475569", lineHeight: 1.75, flex: 1 }}>"{r.text}"</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', fontWeight: 300, color: '#475569', lineHeight: 1.75, flex: 1 }}>"{ r.text}"</p>
 
                 <div style={{ borderTop: "1px solid rgba(27,53,96,0.08)", marginTop: "1rem", paddingTop: "1rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
                   <img src={r.img} alt={r.name} style={{ width: "42px", height: "42px", borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.82rem", color: NAVY }}>{r.name}</p>
-                    <p style={{ fontSize: "0.7rem", color: GOLD, fontWeight: 600, fontFamily: "'DM Sans', sans-serif" }}>{r.treatment}</p>
+                    <p style={{ fontSize: "0.7rem", color: GOLD, fontWeight: 400, fontFamily: "'DM Sans', sans-serif" }}>{r.treatment}</p>
                   </div>
                   <p style={{ fontSize: "0.62rem", color: "#94a3b8", flexShrink: 0, fontFamily: "'DM Sans', sans-serif" }}>{r.date}</p>
                 </div>

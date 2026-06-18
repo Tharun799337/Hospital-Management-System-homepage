@@ -46,18 +46,17 @@ const HealthPackagesSection: React.FC = () => {
   if (packages.length === 0) return null;
 
   return (
-    <section id="health-packages" className="health-packages-section section-pad" style={{ background: 'linear-gradient(135deg, #f8fafc, #eff6ff)' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(61,140,140,0.1)', color: 'var(--teal)', padding: '0.4rem 1rem', borderRadius: '20px', fontSize: '0.875rem', fontWeight: 600, marginBottom: '1rem' }}>
-            <i className="fas fa-box-open" style={{ marginRight: '0.5rem' }}></i> Our Premium Offerings
+    <section id="health-packages" style={{ backgroundColor: '#f9fafb', padding: '4rem 0' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
+            <div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', fontWeight: 700, color: '#d97706', letterSpacing: '0.08em', marginBottom: '0.4rem', textTransform: 'uppercase' }}>Our Premium Offerings</p>
+              <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 800, fontSize: '1.6rem', color: '#1b3560', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+                Comprehensive <span style={{ color: '#d97706' }}>Health Packages</span>
+              </h2>
+            </div>
           </div>
-          <h2 style={{ fontFamily: 'Inter, DM Sans, sans-serif', fontSize: '2.5rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
-            Comprehensive Health Packages
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.6 }}>
-            Preventive care tailored for you. Choose from our specialized health checkup packages to stay on top of your well-being.
-          </p>
         </div>
 
         {/* Filter Section */}
@@ -69,9 +68,9 @@ const HealthPackagesSection: React.FC = () => {
                 onClick={() => setActiveCategory(cat)}
                 style={{
                   padding: '0.5rem 1.25rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600,
-                  border: activeCategory === cat ? '1.5px solid var(--teal)' : '1.5px solid var(--border-color)',
-                  background: activeCategory === cat ? 'var(--teal)' : 'var(--card-bg)',
-                  color: activeCategory === cat ? 'white' : 'var(--text-secondary)',
+                  border: activeCategory === cat ? '1.5px solid #1b3560' : '1.5px solid rgba(27,53,96,0.12)',
+                  background: activeCategory === cat ? '#1b3560' : 'white',
+                  color: activeCategory === cat ? 'white' : '#64748b',
                   cursor: 'pointer', transition: 'all 0.2s ease'
                 }}
               >
@@ -99,8 +98,9 @@ const HealthPackagesSection: React.FC = () => {
               <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <div style={{
-                    width: '40px', height: '40px', borderRadius: '10px', background: 'var(--blue-light)',
-                    color: 'var(--teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                    width: '40px', height: '40px', borderRadius: '10px',
+                    background: '#fef3c7',
+                    color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
                   }}>
                     <i className={pkg.icon || 'fas fa-heartbeat'} style={{ fontSize: '1.2rem' }}></i>
                   </div>
@@ -112,14 +112,18 @@ const HealthPackagesSection: React.FC = () => {
                   {pkg.description}
                 </p>
                 
-                <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '0.6rem 0.8rem', marginBottom: '1rem', border: '1px solid var(--border-color)' }}>
-                  <strong style={{ fontSize: '0.7rem', color: 'var(--navy)', display: 'block', marginBottom: '0.2rem' }}>Tests Included:</strong>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', margin: 0, lineHeight: 1.3 }}>{pkg.tests_included}</p>
+                <div style={{ background: 'white', borderRadius: '8px', padding: '0.6rem 0.8rem', marginBottom: '1rem', border: '1.5px solid rgba(27,53,96,0.08)' }}>
+                  <strong style={{ fontSize: '0.7rem', color: '#1b3560', display: 'block', marginBottom: '0.2rem' }}>Tests Included:</strong>
+                  <p style={{ color: '#64748b', fontSize: '0.75rem', margin: 0, lineHeight: 1.3 }}>{pkg.tests_included}</p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--border-color)', paddingTop: '0.8rem', marginTop: 'auto' }}>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', fontFamily: 'Inter, DM Sans, sans-serif', letterSpacing: '-0.02em' }}>₹{pkg.price}</div>
-                  <button style={{ backgroundColor: 'var(--navy)', color: 'white', padding: '0.45rem 1rem', fontSize: '0.75rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity = '0.9'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(27,53,96,0.08)', paddingTop: '0.8rem', marginTop: 'auto' }}>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#d97706', fontFamily: 'Inter, DM Sans, sans-serif', letterSpacing: '-0.02em' }}>₹{pkg.price}</div>
+                  <button
+                    style={{ backgroundColor: '#1b3560', color: 'white', padding: '0.45rem 1rem', fontSize: '0.75rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                  >
                     Book <i className="fas fa-arrow-right" style={{ marginLeft: '0.4rem' }}></i>
                   </button>
                 </div>
@@ -139,20 +143,15 @@ const HealthPackagesSection: React.FC = () => {
 
       <style>{`
         .packages-grid {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1.5rem;
-          justify-content: center;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.25rem;
         }
 
         .package-card {
-          flex: 0 0 calc(33.333% - 1rem);
-          max-width: 340px;
-          min-width: 280px;
-          background: var(--card-bg);
-          border: 1px solid var(--border-color);
+          background: #f8f9fc;
+          border: 1.5px solid rgba(27, 53, 96, 0.08);
           border-radius: 16px;
-          box-shadow: var(--shadow-sm);
           display: flex;
           flex-direction: column;
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -162,21 +161,20 @@ const HealthPackagesSection: React.FC = () => {
 
         .package-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(20, 184, 166, 0.25);
-          border-color: var(--teal);
+          box-shadow: 0 10px 25px rgba(27, 53, 96, 0.12);
+          border-color: rgba(27, 53, 96, 0.2);
           z-index: 10;
         }
 
-        @media (max-width: 992px) {
-          .package-card {
-            flex: 0 0 calc(50% - 0.75rem);
+        @media (max-width: 1024px) {
+          .packages-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
-        
-        @media (max-width: 768px) {
-          .package-card {
-            flex: 0 0 100%;
-            max-width: 100%;
+
+        @media (max-width: 640px) {
+          .packages-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
