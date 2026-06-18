@@ -82,7 +82,7 @@ export default function FAQSection() {
               </div>
               <div>
                 <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Still have questions?</p>
-                <h5 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: 600 }}>Call us: +1 (800) 123-4567</h5>
+                <h5 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1.1rem', fontWeight: 600 }}>Call us: +91 1800 123 4567</h5>
               </div>
             </div>
           </div>

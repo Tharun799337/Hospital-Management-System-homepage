@@ -128,13 +128,13 @@ export default function AmbulanceService() {
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
-                <a href="tel:999999999" style={{
+                <a href="tel:+9118001234567" style={{
                   background: 'white', color: '#EF4444', padding: '0.75rem 1.5rem', borderRadius: '8px',
                   fontWeight: 700, fontSize: '1.1rem', textDecoration: 'none',
                   display: 'flex', alignItems: 'center', gap: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 }}>
-                  <i className="fas fa-phone-alt" /> 999999999
+                  <i className="fas fa-phone-alt" /> +91 1800 123 4567
                 </a>
               </div>
             </div>

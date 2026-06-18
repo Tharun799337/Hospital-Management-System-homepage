@@ -8,7 +8,7 @@ const services = [
     title: "Emergency Care",       
     desc: "24/7 rapid emergency response", 
     img: "https://images.unsplash.com/photo-1554734867-bf3c00a49371?w=800&q=80",
-    details: "Our Emergency Care unit is fully equipped to handle all medical emergencies 24/7. Our rapid response team includes trauma specialists, emergency physicians, and dedicated nursing staff. We have advanced life support ambulances ready to be dispatched at a moment's notice.\n\nAmbulance Contact Number: 108 / +1 (800) 123-4567"
+    details: "Our Emergency Care unit is fully equipped to handle all medical emergencies 24/7. Our rapid response team includes trauma specialists, emergency physicians, and dedicated nursing staff. We have advanced life support ambulances ready to be dispatched at a moment's notice.\n\nAmbulance Contact Number: 108 / +91 1800 123 4567"
   },
   { 
     title: "Diagnostic Services",  
@@ -166,7 +166,7 @@ export default function ServicesSection() {
                   </div>
                   <div>
                     <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>24/7 Ambulance Service</p>
-                    <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800, color: NAVY }}>Dial 108 or +1 (800) 123-4567</p>
+                    <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800, color: NAVY }}>Dial 108 or +91 1800 123 4567</p>
                   </div>
                 </div>
               )}

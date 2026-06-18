@@ -101,11 +101,13 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           background: #ffffff;
           border-bottom: 1px solid rgba(27, 53, 96, 0.1);
           padding: 0 1.5rem;
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
           align-items: center;
-          justify-content: space-between;
+          min-height: 90px;
           box-shadow: 0 1px 12px rgba(27, 53, 96, 0.07);
           transition: all 0.3s ease;
+          overflow: hidden;
         }
 
         .hv-nav.scrolled {
@@ -116,10 +118,10 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hv-logo {
           display: flex;
           align-items: center;
+          justify-self: start;
           gap: 0.6rem;
           text-decoration: none;
           padding: 0.75rem 0;
-          flex-shrink: 0;
           cursor: pointer;
         }
 
@@ -127,6 +129,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hv-links {
           display: flex;
           align-items: center;
+          justify-self: center;
           gap: 0.15rem;
         }
 
@@ -164,8 +167,8 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         .hv-actions {
           display: flex;
           align-items: center;
+          justify-self: end;
           gap: 0.75rem;
-          flex-shrink: 0;
         }
 
         .hv-btn-portal {
@@ -299,7 +302,8 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
 
         @media (max-width: 1080px) {
           .hv-links { display: none; }
-          .hv-actions { display: none; }
+          .hv-btn-portal { display: none; }
+          .hv-btn-book { display: none; }
           .hv-hamburger { display: flex; }
           .hv-topbar-right { display: none; }
         }
@@ -320,7 +324,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
         <nav className={`hv-nav${scrolled ? ' scrolled' : ''}`}>
           {/* Logo */}
           <a className="hv-logo" href="#home" onClick={e => { e.preventDefault(); scrollTo('#home'); }}>
-            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '40px', display: 'block' }} />
+            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '80px', width: 'auto', display: 'block', objectFit: 'contain', imageRendering: 'high-quality', mixBlendMode: 'multiply' }} />
           </a>
 
           {/* Desktop links */}

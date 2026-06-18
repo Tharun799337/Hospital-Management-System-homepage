@@ -96,7 +96,7 @@ function ContactUs() {
 
   const info = [
     { label: "Our Address", value: "123 HealthCare Lane, Medical City, NC 12345", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> },
-    { label: "Phone Number",  value: "+1 (555) 123-4567",            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> },
+    { label: "Phone Number",  value: "+91 1800 123 4567",            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> },
     { label: "Email Address", value: "info@havedahospital.com",    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
     { label: "Working Hours", value: "Mon–Sat: 8:00 AM – 8:00 PM · Emergency 24/7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
   ];
@@ -182,7 +182,7 @@ function ContactUs() {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
                       <label style={{ fontSize: "0.72rem", fontWeight: 700, color: NAVY, fontFamily: "'DM Sans', sans-serif" }}>Phone</label>
-                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (555) 000-0000"
+                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 90000 00000"
                         style={{ borderRadius: "8px", border: "1.5px solid rgba(27,53,96,0.15)", backgroundColor: "#f8f9fc", padding: "0.6rem 0.85rem", fontSize: "0.83rem", outline: "none", fontFamily: "'DM Sans', sans-serif", color: NAVY }}
                         onFocus={(e) => { e.currentTarget.style.borderColor = NAVY; }} onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(27,53,96,0.15)"; }}
                       />
@@ -319,7 +319,7 @@ export default function Footer({ onBook, onPortal }: FooterProps) {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
                 { emoji: "📍", text: "123 HealthCare Lane, Medical City, NC 12345" },
-                { emoji: "📞", text: "+1 (555) 123-4567" },
+                { emoji: "📞", text: "+91 1800 123 4567" },
                 { emoji: "✉", text: "info@havedahospital.com" },
               ].map((c) => (
                 <li key={c.emoji} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", fontFamily: "'DM Sans', sans-serif" }}>

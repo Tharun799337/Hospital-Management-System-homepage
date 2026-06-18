@@ -52,7 +52,7 @@ const HealthPackagesSection: React.FC = () => {
           <div style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(61,140,140,0.1)', color: 'var(--teal)', padding: '0.4rem 1rem', borderRadius: '20px', fontSize: '0.875rem', fontWeight: 600, marginBottom: '1rem' }}>
             <i className="fas fa-box-open" style={{ marginRight: '0.5rem' }}></i> Our Premium Offerings
           </div>
-          <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontFamily: 'Inter, DM Sans, sans-serif', fontSize: '2.5rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
             Comprehensive Health Packages
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.6 }}>
@@ -104,7 +104,7 @@ const HealthPackagesSection: React.FC = () => {
                   }}>
                     <i className={pkg.icon || 'fas fa-heartbeat'} style={{ fontSize: '1.2rem' }}></i>
                   </div>
-                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', fontWeight: 700, color: 'var(--navy)', lineHeight: 1.3, marginTop: '0.1rem' }}>
+                  <h3 style={{ fontFamily: 'Inter, DM Sans, sans-serif', fontSize: '1.05rem', fontWeight: 700, color: 'var(--navy)', lineHeight: 1.3, marginTop: '0.1rem', letterSpacing: '-0.01em' }}>
                     {pkg.title}
                   </h3>
                 </div>
@@ -118,7 +118,7 @@ const HealthPackagesSection: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--border-color)', paddingTop: '0.8rem', marginTop: 'auto' }}>
-                  <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--navy)', fontFamily: 'Playfair Display, serif' }}>₹{pkg.price}</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', fontFamily: 'Inter, DM Sans, sans-serif', letterSpacing: '-0.02em' }}>₹{pkg.price}</div>
                   <button style={{ backgroundColor: 'var(--navy)', color: 'white', padding: '0.45rem 1rem', fontSize: '0.75rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity = '0.9'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
                     Book <i className="fas fa-arrow-right" style={{ marginLeft: '0.4rem' }}></i>
                   </button>
