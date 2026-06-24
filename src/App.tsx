@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './reference-styles.css';
 import './index.css';
+import './reference-styles.css';
 import { AppProvider } from './context/AppContext';
 import IntroAnimation from './components/IntroAnimation';
 import Navbar from './components/Navbar';

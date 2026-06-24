@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const NAVY = "#1b3560";
 const GOLD = "#d97706";
@@ -44,25 +44,66 @@ const services = [
 
 export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<any>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isHovered = useRef(false);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const interval = setInterval(() => {
+      if (!isHovered.current) {
+        const firstChild = container.firstElementChild as HTMLElement;
+        if (!firstChild) return;
+        
+        const cardWidth = firstChild.offsetWidth;
+        const gap = 24; // 1.5rem is roughly 24px
+        const scrollAmount = cardWidth + gap;
+
+        // If reached the end, scroll back to start
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+          container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
       <style>{`
         .hv-services-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          display: flex;
+          overflow-x: auto;
           gap: 1.5rem;
+          padding-bottom: 2rem;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+        .hv-services-grid::-webkit-scrollbar {
+          display: none;
+        }
+
+        .hv-services-grid > div {
+          flex: 0 0 calc(33.333% - 1rem);
+          min-width: 320px;
+          scroll-snap-align: start;
         }
 
         @media (max-width: 900px) {
-          .hv-services-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .hv-services-grid > div {
+            flex: 0 0 calc(50% - 0.75rem);
           }
         }
 
         @media (max-width: 600px) {
-          .hv-services-grid {
-            grid-template-columns: 1fr;
+          .hv-services-grid > div {
+            flex: 0 0 100%;
           }
         }
 
@@ -105,13 +146,15 @@ export default function ServicesSection() {
                 Our <span style={{ color: GOLD }}>Services</span>
               </h2>
             </div>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }} style={{ fontSize: "0.9rem", fontWeight: 700, color: NAVY, textDecoration: "none", display: "flex", alignItems: "center", gap: "0.4rem", borderBottom: `2px solid ${GOLD}`, paddingBottom: "2px", transition: "all 0.2s" }} onMouseEnter={e => (e.currentTarget.style.color = GOLD)} onMouseLeave={e => (e.currentTarget.style.color = NAVY)}>
-              View All Services →
-            </a>
           </div>
 
           {/* Grid */}
-          <div className="hv-services-grid">
+          <div 
+            className="hv-services-grid"
+            ref={scrollRef}
+            onMouseEnter={() => { isHovered.current = true; }}
+            onMouseLeave={() => { isHovered.current = false; }}
+          >
             {services.map((s) => (
               <div
                 key={s.title}

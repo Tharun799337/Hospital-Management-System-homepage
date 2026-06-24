@@ -15,36 +15,42 @@ export default function FeaturesSection({ onBook, onDoctors, onPortal }: Feature
       color: "#fef3c7", iconColor: GOLD,
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>,
       title: "Book Appointment", desc: "Schedule with our specialists", 
+      extra: "Next slot: Today",
       onClick: (e: React.MouseEvent) => { e.preventDefault(); onBook?.(); }
     },
     {
       color: "#eff6ff", iconColor: "#2563eb",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>,
       title: "Find a Doctor", desc: "Search by specialty or name", 
+      extra: "120+ Experts Ready",
       onClick: (e: React.MouseEvent) => { e.preventDefault(); onDoctors?.(); }
     },
     {
       color: "#f3f0ff", iconColor: "#7c3aed",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="1.8" strokeLinecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
       title: "Our Services", desc: "Explore our healthcare range", 
+      extra: "15+ Specialities",
       href: "#services"
     },
     {
       color: "#ecfdf5", iconColor: "#059669",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="1.8" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
       title: "Find Location", desc: "Visit us at our nearest branch", 
+      extra: "📍 View Campus Map",
       href: "#contact"
     },
     {
       color: "#fff1f2", iconColor: "#e11d48",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e11d48" strokeWidth="1.8" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>,
       title: "Health Packages", desc: "View our comprehensive packages", 
+      extra: "🏷️ Flat 20% Off",
       href: "#health-packages"
     },
     {
       color: "#eef2fb", iconColor: NAVY,
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={NAVY} strokeWidth="1.8" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
       title: "Patient Portal", desc: "Access your health records", 
+      extra: "🔒 Encrypted Access",
       onClick: (e: React.MouseEvent) => { e.preventDefault(); onPortal?.(); }
     },
   ];
@@ -129,6 +135,7 @@ export default function FeaturesSection({ onBook, onDoctors, onPortal }: Feature
               <div className="hv-qa-icon" style={{ backgroundColor: a.color }}>{a.icon}</div>
               <p className="hv-qa-title">{a.title}</p>
               <p className="hv-qa-desc">{a.desc}</p>
+              {a.extra && <div className="hv-qa-extra">{a.extra}</div>}
               <span className="hv-qa-arrow">→</span>
             </a>
           ))}

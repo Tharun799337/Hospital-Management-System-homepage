@@ -3,66 +3,70 @@
 @tailwind utilities;
 
 :root {
-  /* ════════════════════════════════════════════════════════════════════════
-     PREMIUM HEALTHCARE PALETTE — HOMEPAGE
-     ════════════════════════════════════════════════════════════════════════ */
-  --blue-primary: #14B8A6;
+  /* =====================================================================
+     EXACT REFERENCE DESIGN TOKENS — Haveda Hospital Homepage
+     ===================================================================== */
+  --blue-primary: #14b8a6;
   --blue-dark: #94cbc7;
   --blue-mid: #526f6d;
-  --blue-light: #ECFEFF;
-  --blue-icon: #CCFBF1;
+  --blue-light: #ecfeff;
+  --blue-icon: #ccfbf1;
 
-  --navy-dark: #0F2D52;
-  --navy: #163B65;
+  --navy-dark: #0f2d52;
+  --navy: #163b65;
 
   --teal: #6acdc1;
   --teal-light: #f2fcfbf9;
   --teal-dark: #3a5c5a;
 
-  --bg-primary: #f7f8fae8;
-  --bg-secondary: #f8f9fc;
-  --bg-tertiary: #f8f9fc;
-  --bg-section: #f8f9fc;
+  /* WHITE everywhere — exact match to reference */
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ffffff;
+  --bg-section: #ffffff;
 
-  --card-bg: #FFFFFF;
-  --card-hover: #F8FFFE;
+  --card-bg: #fff;
+  --card-hover: #f8fffe;
 
-  --text-primary: #1E293B;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
 
-  --border-color: #E2E8F0;
+  --border-color: #e2e8f0;
 
-  --shadow-sm: 0 4px 12px rgba(27, 53, 96, 0.04);
-  --shadow-md: 0 8px 24px rgba(27, 53, 96, 0.06);
-  --shadow-lg: 0 12px 32px rgba(27, 53, 96, 0.08);
-  --shadow-xl: 0 20px 50px rgba(27, 53, 96, 0.12);
+  --shadow-sm: 0 4px 12px #1b35600a;
+  --shadow-md: 0 8px 24px #1b35600f;
+  --shadow-lg: 0 12px 32px #1b356014;
+  --shadow-xl: 0 20px 50px #1b35601f;
 
-  --glow-primary: 0 0 24px rgba(27, 53, 96, 0.2);
-  --glow-accent: 0 0 24px rgba(217, 119, 6, 0.2);
+  --glow-primary: 0 0 24px #1b356033;
+  --glow-accent: 0 0 24px #d9770633;
 
-  --navbar-bg: rgba(255, 255, 255, 0.98);
-  --soft-white: #FFFFFF;
+  --navbar-bg: #fffffffa;
+  --soft-white: #fff;
+  --white: #ffffff;
 
-  /* Legacy mappings for safety */
+  /* Semantic mappings */
   --primary: var(--teal);
   --primary-hover: var(--teal-dark);
   --primary-light: var(--teal-light);
   --accent: var(--navy);
   --accent-hover: var(--navy-dark);
-  --accent-light: rgba(22, 59, 101, 0.1);
+  --accent-light: #163b651a;
   --gold: #d97706;
 
-  /* ════════════════════════════════════════════════════════════════════════
-     REFERENCE DESIGN TOKENS (Navy + Gold theme)
-     ════════════════════════════════════════════════════════════════════════ */
+  /* Reference exact palette */
   --ref-navy: #1b3560;
   --ref-gold: #d97706;
-  --ref-bg: #f8f9fc;
-  --ref-white: #ffffff;
+  --ref-bg: #ffffff;
+  --ref-white: #fff;
   --ref-text-secondary: #475569;
   --ref-text-muted: #94a3b8;
-  --ref-border: rgba(27, 53, 96, 0.1);
+  --ref-border: #1b35601a;
+
+  --gray-200: #e2e8f0;
+  --gray-600: #4b5e7a;
+  --gray-800: #1e2d42;
 }
 
 

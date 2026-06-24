@@ -99,7 +99,9 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         }
 
         .hv-hero-inner {
-          width: 100%;
+          width: 95%;
+          max-width: 1400px;
+          margin: 0 auto;
           padding: 0 1.5rem;
           display: grid;
           grid-template-columns: 58% 42%;
@@ -113,7 +115,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          padding: 3.5rem 2rem 3.5rem 0;
+          padding: 3.5rem 0.5rem 3.5rem 0;
         }
 
         .hv-hero-badge {
@@ -267,7 +269,7 @@ export default function HeroSection({ onBook, onDoctors }: HeroProps) {
         .hv-hero-img-wrapper {
           position: relative;
           min-height: 240px;
-          margin: 1.5rem 0 1.5rem 1rem;
+          margin: 1.5rem 0 1.5rem 0rem;
           border-radius: 16px;
           overflow: hidden;
           border: 2px solid rgba(27, 53, 96, 0.15);
