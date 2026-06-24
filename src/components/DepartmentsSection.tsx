@@ -55,7 +55,7 @@ export default function DepartmentsSection({ onBook }: { onBook: (doctor: Doctor
     if (!d.department) return false;
     if (active === 'Women & Child Care') return d.department.includes('Pediatric') || d.department.includes('Gyne');
     return d.department.toLowerCase().includes(active.toLowerCase());
-  });
+  }).slice(0, 4);
 
   const activeDeptsKeys = depts.filter(deptObj => 
     doctors.some(d => {

@@ -124,12 +124,12 @@
         }
       }
 
-      /* Rounded "pill" menu / navbar box */
+      /* Flush menu / navbar box */
       .hv-nav {
         background: #ffffff !important;
-        border-radius: 999px !important;
+        border-radius: 0 !important;
         border-bottom: none !important;
-        margin-top: 0.5rem !important;
+        margin-top: 0 !important;
         padding-left: 1.75rem !important;
         padding-right: 1.75rem !important;
       }
@@ -542,19 +542,6 @@
         margin-bottom: 2rem !important;
       }
 
-      /* Remove color above nav bar */
-      .hv-topbar {
-        background: #ffffff !important;
-        color: #1b3560 !important;
-        border-bottom: 1px solid rgba(27, 53, 96, 0.08) !important;
-      }
-      .hv-topbar-item strong {
-        color: #d97706 !important;
-      }
-      .hv-topbar-link {
-        color: #1b3560 !important;
-      }
-
       /* EXACT FORM FIELD STYLES FROM REFERENCE */
       .form-group { margin-bottom: 16px !important; }
       .form-group label {
@@ -586,3 +573,4 @@
         resize: vertical !important;
         height: 88px !important;
       }
+      

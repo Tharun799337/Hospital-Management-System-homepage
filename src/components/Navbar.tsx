@@ -49,69 +49,27 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           font-family: 'DM Sans', sans-serif;
         }
 
-        /* Top utility bar */
-        .hv-topbar {
-          background: ${NAVY};
-          color: white;
-          font-size: 0.78rem;
-          padding: 0.65rem 1.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .hv-topbar-left {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-        }
-
-        .hv-topbar-item {
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          opacity: 0.9;
-        }
-
-        .hv-topbar-item strong {
-          color: #fbbf24;
-        }
-
-        .hv-topbar-sep {
-          opacity: 0.3;
-        }
-
-        .hv-topbar-right {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          opacity: 0.85;
-        }
-
-        .hv-topbar-link {
-          color: inherit;
-          text-decoration: none;
-          cursor: pointer;
-          transition: opacity 0.2s;
-        }
-        .hv-topbar-link:hover { opacity: 0.7; text-decoration: underline; }
 
         /* Main nav */
         .hv-nav {
-          background: #ffffff;
-          border-bottom: 2px solid rgba(27, 53, 96, 0.12);
-          padding: 0 1.5rem;
+          background: #ffffff !important;
+          border-bottom: none !important;
+          padding: 0.2rem 1.75rem !important;
           display: grid;
           grid-template-columns: 1fr auto 1fr;
           align-items: center;
-          min-height: 90px;
-          box-shadow: 0 4px 24px rgba(27, 53, 96, 0.1);
+          min-height: 60px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
           transition: all 0.3s ease;
           overflow: hidden;
+          width: 92% !important;
+          max-width: 1400px;
+          margin: 0.5rem auto 0 auto !important;
+          border-radius: 24px !important;
         }
 
         .hv-nav.scrolled {
-          box-shadow: 0 6px 28px rgba(27, 53, 96, 0.14);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         /* Logo */
@@ -121,7 +79,7 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           justify-self: start;
           gap: 0.6rem;
           text-decoration: none;
-          padding: 0.75rem 0;
+          padding: 0.2rem 0;
           cursor: pointer;
         }
 
@@ -306,26 +264,19 @@ export default function Navbar({ onAppointmentClick, onPortalClick, onCancelClic
           .hv-btn-portal { display: none; }
           .hv-btn-book { display: none; }
           .hv-hamburger { display: flex; }
-          .hv-topbar-right { display: none; }
         }
 
         @media (max-width: 480px) {
-          .hv-topbar-left { gap: 0.75rem; }
-          .hv-topbar-item:last-child { display: none; }
-          .hv-topbar-sep { display: none; }
         }
       `}</style>
 
       <header className="hv-header">
-        {/* Top utility bar */}
-        <div className="hv-topbar">
-        </div>
 
         {/* Main nav */}
         <nav className={`hv-nav${scrolled ? ' scrolled' : ''}`}>
           {/* Logo */}
           <a className="hv-logo" href="#home" onClick={e => { e.preventDefault(); scrollTo('#home'); }}>
-            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '80px', width: 'auto', display: 'block', objectFit: 'contain', mixBlendMode: 'multiply' }} />
+            <img src={havedaLogo} alt="Haveda Hospital Logo" style={{ height: '55px', width: 'auto', display: 'block', objectFit: 'contain', mixBlendMode: 'multiply' }} />
           </a>
 
           {/* Desktop links */}
